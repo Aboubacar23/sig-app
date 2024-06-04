@@ -1,0 +1,36 @@
+{{ form_start(form) }}
+    <div class="card-header">
+        <h4 class="card-title">Modifier un fournisseur</h4>
+    </div>
+    <div class="card-body">
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-4">{{ form_row(form.code_fournisseur)}}</div>
+                <div class="col-md-4">{{ form_row(form.societe)}}</div>
+                <div class="col-md-4">{{ form_row(form.adresse)}}</div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-4">{{ form_row(form.telephone)}}</div>
+                <div class="col-md-4">{{ form_row(form.email)}}</div>
+                <div class="col-md-4">{{ form_row(form.fax)}}</div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-4">{{ form_row(form.pays)}}</div>
+                <div class="col-md-4">{{ form_row(form.ville)}}</div>
+                <div class="col-md-4">{{ form_row(form.etat)}}</div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-12">{{ form_row(form.note)}}</div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-md-12"><span class="text-danger">Les champs avec (*) sont obligatoires</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-end">
+        <div class="d-flex">
+            <a href="{{path('app_fournisseur_index')}}" class="btn btn-secondary btn-sm">Retour</a>
+            <button type="submit" class="btn btn-primary btn-sm ms-auto">Modifier</button>
+        </div>
+    </div>    
+{{ form_end(form) }}

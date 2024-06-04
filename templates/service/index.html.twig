@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Service index{% endblock %}
+
+{% block body %}
+
+<div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+        <div class="page-header">
+            <div class="row"> 
+                <div class="col-md-6 col-sm-12">
+                    <div class="title">
+                        <h4>Sonoya Stock</h4>
+                    </div>
+                    <nav aria-label="breadcrumb" role="navigation">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{path('app_home')}}">Home</a>
+                            <li class="breadcrumb-item" aria-current="page">Produits</li>
+                            <li class="breadcrumb-item active" aria-current="page">Services</li>
+                        </ol>
+                    </nav> 
+                </div>
+                <div class="col-md-6 col-sm-12 text-right">
+                    <div class="dropdown">
+                        <a class="btn btn-primary btn-sm" href="#" role="button" data-toggle="dropdown">
+                            La liste des services
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-box mb-30">
+            <div class="card-header pd-20">
+                <a href="{{ path('app_service_new') }}" class="btn btn-primary btn-sm text-white">Add <i class="fa fa-plus-circle p-1"></i></a>
+                <a href="{{ path('app_service_index') }}" class="btn btn-success btn-sm text-white">Refresh <i class="fa fa-refresh p-1"></i></a>
+                <a href="#{}" class="btn btn-secondary btn-sm">Nombre d'entrepot : {{ services | length}}</a>
+            </div>
+            <div class="p-4 table-responsive">
+                <table class="checkbox-datatable table table-responsive table-striped">
+                 <thead class="table-dark" width="100%">
+                     <tr>
+                            <th></th>
+                            <th>N°</th>
+                            <th width="10%">Nom Service</th>
+                            <th width="10%">Reference</th>
+                            <th width="10%">Periodique</th>
+                            <th width="10%">Prix Service(GNF)</th>
+                            <th width="10%">Taxe %</th>
+                            <th width="10%">Prix avec Taxe(GNF)</th>
+                            <th width="20%">Desciption</th>
+                            <th class="text-center" width="20%">Actions.Service</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% set i = 0 %}
+                        {% set prixTaxe = 0 %}
+                        {% set prixTTC = 0 %}
+                    {% for service in services %}
+                        {% set prixTaxe = service.prix * (service.taxe/100) %}
+                        {% set prixTTC = prixTaxe + service.prix %}
+                        {% set i = i + 1 %}
+                        <tr>
+                            <td></td>
+                            <td>{{ i }}</td>
+                            <td>{{ service.libelle }}</td>
+                            <td>{{ service.reference }}</td>
+                            <td>{{ service.periodique ? 'Oui' : 'Non' }}</td>
+                            <td>{{ service.prix | number_format}}</td>
+                            <td>{{ service.taxe }}</td>
+                            <td>{{ prixTTC | number_format }}</td>
+                            <td>{{ service.desciption }}</td>
+                            <td class="text-center">
+                                <a href="{{ path('app_service_show', {'id': service.id}) }}" class="btn btn-info btn-sm"><i class="fa fa-eye p-1"></i></a>
+                                <a href="{{ path('app_service_edit', {'id': service.id}) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit p-1"></i></a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="8">La table est vide </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,154 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FactureClient{% endblock %}
+
+{% block body %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">Facture Client</h2>
+            </div>
+            <div class="col-12 col-md-auto ms-auto d-print-none">
+                <div class="btn-list">
+                    <span class="d-none d-sm-inline"> 
+                        <a href="{{path('app_print_facture', {'id' : facture_client.id})}}" class="btn btn-info btn-sm text-white" target="_blank">Imprimer <i class="fa fa-print p-1"></i></a>  
+                        {% if facture_client.paiement == true %}
+                            <a href="{{ path('app_facture_client_paiement', {'id': facture_client.id}) }}" onclick="confirm('Voulez-vous confirmer !')" class="btn btn-danger btn-sm  text-white">Non Payer<i class="fa fa-window-close-o p-1"></i></a>
+                        {% else %}
+                            <a href="{{ path('app_facture_client_paiement', {'id': facture_client.id}) }}" onclick="confirm('Voulez-vous confirmer !')" class="btn btn-success btn-sm  text-white">Payer<i class="fa fa-check-square-o p-1"></i></a>
+                        {% endif %}
+                        <a href="{{ path('facture_paiement', {'id': facture_client.id}) }}" onclick="confirm('Voulez-vous confirmer !')" class="btn btn-success btn-sm">Money<i class="fa fa-money p-1"></i></a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Détail client : {{ facture_client.numeroFacture }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-md-12">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <th>Numero facture</th>
+                                            <td>{{ facture_client.numeroFacture }}</td>
+                                            <th>Date facturation</th>
+                                            <td>{{ facture_client.dateFacturation ? facture_client.dateFacturation|date('Y-m-d') : '' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Etat</th>
+                                            <td>
+                                                {% if facture_client.paiement == true %}
+                                                    <span class="btn btn-success btn-sm taille">{{ facture_client.paiement ? 'Payer' : 'Non Payer' }}</span>
+                                                {% elseif facture_client.paiement == false %}
+                                                    <span class="btn btn-danger btn-sm taille">{{ facture_client.paiement ? 'Payer' : 'Non Payer' }}</span>
+                                                {% endif %}
+                                            </td>
+                                            <th>Condition paiement</th>
+                                            <td>{{ facture_client.conditionPaiement }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Mode paiement</th>
+                                            <td>{{ facture_client.modePaiement }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table table-striped m-2">
+                                    <thead class="table-success taille">
+                                       <tr>
+                                                <td>N°</td>
+                                                <td>Images</td>
+                                                <td>Produit</td>
+                                                <td>Qte</td>
+                                                <td>Prix Unitaire</td>
+                                                <td>Remise(GNF)</td>
+                                                <td>TVA(%)</td>
+                                                <td>Total HT(GNF)</td>
+                                                <td class="text-right">Total TTC(GNF)</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>   
+                                            {%  set montantTotalTTC = 0 %}
+                                            {%  set montantHT = 0 %}
+                                            {%  set montantTTC = 0 %}
+                                            {%  set montantTVA = 0 %}
+                                            {%  set montantNet = 0 %}
+                                            {%  set i = 0 %}
+                                        {% for l in lcommande %}
+                                            {% if l.numCommande == facture_client.commande.codeCommande %}
+                                                {%  set i = i + 1 %} 
+                                                {%  set montantHT = l.quantite * l.produit.prixVente %}
+                                                {%  set montantTVA = montantHT * (l.tva/100) %}
+                                                {%  set montantTTC = montantHT + montantTVA - l.remise %}
+                    
+                    
+                                                {%  set montantTotalTTC = montantTotalTTC + montantTTC %}
+                                                {%  set montantNet = montantTotalTTC - facture_client.remise - facture_client.avance %}
+                                                <tr>
+                                                    <td width="10px">{{ i }}</td>
+                                                    <td>
+                                                        {% if l.produit.image == '' %}
+                                                            <img src="{{asset('images/produit.jpeg')}}" width="50px" height="50px">
+                                                        {% else %}
+                                                            <img src="{{asset('images/produits/'~ l.produit.image)}}" width="50px" height="50px">
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>{{l.produit.libelle}}</td>
+                                                    <td>{{l.quantite}}</td>
+                                                    <td>{{l.produit.prixVente | number_format }}</td>
+                                                    <td>{{l.remise}}</td>
+                                                    <td>{{l.tva}}</td>
+                                                    <td>{{ montantHT | number_format }}</td>
+                                                    <td class="text-right">{{ montantTTC | number_format }}</td>
+                                                </tr>
+                                            {% endif %}
+                                        {% endfor %}
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th colspan="7"></th>
+                                                <th>Total</th>
+                                                <th class="text-right">{{montantTotalTTC | number_format}}</th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="7"></th>
+                                                <th>Remise</th>
+                                                <th class="text-right">{{facture_client.remise | number_format}}</th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="7"></th>
+                                                <th>Avance</th>
+                                                <th class="text-right">{{facture_client.avance | number_format}}</th>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="7"></th>
+                                                <th>Total NET</th>
+                                                <th class="text-right">{{montantNet | number_format}}</th>
+                                            </tr>
+                                        </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <div class="d-flex">                            
+                            <a href="{{ path('app_facture_client_index') }}" class="btn btn-secondary btn-sm m-2">Retour</a>                            
+                            <a href="{{ path('app_facture_client_edit', {'id': facture_client.id}) }}" class="btn btn-warning btn-sm m-2">Modifier</a>
+                            <a class="m-2">{{ include('facture_client/_delete_form.html.twig') }}</a>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+{% endblock %}

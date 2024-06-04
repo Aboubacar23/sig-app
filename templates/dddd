@@ -1,0 +1,56 @@
+  
+        <div class="card-box mb-30">
+            <div class="card-header pd-20 text-right">
+                {% if entrepot.etat == true %}
+                    <a href="{{ path('app_entrepot_etat', {'id': entrepot.id}) }}" class="btn btn-danger btn-sm">Fermé <i class="fa fa-window-close-o p-1"></i></a>
+                {% else %}
+                    <a href="{{ path('app_entrepot_etat', {'id': entrepot.id}) }}" class="btn btn-success btn-sm">Ouvert <i class="fa fa-check-square-o p-1"></i></a>
+                {% endif %}
+
+                <a href="{{ path('app_entrepot_edit', {'id': entrepot.id}) }}" class="btn btn-warning btn-sm">Modifier <i class="fa fa-edit p-1"></i></a>
+                <a href="{{ path('app_entrepot_index') }}" class="btn btn-secondary btn-sm">Retour  <i class="fa fa-reply p-1"></i></a>
+            </div>
+            <div class="p-4">
+                <table class="table"> 
+                    <tbody>
+                        <tr>
+                            <th>Libelle</th>
+                            <td>{{ entrepot.libelle }}</td>
+                            <th>Total</th>
+                            <td><span class="btn btn-warning btn-sm">{{ toatlProduit | number_format }}</span></td>
+                        </tr>
+                        <tr>
+                            <th>Pays</th>
+                            <td>{{ entrepot.pays }}</td>
+                            <th>Ville</th>
+                            <td>{{ entrepot.ville }}</td>
+                        </tr>
+                        <tr>
+                            <th>Adresse</th>
+                            <td>{{ entrepot.adresse }}</td>
+                            <th>Telephone</th>
+                            <td>{{ entrepot.telephone }}</td>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <td>{{ entrepot.description }}</td>
+                            <th>Etat</th>
+                            <td> 
+                                {% if entrepot.etat == true %}
+                                    <span class="btn bg-success btn-sm">{{ entrepot.etat ? 'Ouvert' : 'Fermé' }}</span>
+                                {% else %}
+                                    <span class="btn bg-danger btn-sm">{{ entrepot.etat ? 'Ouvert' : 'Fermé' }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="page-header">
+            <div class="row p-2 text-right"> 
+                <p>{{ include('entrepot/_delete_form.html.twig') }}</p>
+            </div>
+        </div>
+    </div>
+</div>

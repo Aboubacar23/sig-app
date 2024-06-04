@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Banque{% endblock %}
+
+{% block body %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">Banque</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+            <div class="col-12">
+                <div class="card">
+                    {{ form_start(form) }}
+                        <div class="card-header">
+                            <h4 class="card-title">Ajouter une Banque</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-2">
+                                <div class="col-md-12">{{ form_row(form.libelle)}}</div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-end">
+                            <div class="d-flex">
+                                <a href="{{path('app_banque_index')}}" class="btn btn-secondary btn-sm">Retour</a>
+                                <button type="submit" class="btn btn-primary btn-sm ms-auto">Enregistrer</button>
+                            </div>
+                        </div>    
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+ 

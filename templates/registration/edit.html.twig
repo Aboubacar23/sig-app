@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Fournisseur{% endblock %}
+
+{% block body %}
+    <div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+            <h2 class="page-title">
+                Administration
+            </h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+            <div class="col-12">
+                <div class="card">
+                    {{ form_start(registrationForm) }}
+                        <div class="card-header">
+                            <h4 class="card-title">Modifier un Administrateur</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-2">
+                                <div class="col-md-4">{{ form_row(registrationForm.username)}}</div>
+                                <div class="col-md-4">{{ form_row(registrationForm.nom)}}</div>
+                                <div class="col-md-4">{{ form_row(registrationForm.prenom)}}</div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-md-4">{{ form_row(registrationForm.email)}}</div>
+                                <div class="col-md-4">{{ form_row(registrationForm.tel)}}</div>
+                                <div class="col-md-4">{{ form_row(registrationForm.image)}}</div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-md-4">{{ form_row(registrationForm.pays)}}</div>
+                                <div class="col-md-4">{{ form_row(registrationForm.ville)}}</div>
+                                <div class="col-md-4">{{ form_row(registrationForm.plainPassword)}}</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-3">{{ form_row(registrationForm.roles) }}</div>
+                                <div class="col-md-3">{{ form_row(registrationForm.agreeTerms) }}</div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-end">
+                            <div class="d-flex">
+                                <a href="{{path('app_user_index')}}" class="btn btn-secondary btn-sm">Retour</a>
+                                <button type="submit" class="btn btn-primary btn-sm ms-auto">Enregistrer</button>
+                            </div>
+                        </div>    
+                    {{ form_end(registrationForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

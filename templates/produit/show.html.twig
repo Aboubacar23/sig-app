@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit{% endblock %}
+
+{% block body %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+            <h2 class="page-title">
+                Produit
+            </h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Détail produit : {{ produit.codeProduit }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-md-9">
+                                <table class="table">
+                                    <tbody> 
+                                        <tr>
+                                            <th>Code produit</th>
+                                            <td>{{ produit.codeProduit }}</td>
+                                            <th>Libelle</th>
+                                            <td>{{ produit.libelle }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Reference</th>
+                                            <td>{{ produit.reference }}</td>
+                                            <th>Key</th>
+                                            <td>{{ produit.keyProduit }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Prix achat</th>
+                                            <td>{{ produit.prixAchat | number_format }}</td>
+                                            <th>Prix vente</th>
+                                            <td>{{ produit.prixVente | number_format }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Quantite</th>
+                                            <td>
+                                                {% if produit.quantite >= produit.stockInitial %}
+                                                    <span class="btn btn-success btn-sm">{{ produit.quantite }}</span>
+                                                {% else %}
+                                                    <span class="btn btn-danger btn-sm">{{ produit.quantite }}</span>
+                                                {% endif %}
+                                            </td>
+                                            <th>Stock initial</th>
+                                            <td>{{ produit.stockInitial }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Poids</th>
+                                            <td>{{ produit.poids }}</td>
+                                            <th>Volume</th>
+                                            <td>{{ produit.volume }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Couleur</th>
+                                            <td>{{ produit.couleur }}</td>
+                                            <th>Etat</th>
+                                            <td>
+                                                {% if produit.etat == 'Vente' %}
+                                                    <span class="btn btn-success btn-sm">{{ produit.etat }}</span>
+                                                {% else %}
+                                                    <span class="btn btn-danger btn-sm">{{ produit.etat }}</span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Desciption</th>
+                                            <td>{{ produit.desciption }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-3">
+                                <td>
+                                    {% if produit.image == '' %}
+                                        <img src="{{asset('images/produit.jpeg')}}" width="200" height="210" class="rounded-circle">
+                                    {% else %}
+                                        <img src="{{asset('images/produits/'~ produit.image)}}" width="200" height="210" class="rounded-circle">
+                                    {% endif %}
+                                </td>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="card-footer">
+                        <a href="{{ path('app_produit_index') }}" class="btn btn-secondary btn-sm">Retour<i class="fa fa-reply p-1"></i></a>
+                        <a href="{{ path('app_produit_edit', {'id': produit.id}) }}" class="btn btn-warning btn-sm"> Modifier<i class="fa fa-edit p-1"></i></a>
+                        {% if produit.etat == 'Vente' %}
+                            <a href="{{ path('app_produit_etat', {'id': produit.id}) }}" class="btn btn-danger btn-sm"> Mettre Or Vente <i class="fa fa-check-circle p-1"></i></a>
+                        {% else %}
+                            <a href="{{ path('app_produit_etat', {'id': produit.id}) }}" class="btn btn-success btn-sm"> Mettre en Vente <i class="fa fa-check p-1"></i></a>
+                        {% endif %}
+                        <a href="{{ path('app_produit_delete', {'id': produit.id}) }}" class="btn btn-danger btn-sm"> Supprimer <i class="fa fa-trash p-1"></i></a>
+
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

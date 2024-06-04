@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Versement index{% endblock %}
+
+{% block body %}
+{% set somme = 0 %}
+{% for versement in versements %}
+    {% set somme = somme + versement.montant %}
+{% endfor %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">Versements</h2>
+            </div>
+            <div class="col-12 col-md-auto ms-auto d-print-none">
+                <div class="btn-list">
+                    <span class="d-none d-sm-inline">
+                    <a href="#" class="btn btn-white">Nombres : {{ versements | length}}</a>
+                    <a href="{{path('app_versement_new')}}" class="btn btn-primary d-none d-sm-inline-block">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>Ajouter</a>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+<div class="card p-2 m-4">
+    <div class="card-header mb-2">
+        <h3 class="card-title">Liste</h3>
+    </div>
+    <div class="table-responsive">
+        <table class="table card-table table-hover dataTable">
+            <thead class="table-dark">
+                <tr>  
+                    <th>N°</th>
+                    <th>Facture</th>
+                    <th>Montant</th>
+                    <th>Client</th>
+                    <th>Date versement</th>
+                    <th>Banque</th>
+                    <th>Avance</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody> 
+                {% set i = 0 %}
+                {% for versement in versements %}
+                    {% set i = i +1  %}
+                    <tr>
+                        <td>{{ i }}</td>
+                        <td>{{ versement.facture }}</td>
+                        <td>{{ versement.montant | number_format }}</td>    
+                        <td>{{ versement.client }} - {{ versement.client.nom }} {{ versement.client.prenom }}</td>
+                        <td>{{ versement.dateVersement ? versement.dateVersement|date('Y-m-d') : '' }}</td>
+                        <td>{{ versement.banque }}</td>
+                        <td>{{ versement.avance ? 'Oui' : 'Non' }}</td>
+                        <td class="text-center">
+                            <a href="{{ path('app_versement_show', {'id': versement.id}) }}" class="btn btn-info btn-sm">Détails</a>
+                            <a href="{{ path('app_versement_edit', {'id': versement.id}) }}" class="btn btn-primary btn-sm">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="8">La table de versement vide</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div> 
+{% endblock %}

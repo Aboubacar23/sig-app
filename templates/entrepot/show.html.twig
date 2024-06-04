@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Entrepot{% endblock %}
+
+{% block body %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+            <h2 class="page-title">Entrepot</h2>
+            </div>
+        </div>
+    </div>
+</div>
+{% set toatlProduit = 0 %}
+{% for produit in produits %}
+    {% if entrepot.id == produit.entrepot.id %}
+        {% set toatlProduit = toatlProduit + produit.quantite %}
+    {% endif %}
+{% endfor %}
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Détail Entrepôt</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-md-12">
+                                <table class="table"> 
+                                    <tbody>
+                                        <tr>
+                                            <th>Libelle</th>
+                                            <td>{{ entrepot.libelle }}</td>
+                                            <th>Total</th>
+                                            <td><span class="btn btn-warning btn-sm">{{ toatlProduit | number_format }}</span></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Pays</th>
+                                            <td>{{ entrepot.pays }}</td>
+                                            <th>Ville</th>
+                                            <td>{{ entrepot.ville }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Adresse</th>
+                                            <td>{{ entrepot.adresse }}</td>
+                                            <th>Telephone</th>
+                                            <td>{{ entrepot.telephone }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Description</th>
+                                            <td>{{ entrepot.description }}</td>
+                                            <th>Etat</th>
+                                            <td> 
+                                                {% if entrepot.etat == true %}
+                                                    <span class="btn bg-success btn-sm">{{ entrepot.etat ? 'Ouvert' : 'Fermé' }}</span>
+                                                {% else %}
+                                                    <span class="btn bg-danger btn-sm">{{ entrepot.etat ? 'Ouvert' : 'Fermé' }}</span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <div class="d-flex">
+                            <a href="{{ path('app_entrepot_index') }}" class="btn m-2 btn-secondary btn-sm">Retour</a>
+                            <a href="{{ path('app_entrepot_edit', {'id': entrepot.id}) }}" class="btn m-2 btn-warning btn-sm">Modifier</a>
+                            {% if entrepot.etat == true %}
+                                <a href="{{ path('app_entrepot_etat', {'id': entrepot.id}) }}" class="btn m-2 btn-danger btn-sm" onclick="confirm('Voulez-vous confirmer ?')">Fermé</a>
+                            {% else %}
+                                <a href="{{ path('app_entrepot_etat', {'id': entrepot.id}) }}" class="btn m-2 btn-success btn-sm" onclick="confirm('Voulez-vous confirmer ?')">Ouvert</a>
+                            {% endif %}
+                            <a class="m-2">{{ include('entrepot/_delete_form.html.twig') }}</a>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+{% endblock %}

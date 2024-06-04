@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Livraison{% endblock %}
+
+{% block body %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">Livraisons</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Détail client : {{ livraison.numLivraison }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-md-12">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <th>Num livraison</th>
+                                            <td>{{ livraison.numLivraison }}</td>
+                                            <th>Num Commande</th>
+                                            <td>{{ livraison.facture.commande }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Num Facture</th>
+                                            <td>{{ livraison.facture }}</td>
+                                            <th>Client</th>
+                                            <td>{{ livraison.facture.commande.client.nom }} {{ livraison.facture.commande.client.prenom }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Date livraison</th>
+                                            <td>{{ livraison.dateLivraison ? livraison.dateLivraison|date('Y-m-d') : '' }}</td>
+                                            <th>Adresse</th>
+                                            <td>{{ livraison.adresse }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <div class="d-flex">                            
+                            <a href="{{ path('app_livraison_index') }}" class="btn btn-secondary btn-sm m-2">Retour</a>                            
+                            <a href="{{ path('app_livraison_edit', {'id': livraison.id}) }}" class="btn btn-warning btn-sm m-2">Modifier</a>
+                            <a class="m-2">{{ include('livraison/_delete_form.html.twig') }}</a>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+{% endblock %}

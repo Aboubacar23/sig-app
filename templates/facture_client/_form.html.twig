@@ -1,0 +1,28 @@
+
+{{ form_start(form) }}
+<div class="card-header">
+    <h4 class="card-title">Modifier la facture client</h4>
+</div>
+<div class="card-body">
+    <div class="row mb-1">
+        <div class="col-md-4">{{ form_row(form.numero_facture)}}</div>
+        <div class="col-md-4">{{ form_row(form.commande)}}</div>
+        <div class="col-md-4">{{ form_row(form.date_facturation)}}</div>
+    </div>
+    <div class="row mb-1">
+        <div class="col-md-6">{{ form_row(form.avance)}}</div>
+        <div class="col-md-6">{{ form_row(form.remise)}}</div>
+    </div>
+    <div class="row mb-1">
+        <div class="col-md-4">{{ form_row(form.condition_paiement)}}</div>
+        <div class="col-md-4">{{ form_row(form.mode_paiement)}}</div>
+        <div class="col-md-4">{{ form_row(form.paiement)}}</div>
+    </div>
+</div>
+<div class="card-footer text-end">
+    <div class="d-flex">
+        <a href="{{path('app_facture_client_index')}}" class="btn btn-secondary btn-sm">Retour</a>
+        <button type="submit" class="btn btn-primary btn-sm ms-auto">Modifier</button>
+    </div>
+</div>    
+{{ form_end(form) }}

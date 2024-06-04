@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Service{% endblock %}
+
+{% block body %}
+<div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+        <div class="page-header"> 
+            <div class="row"> 
+                <div class="col-md-6 col-sm-12">
+                    <div class="title">
+                        <h4>Sonoya Stock</h4>
+                    </div>
+                    <nav aria-label="breadcrumb" role="navigation">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{path('app_home')}}">Home</a>
+                            <li class="breadcrumb-item" aria-current="page">Produits</li>
+                            <li class="breadcrumb-item active" aria-current="page">Services</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-md-6 col-sm-12 text-right">
+                    <div class="dropdown">
+                        <a class="btn btn-primary btn-sm" href="#" role="button" data-toggle="dropdown">
+                            Ajouter un service
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <div class="card-box mb-30">
+            <div class="card-header pd-10 text-right">
+                <a href="{{ path('app_service_index') }}" class="btn btn-secondary btn-sm text-white">Retour <i class="fa fa-reply p-1"></i></a>
+            </div>
+            <div class="p-4">
+                {{ include('service/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

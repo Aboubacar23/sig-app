@@ -1,0 +1,83 @@
+ {% extends 'base.html.twig' %}
+
+{% block title %}CommandeClient index{% endblock %}
+
+{% block body %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">Historiques</h2>
+            </div>
+            <div class="col-12 col-md-auto ms-auto d-print-none">
+                <div class="btn-list">
+                    <span class="d-none d-sm-inline">
+                        <a href="#" class="btn btn-primary btn-sm">La liste des Commandes Clients</a>     
+                        <a href="#" class="btn btn-white btn-sm">Nombres : {{ commande_clients | length}}</a>                     
+                        <a href="{{ path('app_historique_commande_client') }}" class="btn btn-success btn-sm text-white">Refresh <i class="fa fa-refresh p-1"></i></a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+<div class="card p-2 m-4">
+    <div>     
+        {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-3">{{ form_row(form.Client) }}</div>
+                <div class="col-md-3">{{ form_row(form.periode_min) }}</div>
+                <div class="col-md-3">{{ form_row(form.periode_max) }}</div>
+                <div class="col-md-3 mt-4"><button class="btn btn-info btn-sm">{{ button_label|default('Chercher') }}<i class="fa fa-search p-1"></i></button></div>
+            </div>
+        {{ form_end(form) }}
+    </div>
+    <hr>
+    <div class="table-responsive">
+        <table class="table card-table table-hover dataTable">
+            <thead class="table-dark">
+                <tr>  
+                    <th>N°</th>
+                    <th>Code commande</th>
+                    <th>Numero reference</th>
+                    <th>Client</th>
+                    <th>Code Client</th>
+                    <th>Date commande</th>
+                    <th>Type commande</th>
+                    <th>Etat Commande</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set i = 0 %}
+                {% for commande_client in commande_clients %}
+                    {% set i = i + 1 %}
+                    <tr>
+                        <td>{{ i }}</td>
+                        <td>{{ commande_client.codeCommande }}</td>
+                        <td>{{ commande_client.numeroReference }}</td>
+                        <td>{{ commande_client.client.nom }} {{ commande_client.client.prenom }}</td>
+                        <td>{{ commande_client.client.codeClient }}</td>
+                        <td>{{ commande_client.dateCommande ? commande_client.dateCommande|date('Y-m-d') : '' }}</td>
+                        <td>{{ commande_client.typeCommande }}</td>
+                        <td>
+                            {% if commande_client.etat == true %}
+                                <span class="btn bg-success btn-sm">{{ commande_client.etat ? 'Valider' : 'INvalider' }}</span>
+                            {% else %}
+                                <span class="btn bg-danger btn-sm">{{ commande_client.etat ? 'Valider' : 'INvalider' }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ path('app_commande_client_show', {'id': commande_client.id}) }}" class="btn btn-info btn-sm">Voir</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr class="text-center">
+                        <td colspan="11">La table est vide </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

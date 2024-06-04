@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Entrepot{% endblock %}
+
+{% block body %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">Entrepot</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+            <div class="col-12">
+                <div class="card">
+                    {{ form_start(form) }}
+                        <div class="card-header">
+                            <h4 class="card-title">Modifier un entrepot</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-2">
+                                <div class="col-md-6">{{ form_row(form.libelle)}}</div>
+                                <div class="col-md-6">{{ form_row(form.adresse)}}</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-6">{{ form_row(form.pays)}}</div>
+                                <div class="col-md-6">{{ form_row(form.ville)}}</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-6">{{ form_row(form.telephone)}}</div>
+                                <div class="col-md-2">{{ form_row(form.etat)}}</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-12">{{ form_row(form.description)}}</div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-end">
+                            <div class="d-flex">
+                                <a href="{{path('app_entrepot_index')}}" class="btn btn-secondary btn-sm">Retour</a>
+                                <button type="submit" class="btn btn-primary btn-sm ms-auto">Modifier</button>
+                            </div>
+                        </div>   
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>     
+{% endblock %} 

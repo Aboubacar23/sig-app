@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Entrepot index{% endblock %}
+
+{% block body %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">Entrepot</h2>
+            </div>
+            <div class="col-12 col-md-auto ms-auto d-print-none">
+                <div class="btn-list">
+                    <span class="d-none d-sm-inline">
+                    <a href="#" class="btn btn-white">Nombre de produit: {{ produit_entrepots | length}}</a>
+                    <a href="{{path('app_entrepot_index')}}" class="btn btn-secondary btn-sm">Retour <i class="fa fa-reply p-1"></i></a>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+<div class="card p-2 m-4">
+    <div class="card-header mb-2">
+        <h3 class="card-title">Entrepôt : {{ entrepot.libelle }}</h3>
+    </div>
+    <div class="table-responsive">
+        <table class="table card-table table-hover dataTable">
+            <thead class="table-dark">
+                   <tr>
+                       <th>N°</th>
+                       <th>Image</th>
+                       <th>Code produit</th>
+                       <th>Reference</th>
+                       <th>Libelle</th>
+                       <th>Qte</th>
+                       <th>Stock initial</th>
+                       <th>Prix achat (GNF)</th>
+                       <th>Prix vente (GNF)</th>
+                       <th>Poids</th>
+                       <th>Etat</th>
+                   </tr> 
+               </thead> 
+               <tbody>
+                   {% set i = 0 %}
+                   {% set totalQ = 0 %}
+                   {% for produit_entrepot in produit_entrepots %}
+                       {% set i = i + 1 %}
+                       {% set totalQ = totalQ + produit_entrepot.quantite %}
+                       <tr>
+                           <td>{{ i }}</td>
+                           <td>
+                               {% if produit_entrepot.image == '' %}
+                                   <img src="{{asset('images/produit.jpeg')}}" height="40" width="40">
+                               {% else %}
+                                   <img src="{{asset('images/produits/'~ produit_entrepot.image)}}" height="40" width="40">
+                               {% endif %}
+                           </td>
+                           <td>{{ produit_entrepot.codeProduit }}</td>
+                           <td>{{ produit_entrepot.reference }}</td>
+                           <td>{{ produit_entrepot.libelle }}</td>
+                           <td>
+                               {% if produit_entrepot.quantite >= produit_entrepot.stockInitial %}
+                                   <span class="btn btn-success btn-sm">{{ produit_entrepot.quantite }}</span>
+                               {% else %}
+                                   <span class="btn btn-danger btn-sm">{{ produit_entrepot.quantite }}</span>
+                               {% endif %}
+                           </td>
+                           <td>{{ produit_entrepot.stockInitial }}</td>
+                           <td>{{ produit_entrepot.prixAchat| number_format }}</td>
+                           <td>{{ produit_entrepot.prixVente | number_format}}</td>
+                           <td>{{ produit_entrepot.poids }}</td>
+                           <td>
+                               {% if produit_entrepot.etat == 'Vente' %}
+                                   <span class="btn btn-success btn-sm">{{ produit_entrepot.etat }}</span>
+                               {% else %}
+                                   <span class="btn btn-danger btn-sm">{{ produit_entrepot.etat }}</span>
+                               {% endif %}
+                           </td>
+                       </tr>
+                   {% else %}
+                       <tr>
+                           <td colspan="16">La table est vide </td>
+                       </tr>
+                   {% endfor %}
+               </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

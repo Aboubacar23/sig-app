@@ -1,0 +1,149 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FactureFournisseur{% endblock %}
+
+{% block body %}
+<div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+        <div class="page-header">
+            <div class="row"> 
+                <div class="col-md-6 col-sm-12">
+                    <div class="title">
+                        <h4>Sonoya Stock</h4>
+                    </div>
+                    <nav aria-label="breadcrumb" role="navigation">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{{path('app_home')}}">Home</a>
+                            <li class="breadcrumb-item" aria-current="page">Factures</li>
+                            <li class="breadcrumb-item active" aria-current="page">Fournisseurs</li>
+                        </ol>
+                    </nav> 
+                </div> 
+                <div class="col-md-6 col-sm-12 text-right">
+                    <div class="dropdown">
+                        <a class="btn btn-primary btn-sm" href="#" role="button" data-toggle="dropdown">
+                            Facture : {{ facture_fournisseur.numeroFacture }}
+                        </a>
+                    </div> 
+                </div>
+            </div>
+        </div>    
+        <div class="card-box mb-30">
+            <div class="card-header pd-10 text-right">
+
+                <a href="{{ path('app_print_facture_fournisseur', {'id': facture_fournisseur.id}) }}" class="btn btn-info btn-sm text-white" target="_blank">Imprimer <i class="fa fa-print p-1"></i></a>
+
+                {% if facture_fournisseur.etatPaiement == true %}
+                    <a href="{{ path('app_facture_fournisseur_etat_paiement', {'id': facture_fournisseur.id}) }}" class="btn btn-danger btn-sm  text-white">Impayér<i class="fa fa-window-close-o p-1"></i></a>
+                {% else %}
+                    <a href="{{ path('app_facture_fournisseur_etat_paiement', {'id': facture_fournisseur.id}) }}" class="btn btn-success btn-sm  text-white">Payé<i class="fa fa-check-square-o p-1"></i></a>
+                {% endif %}
+
+                <a href="{{ path('app_facture_fournisseur_edit', {'id': facture_fournisseur.id}) }}" class="btn btn-warning btn-sm text-white">Modifier <i class="fa fa-edit p-1"></i></a>
+
+                <a href="{{ path('app_facture_fournisseur_index') }}" class="btn btn-secondary btn-sm text-white">Retour <i class="fa fa-reply p-1"></i></a>
+            </div>
+            <div class="p-4">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Numero facture</th>
+                            <td>{{ facture_fournisseur.numeroFacture }}</td>
+                            <th>Reference paiement</th>
+                            <td>{{ facture_fournisseur.referencePaiement }}</td>
+                        </tr>
+                        <tr>
+                            <th>Mode paiement</th>
+                            <td>{{ facture_fournisseur.commande.paiementMode }}</td>
+                            <th>Date limite paiement</th>
+                            <td>{{ facture_fournisseur.dateLimitePaiement ? facture_fournisseur.dateLimitePaiement|date('Y-m-d') : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Etat Paiement</th>
+                            <td>
+                                {% if facture_fournisseur.etatPaiement == true %}
+                                    <span class="btn btn-success btn-sm">{{ facture_fournisseur.etatPaiement ? 'Payé' : 'Impayé' }}</span>
+                                {% elseif facture_fournisseur.etatPaiement == false %}
+                                    <span class="btn btn-danger btn-sm">{{ facture_fournisseur.etatPaiement ? 'Payé' : 'Impayé' }}</span>
+                                {% endif %}
+                            </td>
+                            <th>Date facturation</th>
+                            <td>{{ facture_fournisseur.dateFacturation ? facture_fournisseur.dateFacturation|date('Y-m-d') : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Condition paiement</th>
+                            <td>{{ facture_fournisseur.conditionPaiement }}</td>
+                            <th>Note</th>
+                            <td>{{ facture_fournisseur.note }}</td>
+                        </tr>
+                    </tbody> 
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="page-header">
+        <div class="row p-2 text-right"> 
+            <table class="table table-striped m-2">
+                <thead class="table-success taille">
+                    <tr>
+                        <td>N°</td>
+                        <td>Images</td>
+                        <td>Produit</td>
+                        <td>Qte</td>
+                        <td>Prix Unitaire</td>
+                        <td>Remise</td>
+                        <td>TVA</td>
+                        <td>Total HT</td>
+                        <td>Total TTC</td>
+                    </tr>
+                </thead>
+                <tbody>   
+                    {%  set montantTotalTTC = 0 %}
+                    {%  set montantHT = 0 %}
+                    {%  set montantTTC = 0 %}
+                    {%  set montantTVA = 0 %}
+                    {%  set i = 0 %}
+                {% for l in lcommande %}
+                    {% if l.numCommande == facture_fournisseur.commande.numeroCommande %}
+                        {%  set i = i + 1 %} 
+                        {%  set montantHT = l.quantite * l.produit.prixachat %}
+                        {%  set montantTVA = montantHT * (l.tva/100) %}
+                        {%  set montantTTC = montantHT + montantTVA - l.remise %}
+
+
+                        {%  set montantTotalTTC = montantTotalTTC + montantTTC %}
+                        <tr>
+                            <td width="10px">{{ i }}</td>
+                            <td>
+                                {% if l.produit.image == '' %}
+                                    <img src="{{asset('images/produit.jpeg')}}" width="50px" height="50px">
+                                {% else %}
+                                    <img src="{{asset('images/produits/'~ l.produit.image)}}" width="50px" height="50px">
+                                {% endif %}
+                            </td>
+                            <td>{{l.produit.libelle}}</td>
+                            <td>{{l.quantite}}</td>
+                            <td>{{l.produit.prixachat | number_format }}</td>
+                            <td>{{l.remise}}</td>
+                            <td>{{l.tva}}</td>
+                            <td>{{ montantHT | number_format }}</td>
+                            <td>{{ montantTTC | number_format }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="8"></th>
+                        <th>{{montantTotalTTC | number_format}}</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <div class="page-header">
+        <div class="row p-2 text-right"> 
+            {{ include('facture_fournisseur/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

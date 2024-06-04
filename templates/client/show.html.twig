@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Client{% endblock %}
+
+{% block body %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+            <h2 class="page-title">
+                clients
+            </h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Détail client : {{ client.codeClient }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-md-12">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <th>Nom</th>
+                                            <td>{{ client.nom }}</td>
+                                            <th>Prenom</th>
+                                            <td>{{ client.prenom }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Code client</th>
+                                            <td>{{ client.codeClient }}</td>
+                                            <th>Email</th>
+                                            <td>{{ client.email }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Telephone</th>
+                                            <td>{{ client.telephone }}</td>
+                                            <th>Contact</th>
+                                            <td>{{ client.contact }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Pays</th>
+                                            <td>{{ client.pays }}</td>
+                                            <th>Ville</th>
+                                            <td>{{ client.ville }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Adresse</th>
+                                            <td>{{ client.adresse }}</td>
+                                            <th>Etat</th>
+                                            <td>
+                                                {% if client.etat == true %}
+                                                    <span class="btn bg-success btn-sm text-white">{{ client.etat ? 'Activer' : 'Désactiver' }}</span>
+                                                {% else %}
+                                                    <span class="btn bg-danger btn-sm text-white">{{ client.etat ? 'Activer' : 'Désactiver' }}</span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <div class="d-flex">
+                                <a href="{{path('app_client_index')}}" class="btn btn-secondary btn-sm m-2">Retour</a>
+                                <a href="{{path('app_client_edit', {'id' : client.id })}}" class="btn btn-warning btn-sm m-2 ms-auto">Modifier</a>
+                                {% if client.etat == true %}
+                                    <a href="{{ path('app_client_etat', {'id': client.id}) }}" onclick="confirm('Voulez-vous désactiver ce client ?')" class="btn btn-danger btn-sm m-2 text-white">Désactiver <i class="fa fa-window-close-o"></i></a>
+                                {% else %}
+                                    <a href="{{ path('app_client_etat', {'id': client.id}) }}" onclick="confirm('Voulez-vous activer ce client ?')" class="btn btn-success btn-sm m-2 text-white">Activer <i class="fa fa-check-square-o"></i></a>
+                                {% endif %}
+                                    <a class="m-2">{{ include('client/_delete_form.html.twig') }}</a>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit LCommandeClient{% endblock %}
+
+{% block body %}
+    <h1>Edit LCommandeClient</h1>
+
+    {{ include('l_commande_client/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_l_commande_client_index') }}">back to list</a>
+
+    {{ include('l_commande_client/_delete_form.html.twig') }}
+{% endblock %}

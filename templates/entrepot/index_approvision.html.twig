@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit index{% endblock %}
+
+{% block body %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">Entrepôt</h2>
+            </div>
+            <div class="col-12 col-md-auto ms-auto d-print-none">
+                <div class="btn-list">
+                    <span class="d-none d-sm-inline">
+                        <a href="{{ path('app_approvision') }}" class="btn btn-success btn-sm text-white">Refresh</a>
+                        <a  href="#" class="btn btn-white">Nombre de produit: {{ produits | length}}</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+<div class="card p-2 m-4">
+    <div class="card-header mb-2">
+        <h3 class="card-title">Approvisionnement</h3>
+    </div>
+    <div class="table-responsive">
+        <table class="table card-table table-hover dataTable">
+            <thead class="table-dark">
+                    <tr>
+                        <th width="2%">N°</th>
+                        <th>Image</th>
+                        <th>Code produit</th>
+                        <th>Libelle</th>
+                        <th>Quantité</th>
+                        <th>Stock Initial</th>
+                        <th class="text-center">Actions</th>
+                    </tr> 
+                </thead> 
+                <tbody>
+                    {% set i = 0 %}
+                    {% set totalPrixA  = 0 %}
+                    {% set totalPrixV = 0 %}
+                    {% for produit in produits %}
+                        {% set i = i + 1 %}
+                        {% set totalPrixA  = totalPrixA + produit.prixAchat %}
+                        {% set totalPrixV = totalPrixV + produit.prixVente %}
+                        <tr>
+                            <td>{{ i }}</td>
+                            <td>
+                                {% if produit.image == '' %}
+                                    <img src="{{asset('images/produit.jpeg')}}" height="40px" width="40px">
+                                {% else %}
+                                    <img src="{{asset('images/produits/'~ produit.image)}}" height="40px" width="40px">
+                                {% endif %}
+                            </td>
+                            <td>{{ produit.codeProduit }}</td>
+                            <td>{{ produit.libelle }}</td>
+                            <td>
+                                {% if produit.quantite >= produit.stockInitial %}
+                                    <span class="btn btn-success btn-sm">{{ produit.quantite }}</span>
+                                {% else %}
+                                    <span class="btn btn-danger btn-sm">{{ produit.quantite }}</span>
+                                {% endif %}
+                            </td>
+                            <td><span class="btn btn-info btn-sm">{{ produit.stockInitial }}</span></td>
+                            <td class="text-center">
+                                <a href="{{path('app_approvisionnement_edit', {'id': produit.id})}}" class="btn btn-secondary btn-sm">Approvisionner <i class="fa fa-plus-square p-1"></i></a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="16">La table est vide </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

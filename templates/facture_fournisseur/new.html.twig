@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New FactureFournisseur{% endblock %}
+
+{% block body %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">Facture fournisseur</h2>
+            </div>
+        </div>
+    </div> 
+</div>
+{% if dernier == null %}
+    {% set val = 1 %}
+{% else %}
+    {% set val = dernier.id + 1 %}
+{% endif %}
+{% set dateJour = "now"|date("Ym") %}
+{% set numFour = 'CFF'~dateJour~val %}
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+            <div class="col-12">
+                <div class="card">
+                    {{ form_start(form) }}
+                        <div class="card-header">
+                            <h4 class="card-title">Ajouter une facture</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-1">
+                                <div class="col-md-4">{{ form_row(form.numero_facture, { attr : { value : numFour}})}}</div>
+                                <div class="col-md-4">{{ form_row(form.commande)}}</div>
+                                <div class="col-md-4">{{ form_row(form.date_facturation)}}</div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-md-4">{{ form_row(form.reference_paiement)}}</div>
+                                <div class="col-md-4">{{ form_row(form.condition_paiement)}}</div>
+                                <div class="col-md-4">{{ form_row(form.date_limite_paiement)}}</div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-md-4">{{ form_row(form.note)}}</div>
+                                <div class="col-md-4">{{ form_row(form.etat_paiement)}}</div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-end">
+                            <div class="d-flex">
+                                <a href="{{path('app_facture_fournisseur_index')}}" class="btn btn-secondary btn-sm">Retour</a>
+                                <button type="submit" class="btn btn-primary btn-sm ms-auto">Enregistrer</button>
+                            </div>
+                        </div>    
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+{% endblock %}

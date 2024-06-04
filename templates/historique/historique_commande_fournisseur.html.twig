@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CommandeFournisseur index{% endblock %}
+
+{% block body %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">Historiques</h2>
+            </div>
+            <div class="col-12 col-md-auto ms-auto d-print-none">
+                <div class="btn-list">
+                    <span class="d-none d-sm-inline">
+                        <a href="#" class="btn btn-primary btn-sm">La liste des Commandes fournisseurs</a>     
+                        <a href="#" class="btn btn-white btn-sm">Nombres : {{ commande_fournisseurs | length}}</a>                     
+                        <a href="{{ path('app_historique_commande_fournisseur') }}" class="btn btn-success btn-sm text-white">Refresh <i class="fa fa-refresh p-1"></i></a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+<div class="card p-2 m-4">
+    <div>     
+        {{ form_start(form) }}
+            <div class="row">
+                <div class="col-md-3">{{ form_row(form.fournisseur) }}</div>
+                <div class="col-md-3">{{ form_row(form.periode_min) }}</div>
+                <div class="col-md-3">{{ form_row(form.periode_max) }}</div>
+                <div class="col-md-3 mt-4"><button class="btn btn-info btn-sm">{{ button_label|default('Chercher') }}<i class="fa fa-search p-1"></i></button></div>
+            </div>
+        {{ form_end(form) }}
+    </div>
+    <hr>
+    <div class="table-responsive">
+        <table class="table card-table table-hover dataTable">
+            <thead class="table-dark">
+                <tr>  
+                    <th>N°</th>
+                    <th>Numero Commande</th>
+                    <th>Code Fournisseur</th>
+                    <th>Fournisseur</th>
+                    <th>Date Commande</th>
+                    <th>Paiement Date</th>
+                    <th>Paiement Mode</th>
+                    <th>Expedition Mode</th>
+                    <th>Etat</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set i = 0 %}
+                {% for commande_fournisseur in commande_fournisseurs %}
+                    {% set i = i + 1 %}
+                    <tr>
+                        <td>{{ i }}</td>
+                        <td>{{ commande_fournisseur.numeroCommande }}</td>
+                        <td>{{ commande_fournisseur.fournisseur.codeFournisseur }}</td>
+                        <td>{{ commande_fournisseur.fournisseur.societe }}</td>
+                        <td>{{ commande_fournisseur.dateCommande ? commande_fournisseur.dateCommande|date('Y-m-d') : '' }}</td>
+                        <td>{{ commande_fournisseur.paiementDate ? commande_fournisseur.paiementDate|date('Y-m-d') : '' }}</td>
+                        <td>{{ commande_fournisseur.paiementMode }}</td>
+                        <td>{{ commande_fournisseur.expeditionMode }}</td>
+                        <td>
+                            {% if commande_fournisseur.etat == true %}
+                                <span class="btn bg-success btn-sm">{{ commande_fournisseur.etat ? 'Valider' : 'Invalider' }}</span>
+                            {% else %}
+                                <span class="btn bg-danger btn-sm">{{ commande_fournisseur.etat ? 'Valider' : 'Invalider' }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ path('app_commande_fournisseur_show', {'id': commande_fournisseur.id}) }}" class="btn btn-info btn-sm">Voir</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="9">La table commande est vide</td>
+                    </tr>
+                {% endfor %}
+            </tbody> 
+        </table>
+    </div>
+</div>
+{% endblock %}

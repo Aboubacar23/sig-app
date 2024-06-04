@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fournisseur index{% endblock %}
+
+{% block body %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">Fournisseurs</h2>
+            </div>
+            <div class="col-12 col-md-auto ms-auto d-print-none">
+            <div class="btn-list">
+                <span class="d-none d-sm-inline">
+                <a href="#" class="btn btn-white">Nombres : {{ fournisseurs | length}}</a>
+                <a href="{{path('app_fournisseur_new')}}" class="btn btn-primary d-none d-sm-inline-block">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>Ajouter</a>
+            </div>
+        </div>
+    </div>
+    </div> 
+</div>
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">La liste des fournisseurs</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table card-table table-hover dataTable">
+                                <thead class="table-dark">
+                                <tr>
+                                    <th>N°</th>
+                                    <th class="text-center">Action</th>
+                                    <th>Code Fournisseur</th>
+                                    <th>Societe</th>
+                                    <th>Telephone</th>
+                                    <th>Email</th>
+                                    <th>Pays</th>
+                                    <th>Ville</th>
+                                    <th>Adresse</th>
+                                    <th>Etat</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% set i = 0 %}
+                                {% for fournisseur in fournisseurs %}
+                                    {% set i = i + 1 %}
+                                    <tr>
+                                        <td>{{ i }}</td>
+                                        <td class="text-center" width="150px">
+                                            <a href="{{ path('app_fournisseur_show', {'id': fournisseur.id}) }}" class="btn btn-info text-white btn-sm"><i class="fa fa-eye fa-2x p-1"></i></a>
+                                            {# <a href="{{ path('app_fournisseur_edit', {'id': fournisseur.id}) }}" class="btn btn-primary text-white btn-sm">Modifier<i class="fa fa-edit"></i></a> #}
+                                            <a href="{{ path('app_fournisseur_compte', {'id': fournisseur.id}) }}" class="btn btn-success btn-sm"><i class="fa fa-folder fa-2x p-1"></i></a>
+                                        </td>
+                                        <td>{{ fournisseur.codeFournisseur }}</td>
+                                        <td>{{ fournisseur.societe }}</td>
+                                        <td>{{ fournisseur.telephone }}</td>
+                                        <td>{{ fournisseur.email }}</td>
+                                        <td>{{ fournisseur.pays | country_name }}</td>
+                                        <td>{{ fournisseur.ville }}</td>
+                                        <td>{{ fournisseur.adresse }}</td>
+                                        <td>
+                                            {% if fournisseur.etat == true %}
+                                                <span class="btn btn-sm btn-success taille">{{ fournisseur.etat ? 'Activer' : 'Désactiver' }}</span>
+                                            {% elseif fournisseur.etat == false %}
+                                                <span class="btn btn-sm btn-danger taille">{{ fournisseur.etat ? 'Activer' : 'Désactiver' }}</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="14">La table est vide</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

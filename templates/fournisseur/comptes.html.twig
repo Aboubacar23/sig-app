@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CommandeFournisseur index{% endblock %}
+
+{% block body %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">Compte fournisseur : {{ fournisseur.codeFournisseur }}</h2>
+            </div>
+            <div class="col-12 col-md-auto ms-auto d-print-none">
+                <div class="btn-list">                  
+                    <a href="{{ path('app_fournisseur_index') }}" class="btn btn-secondary btn-sm text-white">Retour <i class="fa fa-reply p-1"></i></a>
+                    <a href="{{ path('app_fournisseur_compte', {'id': fournisseur.id }) }}" class="btn btn-info btn-sm text-white"> Commandes<i class="fa fa-first-order p-1"></i></a>
+                    <a href="{{ path('app_fournisseur_facture', {'id': fournisseur.id }) }}" class="btn btn-facebook btn-sm text-white"> Factures <i class="fa fa-list p-1"></i></a>
+                    <a href="{{path('app_fournisseur_new')}}" class="btn btn-primary d-none d-sm-inline-block">Ajouter <i class="fa fa-plus p-1"></i></a>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+            <div class="col-12">
+                <div class="card p-2 m-4">
+                    <div class="card-header mb-2">
+                        <h3 class="card-title">Liste des commandes</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table card-table table-hover dataTable">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th width="4%">N°</th>
+                                    <th width="15%">Numero Commande</th>
+                                    <th width="15%">Date Commande</th>
+                                    <th width="15%">Paiement Date</th>
+                                    <th width="15%">Paiement Mode</th>
+                                    <th width="15%">Expedition Mode</th>
+                                    <th width="6%">Etat</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody width="100%">
+                                {% set i = 0 %}
+                                {% for commande_fournisseur in commandes %}
+                                    {% set i = i + 1 %}
+                                    <tr>
+                                        <td>{{ i }}</td>
+                                        <td>{{ commande_fournisseur.numeroCommande }}</td>
+                                        <td>{{ commande_fournisseur.dateCommande ? commande_fournisseur.dateCommande|date('Y-m-d') : '' }}</td>
+                                        <td>{{ commande_fournisseur.paiementDate ? commande_fournisseur.paiementDate|date('Y-m-d') : '' }}</td>
+                                        <td>{{ commande_fournisseur.paiementMode }}</td>
+                                        <td>{{ commande_fournisseur.expeditionMode }}</td>
+                                        <td>
+                                            {% if commande_fournisseur.etat == true %}
+                                                <span class="btn bg-success btn-sm">{{ commande_fournisseur.etat ? 'Valider' : 'Invalider' }}</span>
+                                            {% else %}
+                                                <span class="btn bg-danger btn-sm">{{ commande_fournisseur.etat ? 'Valider' : 'Invalider' }}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ path('app_print_commande_fournisseur', {'id': commande_fournisseur.id}) }}" class="btn btn-info btn-sm" target="_blank">Imprimer <i class="fa fa-print p-1"></i></a>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="9">La table commande est vide</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

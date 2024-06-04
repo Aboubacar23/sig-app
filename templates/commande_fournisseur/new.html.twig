@@ -1,0 +1,151 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New CommandeFournisseur{% endblock %}
+
+{% block body %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">Commande Fournisseur</h2>
+            </div>
+        </div>
+    </div>
+</div> 
+{% if derniereCommande == null %}
+    {% set val = 1 %}
+{% else %}
+    {% set val = derniereCommande.id + 1 %}
+{% endif %}
+{% set dateJour = "now"|date("Ym") %}
+{% set numComFour = 'CCF'~dateJour~val %}
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+            <div class="col-12">
+                <div class="card">
+                    <form method="post">
+                        <div class="card-header">
+                            <h4 class="card-title">Ajouter une commande</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-4">
+                                <div class="col-md-4">{{ form_row(form.numero_commande, { attr: { value: numComFour }})}}</div>
+                                <div class="col-md-4">{{ form_row(form.fournisseur)}}</div>
+                                <div class="col-md-4">{{ form_row(form.date_commande)}}</div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-md-4">{{ form_row(form.paiement_date)}}</div>
+                                <div class="col-md-4">{{ form_row(form.paiement_mode)}}</div>
+                                <div class="col-md-4">{{ form_row(form.expedition_mode)}}</div>
+                            </div>
+                            <!-- le formulaire d commandee produit -->
+                            <div class="row mb-2"> 
+                                <table class="table table-striped p-2 m-2">
+                                    <thead class="table-secondary taille">
+                                        <tr>
+                                            <td>Produit</td>
+                                            <td>Qte</td>
+                                            <td>Remise</td>
+                                            <td>TVA %</td>
+                                            <td>Action</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ form_widget(f.produit)}}</td>
+                                            <td>{{ form_widget(f.quantite)}}</td>
+                                            <td>{{ form_widget(f.remise)}}</td>
+                                            <td>{{ form_widget(f.tva)}}</td>
+                                            <td><button type="submit" value="Add" name="bt" class="btn btn-success btn-sm p-1"><i class="fa fa-plus fa-2x"></i></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- fin du formulaire de produit -->
+
+                            <!-- la liste des produits commandés -->
+                            <div class="row mb-2"> 
+                                <table class="table table-striped m-2">
+                                    <thead class="table-secondary taille">
+                                        <tr>
+                                            <td>N°</td>
+                                            <td>Images</td>
+                                            <td>Produit</td>
+                                            <td>Qte</td>
+                                            <td>Prix Unitaire</td>
+                                            <td>TVA %</td>
+                                            <td>Remise</td>
+                                            <td>Montant HT</td>
+                                            <td>Montant TTC</td>
+                                            <td width="30px;">Action</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>   
+                                        {%  set montantTotalHT = 0 %}
+                                        {%  set montantTotalTTC = 0 %}
+                                        {%  set montantTVA = 0 %}
+                                        {%  set montantTTC = 0 %}
+                                        {%  set montantHT = 0 %}
+                                        {%  set i = 0 %}
+                                    {% for l in lcom %}
+                                        {%  set i = i + 1 %} 
+                                        {%  set montantHT = l.quantite * l.produit.prixachat %}
+
+                                        {%  set montantTVA = montantHT * (l.tva/100) %}
+
+                                        {%  set montantTTC = montantHT + montantTVA - l.remise %}
+
+                                        {%  set montantTotalHT = montantTotalHT + montantHT %}
+                                        {%  set montantTotalTTC = montantTotalTTC + montantTTC %}
+                                        <tr>
+                                            <td width="10px">{{ i }}</td>
+                                            <td>
+                                                {% if l.produit.image == '' %}
+                                                    <img src="{{asset('images/produit.jpeg')}}" width="50px" height="50px">
+                                                {% else %}
+                                                    <img src="{{asset('images/produits/'~ l.produit.image)}}" width="50px" height="50px">
+                                                {% endif %}
+                                            </td>
+                                            <td>{{l.produit.libelle}}</td>
+                                            <td>{{l.quantite}}</td>
+                                            <td>{{l.produit.prixachat | number_format }}</td>
+                                            <td>{{l.tva}}</td>
+                                            <td>{{ l.remise | number_format }}</td>
+                                            <td>{{ montantHT | number_format }}</td>
+                                            <td>{{ montantTTC | number_format }}</td>
+                                            <td>
+                                                <a class="btn btn-danger btn-sm" href="{{path('app_four_delete', { 'id': l.lig})}}"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash-x-filled" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M20 6a1 1 0 0 1 .117 1.993l-.117 .007h-.081l-.919 11a3 3 0 0 1 -2.824 2.995l-.176 .005h-8c-1.598 0 -2.904 -1.249 -2.992 -2.75l-.005 -.167l-.923 -11.083h-.08a1 1 0 0 1 -.117 -1.993l.117 -.007h16zm-9.489 5.14a1 1 0 0 0 -1.218 1.567l1.292 1.293l-1.292 1.293l-.083 .094a1 1 0 0 0 1.497 1.32l1.293 -1.292l1.293 1.292l.094 .083a1 1 0 0 0 1.32 -1.497l-1.292 -1.293l1.292 -1.293l.083 -.094a1 1 0 0 0 -1.497 -1.32l-1.293 1.292l-1.293 -1.292l-.094 -.083z" stroke-width="0" fill="currentColor"></path><path d="M14 2a2 2 0 0 1 2 2a1 1 0 0 1 -1.993 .117l-.007 -.117h-4l-.007 .117a1 1 0 0 1 -1.993 -.117a2 2 0 0 1 1.85 -1.995l.15 -.005h4z" stroke-width="0" fill="currentColor"></path></svg></a>
+                                            </td> 
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="7"></th>
+                                            <th>{{montantTotalHT | number_format}}</th>
+                                            <th>{{montantTotalTTC | number_format}}</th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <!-- fin la liste des produits commandés -->
+                            <div class="row m-4">
+                                <div class="col-md-12">{{ form_row(form.note)}}</div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-end">
+                            <div class="d-flex">
+                                <a href="{{path('app_commande_fournisseur_index')}}" class="btn btn-secondary btn-sm">Retour <i class="fa fa-reply p-1"></i></a>
+                                 <button type="submit" class="btn btn-primary btn-sm ms-auto" name="bt" value="Valider">Enregistrer <i class="fa fa-save p-1"></i></button> 
+                            </div>
+                        </div>    
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+ 

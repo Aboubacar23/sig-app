@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Banque index{% endblock %}
+
+{% block body %}
+{% set nombres = 0 %}
+{% set total = 0 %}
+{% for versement in versements %}
+    {% if versement.banque.id == banque.id %}
+        {% set nombres = nombres +1  %}
+        {% set total = total + versement.montant  %}
+    {% endif %}
+{% endfor %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">Banques</h2>
+            </div>
+            <div class="col-12 col-md-auto ms-auto d-print-none">
+                <div class="btn-list">
+                    <span class="d-none d-sm-inline">                        
+                        <a href="{{ path('app_banque_index') }}" class="btn btn-primary btn-sm text-white">Imprimer <i class="fa fa-print p-1"></i></a>
+                        <a href="#" class="btn btn-white btn-sm">Nombres : {{ nombres }}</a>
+                        <a href="#{}" class="btn btn-info btn-sm">Total Versement : {{ total | number_format }} GNF</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+<div class="card p-2 m-4">
+    <div class="card-header mb-2">
+        <h3 class="card-title">Liste</h3>
+    </div>
+    <div class="table-responsive">
+        <table class="table card-table table-hover dataTable">
+            <thead class="table-dark">
+                <tr>  
+                    <th>N°</th>
+                    <th>Facture</th>
+                    <th>Montant</th>
+                    <th>Client</th>
+                    <th>Date versement</th>
+                    <th>Banque</th>
+                    <th>Avance</th>
+                    <th>Type reglement</th>
+                    <th>Delegue</th>
+                    <th>Emetteur cheque</th>
+                </tr>
+            </thead>
+            <tbody> 
+                {% set i = 0 %}
+                {% for versement in versements %}
+                    {% if versement.banque.id == banque.id %}
+                    {% set i = i +1  %}
+                    <tr>
+                        <td>{{ i }}</td>
+                        <td>{{ versement.facture }}</td>
+                        <td>{{ versement.montant | number_format}}</td>
+                        <td>{{ versement.client }}</td>
+                        <td>{{ versement.dateVersement ? versement.dateVersement|date('Y-m-d') : '' }}</td>
+                        <td>{{ versement.banque }}</td>
+                        <td>{{ versement.avance ? 'Oui' : 'Non' }}</td>
+                        <td>{{ versement.typeReglement }}</td>
+                        <td>{{ versement.delegue }}</td>
+                        <td>{{ versement.emetteurCheque }}</td>
+                    </tr>
+                {% endif %}
+                {% else %}
+                    <tr>
+                        <td colspan="3">La table banque est vide</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>  
+{% endblock %}

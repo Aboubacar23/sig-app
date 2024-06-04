@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Client{% endblock %}
+
+{% block body %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+    <div class="row g-2 align-items-center">
+        <div class="col">
+        <h2 class="page-title">Client</h2>
+        </div>
+    </div>
+    </div>
+</div>
+{% if dernier == null %}
+    {% set val = 1 %}
+{% else %}
+    {% set val = dernier.id + 1 %}
+{% endif %}
+
+{% set dateJour = "now"|date("Y") %}
+{% set numC = 'ES_CC-' ~ dateJour~'-'~val %}
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+            <div class="col-12">
+                <div class="card">
+                    {{ form_start(form) }}
+                        <div class="card-header">
+                            <h4 class="card-title">Ajouter un client</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-2">
+                                <div class="col-md-4">{{ form_row(form.code_client, { attr : { value: numC }})}}</div>
+                                <div class="col-md-4">{{ form_row(form.nom)}}</div>
+                                <div class="col-md-4">{{ form_row(form.prenom)}}</div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-md-4">{{ form_row(form.email)}}</div>
+                                <div class="col-md-4">{{ form_row(form.telephone)}}</div>
+                                <div class="col-md-4">{{ form_row(form.contact)}}</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-4">{{ form_row(form.pays)}}</div>
+                                <div class="col-md-4">{{ form_row(form.ville)}}</div>
+                                <div class="col-md-4">{{ form_row(form.adresse)}}</div>
+                            </div>
+                            <div class="row m-4">
+                                <div class="col-md-12">{{ form_row(form.etat)}}</div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-end">
+                            <div class="d-flex">
+                                <a href="{{path('app_client_index')}}" class="btn btn-secondary btn-sm">Retour</a>
+                                <button type="submit" class="btn btn-primary btn-sm ms-auto">Enregistrer</button>
+                            </div>
+                        </div>    
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+ 

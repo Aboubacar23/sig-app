@@ -1,0 +1,141 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CommandeFournisseur{% endblock %}
+
+{% block body %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+            <h2 class="page-title">
+                Commande Fournisseur
+            </h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Détail Commande : {{ commande_fournisseur.numeroCommande }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-md-12">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <th>Numero commande</th>
+                                            <td>{{ commande_fournisseur.numeroCommande }}</td>
+                                            <th>Date commande</th>
+                                            <td>{{ commande_fournisseur.dateCommande ? commande_fournisseur.dateCommande|date('Y-m-d') : '' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Paiement date</th>
+                                            <td>{{ commande_fournisseur.paiementDate ? commande_fournisseur.paiementDate|date('Y-m-d') : '' }}</td>
+                                            <th>Paiement mode</th>
+                                            <td>{{ commande_fournisseur.paiementMode }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Expedition mode</th>
+                                            <td>{{ commande_fournisseur.expeditionMode }}</td>
+                                            <th>Etat</th>
+                                            <td>
+                                                {% if commande_fournisseur.etat == true %}
+                                                    <span class="btn bg-success btn-sm">{{ commande_fournisseur.etat ? 'Valider' : 'INvalider' }}</span>
+                                                {% else %}
+                                                    <span class="btn bg-danger btn-sm">{{ commande_fournisseur.etat ? 'Valider' : 'INvalider' }}</span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Note</th>
+                                            <td>{{ commande_fournisseur.note }}</td>
+                                            <th></th>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row p-2 text-right">
+                            <table class="table card-table table-hover dataTable">
+                                <thead class="table-secondary taille">
+                                    <tr>
+                                        <td>N°</td>
+                                        <td>Images</td>
+                                        <td>Produit</td>
+                                        <td>Qte</td>
+                                        <td>Prix Unitaire</td>
+                                        <td>Remise</td>
+                                        <td>TVA</td>
+                                        <td>Total HT</td>
+                                        <td>Total TTC</td>
+                                    </tr>
+                                </thead>
+                                <tbody>   
+                                    {%  set montantTotalTTC = 0 %}
+                                    {%  set montantHT = 0 %}
+                                    {%  set montantTTC = 0 %}
+                                    {%  set montantTVA = 0 %}
+                                    {%  set i = 0 %}
+                                {% for l in lcommande %} 
+                                    {% if l.numCommande == commande_fournisseur.numeroCommande %}
+                                        {%  set i = i + 1 %} 
+                                        {%  set montantHT = l.quantite * l.produit.prixachat %}
+                                        {%  set montantTVA = montantHT * (l.tva/100) %}
+                                        {%  set montantTTC = montantHT + montantTVA - l.remise %}
+            
+            
+                                        {%  set montantTotalTTC = montantTotalTTC + montantTTC %}
+                                        <tr>
+                                            <td width="10px">{{ i }}</td>
+                                            <td>
+                                                {% if l.produit.image == '' %}
+                                                    <img src="{{asset('images/produit.jpeg')}}" width="50px" height="50px">
+                                                {% else %}
+                                                    <img src="{{asset('images/produits/'~ l.produit.image)}}" width="50px" height="50px">
+                                                {% endif %}
+                                            </td>
+                                            <td>{{l.produit.libelle}}</td>
+                                            <td>{{l.quantite}}</td>
+                                            <td>{{l.produit.prixachat | number_format }}</td>
+                                            <td>{{l.remise}}</td>
+                                            <td>{{l.tva}}</td>
+                                            <td>{{ montantHT | number_format }}</td>
+                                            <td>{{ montantTTC | number_format }}</td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="8"></th>
+                                        <th>{{montantTotalTTC | number_format}}</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <div class="d-flex"> 
+                            <a href="{{path('app_print_commande_fournisseur', {'id': commande_fournisseur.id})}}" class="m-2 btn btn-info btn-sm text-white" target="_blank">Imprimer <i class="fa fa-print p-1"></i></a>
+                            {% if commande_fournisseur.etat == true %}
+                                <a href="{{ path('app_commande_fournisseur_etat', {'id': commande_fournisseur.id}) }}" onclick="confirm('Voulez-vous annuler cette commande ?')" class="m-2 btn btn-danger text-white btn-sm">Invalider <i class="fa fa-check p-1"></i></a>
+                            {% else %}
+                                <a href="{{ path('app_commande_fournisseur_etat', {'id': commande_fournisseur.id}) }}" onclick="confirm('Voulez-vous valider cette commande ?')" class="m-2 btn btn-success text-white btn-sm">Valider <i class="fa fa-check p-1"></i></a>
+                            {% endif %} 
+                            <a href="{{ path('app_commande_fournisseur_edit', {'id' : commande_fournisseur.id }) }}" class="m-2 btn btn-warning btn-sm text-white">Modifier <i class="fa fa-edit p-1"></i></a>
+                            <p>{{ include('commande_fournisseur/_delete_form.html.twig') }}</p>                            
+                            <a href="{{ path('app_commande_fournisseur_index') }}" class="m-2 btn btn-secondary btn-sm text-white">Retour <i class="fa fa-reply p-1"></i></a>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

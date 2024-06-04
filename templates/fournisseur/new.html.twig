@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Fournisseur{% endblock %}
+
+{% block body %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+    <div class="row g-2 align-items-center">
+        <div class="col">
+        <h2 class="page-title">
+            Fournisseur
+        </h2>
+        </div>
+    </div>
+    </div>
+</div>
+{% if dernierFournisseur == null %}
+    {% set val = 1 %}
+{% else %}
+    {% set val = dernierFournisseur.id + 1 %}
+{% endif %}
+{% set dateJour = "now"|date("Ym") %}
+{% set numFour = 'CF-' ~ dateJour ~val %}
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+            <div class="col-12">
+                <div class="card">
+                    {{ form_start(form) }}
+                        <div class="card-header">
+                            <h4 class="card-title">Ajouter un fournisseur</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row mb-4">
+                                <div class="col-md-4">{{ form_row(form.code_fournisseur, {attr : { value: numFour }})}}</div>
+                                <div class="col-md-4">{{ form_row(form.societe)}}</div>
+                                <div class="col-md-4">{{ form_row(form.adresse)}}</div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-md-4">{{ form_row(form.telephone)}}</div>
+                                <div class="col-md-4">{{ form_row(form.email)}}</div>
+                                <div class="col-md-4">{{ form_row(form.fax)}}</div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-md-4">{{ form_row(form.pays)}}</div>
+                                <div class="col-md-4">{{ form_row(form.ville)}}</div>
+                                <div class="col-md-4">{{ form_row(form.etat)}}</div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-md-12">{{ form_row(form.note)}}</div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-md-12"><span class="text-danger">Les champs avec (*) sont obligatoires</span></div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-end">
+                            <div class="d-flex">
+                                <a href="{{path('app_fournisseur_index')}}" class="btn btn-secondary btn-sm">Retour</a>
+                                <button type="submit" class="btn btn-primary btn-sm ms-auto">Enregistrer</button>
+                            </div>
+                        </div>    
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

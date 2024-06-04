@@ -1,0 +1,41 @@
+{{ form_start(form) }}    
+<div class="card-header">
+    <h4 class="card-title">Modifier le produit {{ produit.codeProduit }}</h4>
+</div>
+<div class="card-body">
+    <div class="row mb-2">
+        <div class="col-md-4">{{ form_row(form.code_produit)}}</div>
+        <div class="col-md-4">{{ form_row(form.libelle)}}</div>
+        <div class="col-md-4">{{ form_row(form.reference)}}</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-4">{{ form_row(form.fournisseur)}}</div>
+        <div class="col-md-4">{{ form_row(form.quantite)}}</div>
+        <div class="col-md-4">{{ form_row(form.stock_initial)}}</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-4">{{ form_row(form.entrepot)}}</div>
+        <div class="col-md-4">{{ form_row(form.prix_achat, { attr :  { value : valeur }})}}</div>
+        <div class="col-md-4">{{ form_row(form.prix_vente)}}</div> 
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-4">{{ form_row(form.poids)}}</div>
+        <div class="col-md-4">{{ form_row(form.volume)}}</div>
+        <div class="col-md-4">{{ form_row(form.couleur)}}</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-4">{{ form_row(form.key_produit)}}</div>
+        <div class="col-md-4">{{ form_row(form.etat)}}</div>
+        <div class="col-md-4">{{ form_row(form.image)}}</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-12">{{ form_row(form.desciption)}}</div>
+    </div>
+</div>
+<div class="card-footer text-end">
+    <div class="d-flex">
+        <a href="{{path('app_produit_index')}}" class="btn btn-secondary btn-sm">Retour <i class="fa fa-reply p-1"></i></a>
+        <button type="submit" class="btn btn-primary btn-sm ms-auto">Modifier <i class="fa fa-save p-1"></i></button>
+    </div>
+</div> 
+{{ form_end(form) }}

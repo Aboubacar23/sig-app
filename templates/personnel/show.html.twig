@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Personnel{% endblock %}
+
+{% block body %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+            <h2 class="page-title">
+                Employé
+            </h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Détail Employé</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-md-9">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <th>Nom</th>
+                                            <td>{{ personnel.nom }}</td>
+                                            <th>Prenom</th>
+                                            <td>{{ personnel.prenom }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Email</th>
+                                            <td>{{ personnel.email }}</td>
+                                            <th>Tel</th>
+                                            <td>{{ personnel.tel }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Pays</th>
+                                            <td>{{ personnel.pays | country_name }}</td>
+                                            <th>Ville</th>
+                                            <td>{{ personnel.ville }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-3">
+                                <span>
+                                    {% if personnel.image == '' %}
+                                        <img src="{{asset('images/user.png')}}" height="400" width="200">
+                                    {% else %}
+                                        <img src="{{asset('images/employees/'~ personnel.image)}}" height="200" width="400">
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <a href="{{path('app_personnel_edit', {'id' : personnel.id })}}" class="btn btn-warning btn-sm">Modifier <i class="fa fa-edit fa-2x p-1"></i></a>
+                                <a href="{{path('app_personnel_index')}}" class="btn btn-secondary btn-sm m-2">Retour <i class="fa fa-reply fa-2x p-1"></i></a>
+                            </div>
+                            <div class="col-md-3 p-2 text-end">
+                                {{ include('personnel/_delete_form.html.twig') }}
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

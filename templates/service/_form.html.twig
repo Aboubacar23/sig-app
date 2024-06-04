@@ -1,0 +1,17 @@
+{{ form_start(form) }}
+    <div class="row mb-2">
+        <div class="col-md-4">{{ form_row(form.libelle)}}</div>
+        <div class="col-md-4">{{ form_row(form.prix)}}</div>
+        <div class="col-md-4">{{ form_row(form.taxe)}}</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-4">{{ form_row(form.desciption)}}</div>
+        <div class="col-md-4">{{ form_row(form.reference)}}</div>
+        <div class="col-md-1">{{ form_row(form.periodique)}}</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-4">
+            <button class="btn btn-primary btn-sm">{{ button_label|default('Ajouter') }} <i class="fa fa-save p-1"></i></button>
+        </div>
+    </div>
+{{ form_end(form) }}

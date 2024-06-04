@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New LCommandeClient{% endblock %}
+
+{% block body %}
+    <h1>Create new LCommandeClient</h1>
+
+    {{ include('l_commande_client/_form.html.twig') }}
+
+    <a href="{{ path('app_l_commande_client_index') }}">back to list</a>
+{% endblock %}

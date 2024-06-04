@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Personnel{% endblock %}
+
+{% block body %}
+    <div class="container-xl">
+        <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+            <h2 class="page-title">
+                Employées
+            </h2>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="page-body">
+        <div class="container-xl">
+            <div class="row row-cards">
+                <div class="col-12">
+                    <div class="card">
+                        {{ form_start(form) }}
+                            <div class="card-header">
+                                <h4 class="card-title">Modifier  employé : {{personnel.codePersonnel}}</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row mb-2">
+                                    <div class="col-md-4">{{ form_row(form.code_personnel)}}</div>
+                                    <div class="col-md-4">{{ form_row(form.nom)}}</div>
+                                    <div class="col-md-4">{{ form_row(form.prenom)}}</div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-md-6">{{ form_row(form.email)}}</div>
+                                    <div class="col-md-6">{{ form_row(form.tel)}}</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-4">{{ form_row(form.pays)}}</div>
+                                    <div class="col-md-4">{{ form_row(form.ville)}}</div>
+                                    <div class="col-md-4">{{ form_row(form.image)}}</div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-end">
+                                <div class="d-flex">
+                                    <a href="{{path('app_personnel_index')}}" class="btn btn-secondary btn-sm">Retour</a>
+                                    <button type="submit" class="btn btn-primary btn-sm ms-auto">Modifier</button>
+                                </div>
+                            </div>    
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

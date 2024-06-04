@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produit index{% endblock %}
+
+{% block body %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">Produit</h2>
+            </div>
+            <div class="col-12 col-md-auto ms-auto d-print-none">
+            <div class="btn-list">
+                <span class="d-none d-sm-inline">
+                <a href="#" class="btn btn-white">Nombres : {{ produits | length}}</a>
+                <a href="{{path('app_produit_new')}}" class="btn btn-primary d-none d-sm-inline-block">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>Ajouter</a>
+            </div>
+        </div>
+    </div>
+    </div> 
+</div>
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">La liste des produits</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table card-table table-hover dataTable">
+                                <thead class="table-dark">
+                                <tr>
+                                    <th>N°</th>
+                                    <th>Image</th>
+                                    <th>Code produit</th>
+                                    <th>Libelle</th>
+                                    <th>Qte</th>
+                                    <th>Prix achat(GNF)</th>
+                                    <th>Prix vente(GNF)</th>
+                                    <th>Stock Initial</th>
+                                    <th>Etat Produit</th>
+                                    <th class="text-center">Actions.Produit</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% set i = 0 %}
+                                {% set totalPrixA  = 0 %}
+                                {% set totalPrixV = 0 %}
+                                {% for produit in produits %}
+                                    {% set i = i + 1 %}
+                                    {% set totalPrixA  = totalPrixA + produit.prixAchat %}
+                                    {% set totalPrixV = totalPrixV + produit.prixVente %}
+                                    <tr>
+                                        <td>{{ i }}</td>
+                                        <td>
+                                            {% if produit.image == '' %}
+                                                <img src="{{asset('images/produit.jpeg')}}" width="60" width="60" class="rounded-circle border-2">
+                                            {% else %}
+                                                <img src="{{asset('images/produits/'~ produit.image)}}" width="60" width="60" class="rounded-circle border-2">
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ produit.codeProduit }}</td>
+                                        <td>{{ produit.libelle }}</td>
+                                        <td>
+                                            {% if produit.quantite >= produit.stockInitial %}
+                                                <span class="btn btn-success btn-sm">{{ produit.quantite }}</span>
+                                            {% else %}
+                                                <span class="btn btn-danger btn-sm">{{ produit.quantite }}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>{{ produit.prixAchat| number_format }}</td>
+                                        <td>{{ produit.prixVente | number_format}}</td>
+                                        <td>{{ produit.stockInitial}}</td>
+                                        <td>
+                                            {% if produit.etat == 'Vente' %}
+                                                <span class="btn btn-success btn-sm">{{ produit.etat }}</span>
+                                            {% else %}
+                                                <span class="btn btn-danger btn-sm">{{ produit.etat }}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ path('app_produit_show', {'id': produit.id}) }}" class="btn btn-info btn-sm"><i class="fa fa-eye fa-2x p-1"></i></a>
+                                            <a href="{{ path('app_produit_edit', {'id': produit.id}) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit fa-2x p-1"></i></a>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="16">La table est vide </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

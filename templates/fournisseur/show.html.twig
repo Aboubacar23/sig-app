@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fournisseur{% endblock %}
+
+{% block body %}
+<style>
+    #col{
+        align-content: right;
+    }
+</style>
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+            <h2 class="page-title">
+                Fournisseurs
+            </h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title"><span class="btn btn-primary">Fournisseur : {{ fournisseur.codeFournisseur }}</span></h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-md-12">
+                                {% for message in app.flashes('message') %}
+                                    <div class="alert alert-success bg-success">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                                <table class="table card-table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <th>Societe</th>
+                                            <td>{{ fournisseur.societe }}</td>
+                                            <th>Email</th>
+                                            <td>{{ fournisseur.email }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Telephone</th>
+                                            <td>{{ fournisseur.telephone }}</td>
+                                            <th>Fax</th>
+                                            <td>{{ fournisseur.fax }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Pays</th>
+                                            <td>{{ fournisseur.pays | country_name}}</td>
+                                            <th>Ville</th>
+                                            <td>{{ fournisseur.ville }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Adresse</th>
+                                            <td>{{ fournisseur.adresse }}</td>
+                                            <th>Etat</th>
+                                            <td>
+                                                {% if fournisseur.etat == true %}
+                                                    <span class="btn btn-sm btn-success">{{ fournisseur.etat ? 'Activer' : 'Désactiver' }}</span>
+                                                {% elseif fournisseur.etat == false %}
+                                                    <span class="btn btn-sm btn-danger">{{ fournisseur.etat ? 'Activer' : 'Désactiver' }}</span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Note</th>
+                                            <td>{{ fournisseur.note }}</td>
+                                            <th>Nombre de Commande</th>
+                                            <td><span class="btn btn-primary">{{ nombres }}</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <div class="d-flex">
+                                <a href="{{path('app_fournisseur_index')}}" class="btn btn-secondary btn-sm m-2">Retour <i class="fa fa-reply fa-2x p-1"></i></a>
+                                <a href="{{path('app_fournisseur_edit', {'id' : fournisseur.id })}}" class="btn btn-warning btn-sm m-2 ms-auto">Modifier <i class="fa fa-edit fa-2x p-1"></i></a>
+                                {% if fournisseur.etat == true %}
+                                    <a href="{{ path('app_fournisseur_etat', {'id': fournisseur.id}) }}" onclick="confirm('Voulez-vous désactiver ce fournisseur ?')" class="btn btn-danger btn-sm m-2 text-white">Désactiver <i class="fa fa-window-close-o fa-2x p-1"></i></a>
+                                {% else %}
+                                    <a href="{{ path('app_fournisseur_etat', {'id': fournisseur.id}) }}" onclick="confirm('Voulez-vous activer ce fournisseur ?')" class="btn btn-success btn-sm m-2 text-white">Activer <i class="fa fa-check-square-o fa-2x p-1"></i></a>
+                                {% endif %}
+                                    <a class="m-2">{{ include('fournisseur/_delete_form.html.twig') }}</a>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

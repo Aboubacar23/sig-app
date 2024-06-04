@@ -1,0 +1,27 @@
+{{ form_start(form) }}
+    <div class="card-header">
+        <h4 class="card-title">Modification</h4>
+    </div>
+    <div class="card-body">
+        <div class="row mb-2">
+            <div class="col-md-4">{{ form_row(form.client)}}</div>
+            <div class="col-md-4">{{ form_row(form.banque)}}</div>
+            <div class="col-md-4">{{ form_row(form.type_reglement)}}</div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-4">{{ form_row(form.montant)}}</div>
+            <div class="col-md-4">{{ form_row(form.delegue)}}</div>
+            <div class="col-md-4">{{ form_row(form.emetteur_cheque)}}</div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-4">{{ form_row(form.date_versement)}}</div>
+        </div>
+    </div>
+    <div class="card-footer text-end">
+        <div class="d-flex">
+            <a href="{{path('app_versement_index')}}" class="btn btn-secondary btn-sm">Retour</a>
+            <button type="submit" class="btn btn-primary btn-sm ms-auto">{{ button_label|default('Ajouter') }}</button>
+        </div>
+    </div> 
+{{ form_end(form) }}
+ 

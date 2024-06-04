@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Versement index{% endblock %}
+
+{% block body %}
+{% set somme = 0 %}
+{% for versement in versement_factures %}
+    {% if (versement.facture is not null )%}
+        {% set somme = somme + versement.montant %}
+        {% endif %}
+{% endfor %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">Versements</h2>
+            </div>
+            <div class="col-12 col-md-auto ms-auto d-print-none">
+                <div class="btn-list">
+                    <span class="d-none d-sm-inline">                        
+                        <a href="{{ path('versment_facture') }}" class="btn btn-success btn-sm text-white">Refresh <i class="fa fa-refresh p-1"></i></a>                 
+                        <a href="#{}" class="btn btn-info btn-sm">Montant <i class="fa fa-money p-1"></i> : {{ somme | number_format }}</a>
+                        <a href="#" class="btn btn-white">Nombres : {{ versement_factures | length}}</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+<div class="card p-2 m-4">
+    <div class="card-header mb-2">
+        <h3 class="card-title">Liste</h3>
+    </div>
+    <div class="table-responsive">
+        <table class="table card-table table-hover dataTable">
+            <thead class="table-dark">
+                <tr>  
+                    <th>N°</th>
+                    <th>Facture</th>
+                    <th>Montant</th>
+                    <th>Client</th>
+                    <th>Date versement</th>
+                    <th>Banque</th>
+                    <th>Avance</th>
+                </tr>
+            </thead>
+            <tbody> 
+                    {% set i = 0 %}
+                {% for versement in versement_factures %}
+                    {% if (versement.facture is not null )%}
+                        {% set i = i +1  %}
+                            <tr>
+                                <td>{{ i }}</td>
+                                <td>{{ versement.facture }}</td>
+                                <td>{{ versement.montant | number_format }}</td>    
+                                <td>{{ versement.client }} - {{ versement.client.nom }} {{ versement.client.prenom }}</td>
+                                <td>{{ versement.dateVersement ? versement.dateVersement|date('Y-m-d') : '' }}</td>
+                                <td>{{ versement.banque }}</td>
+                                <td>{{ versement.avance ? 'Oui' : 'Non' }}</td>
+                            </tr>
+                        {% endif %}
+                {% else %}
+                    <tr>
+                        <td colspan="8">La table de versement sur facture est vide</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div> 
+{% endblock %}

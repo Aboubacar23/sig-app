@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Versement{% endblock %}
+
+{% block body %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">Versements</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Détail</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-md-12">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <th>Code Client</th>
+                                            <td>{{ versement.client }}</td>
+                                            <th>Nom et Prénom</th>
+                                            <td>{{ versement.client.nom }} {{ versement.client.prenom }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Montant</th>
+                                            <td>{{ versement.montant | number_format }} GNF</td>
+                                            <th>Date versement</th>
+                                            <td>{{ versement.dateVersement ? versement.dateVersement|date('Y-m-d') : '' }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Avance</th>
+                                            <td>{{ versement.avance ? 'Oui' : 'Non' }}</td>
+                                            <th>Type reglement</th>
+                                            <td>{{ versement.typeReglement }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Delegue</th>
+                                            <td>{{ versement.delegue }}</td>
+                                            <th>Emetteur cheque</th>
+                                            <td>{{ versement.emetteurCheque }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <div class="d-flex">
+                                <a href="{{path('app_versement_index')}}" class="btn btn-secondary btn-sm m-2">Retour</a>
+                                <a href="{{path('app_versement_edit', {'id' : versement.id })}}" class="btn btn-warning btn-sm m-2 ms-auto">Modifier</a>
+                                <a class="m-2">{{ include('versement/_delete_form.html.twig') }}</a>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+{% endblock %}

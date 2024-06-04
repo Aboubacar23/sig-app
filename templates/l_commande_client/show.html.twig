@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LCommandeClient{% endblock %}
+
+{% block body %}
+    <h1>LCommandeClient</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ l_commande_client.id }}</td>
+            </tr>
+            <tr>
+                <th>Quantite</th>
+                <td>{{ l_commande_client.quantite }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_l_commande_client_index') }}">back to list</a>
+
+    <a href="{{ path('app_l_commande_client_edit', {'id': l_commande_client.id}) }}">edit</a>
+
+    {{ include('l_commande_client/_delete_form.html.twig') }}
+{% endblock %}

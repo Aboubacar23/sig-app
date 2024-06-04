@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CommandeClient index{% endblock %}
+
+{% block body %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">Compte Client : {{client.codeClient }}</h2>
+            </div>
+            <div class="col-12 col-md-auto ms-auto d-print-none">
+                <div class="btn-list">                  
+                    <a href="{{ path('app_client_index') }}" class="btn btn-secondary btn-sm text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-back-up" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M9 14l-4 -4l4 -4"></path><path d="M5 10h11a4 4 0 1 1 0 8h-1"></path></svg>    
+                    Retour</a>
+                    <a href="{{ path('app_client_compte', {'id': client.id }) }}" class="btn btn-info btn-sm text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-basket" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M7 10l5 -6l5 6"></path><path d="M21 10l-2 8a2 2.5 0 0 1 -2 2h-10a2 2.5 0 0 1 -2 -2l-2 -8z"></path><path d="M12 15m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path></svg>
+                        Commandes
+                    </a> 
+                    <a href="{{ path('app_client_facture', {'id': client.id }) }}" class="btn btn-facebook btn-sm text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-license" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M15 21h-9a3 3 0 0 1 -3 -3v-1h10v2a2 2 0 0 0 4 0v-14a2 2 0 1 1 2 2h-2m2 -4h-11a3 3 0 0 0 -3 3v11"></path><path d="M9 7l4 0"></path><path d="M9 11l4 0"></path></svg>
+                        Factures</a> 
+                    <a href="{{path('app_client_new')}}" class="btn btn-primary d-none d-sm-inline-block"><svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>Ajouter un client</a>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+<div class="card p-2 m-4">
+    <div class="card-header mb-2">
+        <h3 class="card-title">Liste</h3>
+    </div>
+    <div class="table-responsive">
+        <table class="table card-table table-hover dataTable">
+            <thead class="table-dark">
+                <tr>  
+                    <th>N°</th>
+                    <th>Numéro commande</th>
+                    <th>Numero reference</th>
+                    <th>Date commande</th>
+                    <th>Date Paiement</th>
+                    <th>Type commande</th>
+                    <th>Etat Commande</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set i = 0 %}
+                {% for commande_client in commandes %}
+                    {% if commande_client.client.id == client.id %}
+                        {% set i = i + 1 %}
+                        <tr>
+                            <td></td>
+                            <td>{{ i }}</td>
+                            <td>{{ commande_client.codeCommande }}</td>
+                            <td>{{ commande_client.numeroReference }}</td>
+                            <td>{{ commande_client.dateCommande ? commande_client.dateCommande|date('Y-m-d') : '' }}</td>
+                            <td>{{ commande_client.paiementDate ? commande_client.paiementDate|date('Y-m-d') : '' }}</td>
+                            <td>{{ commande_client.typeCommande }}</td>
+                            <td>
+                                {% if commande_client.etat == true %}
+                                    <span class="btn bg-success btn-sm">{{ commande_client.etat ? 'Valider' : 'INvalider' }}</span>
+                                {% else %}
+                                    <span class="btn bg-danger btn-sm">{{ commande_client.etat ? 'Valider' : 'INvalider' }}</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-center"> 
+                                <a href="{{ path('app_print_commande', {'id': commande_client.id}) }}" class="btn btn-info btn-sm" target="_blank">Imprimer <i class="fa fa-print p-1"></i></a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% else %}
+                    <tr>
+                        <td colspan="11">La table est vide </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

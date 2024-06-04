@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CommandeClient index{% endblock %}
+
+{% block body %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">Commandes Clients</h2>
+            </div>
+            <div class="col-12 col-md-auto ms-auto d-print-none">
+                <div class="btn-list">
+                    <span class="d-none d-sm-inline">
+                    <a href="#" class="btn btn-white">Nombres : {{ commande_clients | length}}</a>
+                    <a href="{{path('app_commande_client_index')}}" class="btn btn-info d-none d-sm-inline-block">Commandes Facturées <i class="fa fa-list"></i></a>
+                    <a href="{{path('app_commande_client_new')}}" class="btn btn-primary d-none d-sm-inline-block">Ajouter <i class="fa fa-plus"></i></a>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+<div class="page-body">
+    <div class="container-xl">
+        <div class="row row-cards">
+            <div class="col-12">
+                <div class="card p-2 m-4">
+                    <div class="card-header mb-2">
+                        <h3 class="card-title">Liste des commandes non Facturer</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table card-table table-hover dataTable">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>N°</th>
+                                    <th>Code commande</th>
+                                    <th>Numero reference</th>
+                                    <th>Client</th>
+                                    <th>Date commande</th>
+                                    <th>Type commande</th>
+                                    <th>Etat Commande</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% set i = 0 %}
+                                {% for commande_client in commande_clients %}
+                                    {% set i = i + 1 %}
+                                    <tr>
+                                        <td>{{ i }}</td>
+                                        <td>{{ commande_client.codeCommande }}</td>
+                                        <td>{{ commande_client.numeroReference }}</td>
+                                        <td>{{ commande_client.client.nom }} {{ commande_client.client.prenom }}</td>
+                                        <td>{{ commande_client.dateCommande ? commande_client.dateCommande|date('Y-m-d') : '' }}</td>
+                                        <td>{{ commande_client.typeCommande }}</td>
+                                        <td class="text-center">
+                                            {% if commande_client.etat == true %}
+                                                <span class="btn bg-success btn-sm"><i class="fa fa-check-circle fa-2x"></i></span>
+                                            {% else %}
+                                                <span class="btn bg-danger btn-sm"><i class="fa fa-repeat fa-2x"></i></span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ path('app_commande_client_show', {'id': commande_client.id}) }}" class="btn btn-info btn-sm"><i class="fa fa-eye fa-2x p-1"></i></a>
+                                            <a href="{{ path('app_commande_client_edit', {'id': commande_client.id}) }}" class="btn btn-warning btn-sm"><i class="fa fa-edit fa-2x p-1"></i></a>
+                                            <a href="{{ path('app_print_commande', {'id': commande_client.id}) }}" class="btn btn-secondary btn-sm" target="_blank"><i class="fa fa-file fa-2x p-1"></i></a>
+                                            {% if commande_client.etat == 1 %}
+                                                <a href="{{ path('app_facture_client_new', {'id': commande_client.id}) }}" class="btn btn-primary btn-sm"><i class="fa fa-list fa-2x p-1"></i></a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="11">La table est vide </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

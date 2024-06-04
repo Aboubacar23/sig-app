@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FactureClient index{% endblock %}
+
+{% block body %}
+{%  set TotalMontantNet = 0 %}
+{% for facture_client in facture_clients %}
+    {%  set montantTotalTTC = 0 %}
+    {%  set montantHT = 0 %}
+    {%  set montantTTC = 0 %}
+    {%  set montantTVA = 0 %}
+    {%  set montantNet = 0 %}
+
+    {% for l in lcommandes %}
+
+        {% if l.numCommande == facture_client.commande.codeCommande %}
+            {%  set montantHT = l.quantite * l.produit.prixVente %}
+            {%  set montantTVA = montantHT * (l.tva/100) %}
+            {%  set montantTTC = montantHT + montantTVA - l.remise %}
+
+
+            {%  set montantTotalTTC = montantTotalTTC + montantTTC %}
+            {%  set montantNet = montantTotalTTC - facture_client.remise - facture_client.avance %}
+        {% endif %}
+    {% endfor %}
+{%  set TotalMontantNet = TotalMontantNet + montantNet %}
+{% endfor %}
+<div class="container-xl">
+    <div class="page-header d-print-none">
+        <div class="row g-2 align-items-center">
+            <div class="col">
+                <h2 class="page-title">Factures Clients</h2>
+            </div>
+            <div class="col-12 col-md-auto ms-auto d-print-none">
+                <div class="btn-list">
+                    <span class="d-none d-sm-inline">
+                        <a href="#" class="btn btn-white">Nombres : {{ facture_clients | length}}</a>
+                        <a href="#{}" class="btn btn-info btn-sm">Montant Total NET : {{ TotalMontantNet | number_format }} GNF</a>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+<div class="card p-2 m-4">
+    <div class="card-header mb-2">
+        <h3 class="card-title">Liste</h3>
+    </div>
+    <div class="table-responsive">
+        <table class="table card-table table-hover dataTable">
+            <thead class="table-dark">
+                <tr>  
+                    <th>N°</th>
+                    <th>Numero facture</th>
+                    <th>Numero Commande</th>
+                    <th>Date facturation</th>
+                    <th>Condition paiement</th>
+                    <th>Mode paiement</th>
+                    <th>Etat</th>
+                    <th>Total NET</th>
+                    <th>Reste à payer</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set i  = 0 %}
+                {% for facture_client in facture_clients %}
+                    {% set i  = i + 1 %}
+                    {%  set montantTotalTTC = 0 %}
+                    {%  set montantHT = 0 %}
+                    {%  set montantTTC = 0 %}
+                    {%  set montantTVA = 0 %}
+                    {%  set montantNet = 0 %}
+                    {%  set resteApayer = 0 %}
+
+                    {% for l in lcommandes %}
+
+                        {% if l.numCommande == facture_client.commande.codeCommande %}
+                            {%  set montantHT = l.quantite * l.produit.prixVente %}
+                            {%  set montantTVA = montantHT * (l.tva/100) %}
+                            {%  set montantTTC = montantHT + montantTVA - l.remise %}
+
+
+                            {%  set montantTotalTTC = montantTotalTTC + montantTTC %}
+                            {%  set montantNet = montantTotalTTC - facture_client.remise - facture_client.avance %}
+
+                            {%  set resteApayer = montantTotalTTC - facture_client.remise - facture_client.somme %}
+                        {% endif %}
+                    {% endfor %}
+                    <tr>
+                        <td>{{ i }}</td>
+                        <td>{{ facture_client.numeroFacture }}</td>
+                        <td>{{ facture_client.commande }}</td>
+                        <td>{{ facture_client.dateFacturation ? facture_client.dateFacturation|date('Y-m-d') : '' }}</td>
+                        <td>{{ facture_client.conditionPaiement }}</td>
+                        <td>{{ facture_client.modePaiement }}</td>
+                        <td>
+                            {% if facture_client.paiement == true %}
+                                <span class="btn btn-success btn-sm taille">{{ facture_client.paiement ? 'Payer' : 'Non Payer' }}</span>
+                            {% elseif facture_client.paiement == false %}
+                                <span class="btn btn-danger btn-sm taille">{{ facture_client.paiement ? 'Payer' : 'Non Payer' }}</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ montantNet | number_format(2)}}</td>
+                        <td>
+                            {% if resteApayer <= 0 %}
+                                <span class="text-success">Tout payer</span>
+                            {% else %}
+                                <span>{{ resteApayer | number_format(2) }}</span>
+                            {% endif %}
+
+                        </td>
+                        <td class="text-center">
+                            <a href="{{ path('app_facture_client_show', {'id': facture_client.id}) }}" class="btn btn-info btn-sm">Détails</a>
+                            <a href="{{ path('app_print_facture', {'id': facture_client.id}) }}" class="btn btn-secondary btn-sm" target="_blank">Imprimer</a>
+
+                            {% if facture_client.somme <= montantNet %}   
+                                <a href="{{ path('facture_paiement', {'id': facture_client.id}) }}" class="btn btn-success btn-sm">Paiement</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% else %} 
+                    <tr>
+                        <td colspan="7">la table est vide</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
