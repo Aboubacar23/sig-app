@@ -5,843 +5,380 @@
 {% endblock %}
 
 {% block body %}
-<div class="container-xl">
-  <div class="page-header d-print-none">
-    <div class="row g-2 align-items-center">
-      <div class="col">
-        <!-- Page pre-title -->
-        <div class="page-pretitle">Overview</div>
-        <h2 class="page-title">Dashboard</h2>
-      </div>
-      <!-- Page title actions -->
-      <div class="col-12 col-md-auto ms-auto d-print-none">
-        <div class="btn-list">
-          <span class="d-none d-sm-inline"><a href="#" class="btn btn-white">New view</a></span>
-          <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modal-report">
-            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <line x1="12" y1="5" x2="12" y2="19" />
-              <line x1="5" y1="12" x2="19" y2="12" />
-            </svg>Create new report
-          </a>
-          <a href="#" class="btn btn-primary d-sm-none btn-icon" data-bs-toggle="modal" data-bs-target="#modal-report" aria-label="Create new report">
-            <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-              <line x1="12" y1="5" x2="12" y2="19" />
-              <line x1="5" y1="12" x2="19" y2="12" />
-            </svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div class="page-body">
-    <div class="container-xl">
-        <div class="row row-deck row-cards">
-            <div class="col-12">
-                <div class="row row-cards">
-                <div class="col-sm-6 col-lg-3">
-                    <div class="card card-sm">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                        <div class="col-auto">
-                            <span class="bg-blue text-white avatar">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/currency-dollar -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M16.7 8a3 3 0 0 0 -2.7 -2h-4a3 3 0 0 0 0 6h4a3 3 0 0 1 0 6h-4a3 3 0 0 1 -2.7 -2" />
-                                <path d="M12 3v3m0 12v3" />
-                            </svg>
-                            </span>
-                        </div>
-                        <div class="col">
-                            <div class="font-weight-medium">132 Sales</div>
-                            <div class="text-muted">12 waiting payments</div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="card card-sm">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                        <div class="col-auto">
-                            <span class="bg-green text-white avatar">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/shopping-cart -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <circle cx="6" cy="19" r="2" />
-                                <circle cx="17" cy="19" r="2" />
-                                <path d="M17 17h-11v-14h-2" />
-                                <path d="M6 5l14 1l-1 7h-13" />
-                            </svg>
-                            </span>
-                        </div>
-                        <div class="col">
-                            <div class="font-weight-medium">78 Orders</div>
-                            <div class="text-muted">32 shipped</div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="card card-sm">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                        <div class="col-auto">
-                            <span class="bg-twitter text-white avatar">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/brand-twitter -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
-                            </svg>
-                            </span>
-                        </div>
-                        <div class="col">
-                            <div class="font-weight-medium">623 Shares</div>
-                            <div class="text-muted">16 today</div>
-                        </div>
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 col-xl-6 grid-margin stretch-card">
+                <div class="row w-100 flex-grow">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-title">Website Audience Metrics</p>
+                                <p class="text-muted">25% more traffic than previous week</p>
+                                <div class="row mb-3">
+                                    <div class="col-md-7">
+                                        <div class="d-flex justify-content-between traffic-status">
+                                            <div class="item">
+                                                <p class="mb-">Users</p>
+                                                <h5 class="font-weight-bold mb-0">93,956</h5>
+                                                <div class="color-border"></div>
+                                            </div>
+                                            <div class="item">
+                                                <p class="mb-">Bounce Rate</p>
+                                                <h5 class="font-weight-bold mb-0">58,605</h5>
+                                                <div class="color-border"></div>
+                                            </div>
+                                            <div class="item">
+                                                <p class="mb-">Page Views</p>
+                                                <h5 class="font-weight-bold mb-0">78,254</h5>
+                                                <div class="color-border"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <ul class="nav nav-pills nav-pills-custom justify-content-md-end" id="pills-tab-custom"
+                                            role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="pills-home-tab-custom" data-toggle="pill"
+                                                   href="#pills-health" role="tab" aria-controls="pills-home" aria-selected="true">
+                                                    Day
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="pills-profile-tab-custom" data-toggle="pill" href="#pills-career"
+                                                   role="tab" aria-controls="pills-profile" aria-selected="false">
+                                                    Week
+                                                </a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="pills-contact-tab-custom" data-toggle="pill" href="#pills-music"
+                                                   role="tab" aria-controls="pills-contact" aria-selected="false">
+                                                    Month
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <canvas id="audience-chart"></canvas>
+                            </div>
                         </div>
                     </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="card card-sm">
-                    <div class="card-body">
-                        <div class="row align-items-center">
-                        <div class="col-auto">
-                            <span class="bg-facebook text-white avatar">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/brand-facebook -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" />
-                            </svg>
-                            </span>
-                        </div>
-                        <div class="col">
-                            <div class="font-weight-medium">132 Likes</div>
-                            <div class="text-muted">21 today</div>
-                        </div>
+                    <div class="col-md-6 stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-between flex-wrap">
+                                    <p class="card-title">Weekly Balance</p>
+                                    <p class="text-success font-weight-medium">20.15 %</p>
+                                </div>
+                                <div class="d-flex align-items-center flex-wrap mb-3">
+                                    <h5 class="font-weight-normal mb-0 mb-md-1 mb-lg-0 me-3">$22.736</h5>
+                                    <p class="text-muted mb-0">Avg Sessions</p>
+                                </div>
+                                <canvas id="balance-chart" height="130"></canvas>
+                            </div>
                         </div>
                     </div>
+                    <div class="col-md-6 stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center justify-content-between flex-wrap">
+                                    <p class="card-title">Today Task</p>
+                                    <p class="text-success font-weight-medium">45.39 %</p>
+                                </div>
+                                <div class="d-flex align-items-center flex-wrap mb-3">
+                                    <h5 class="font-weight-normal mb-0 mb-md-1 mb-lg-0 me-3">17.247</h5>
+                                    <p class="text-muted mb-0">Avg Sessions</p>
+                                </div>
+                                <canvas id="task-chart" height="130"></canvas>
+                            </div>
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
-            <div class="col-12">
-                <div class="card card-md">
-                <div class="card-stamp card-stamp-lg">
-                    <div class="card-stamp-icon bg-primary">
-                    <!-- Download SVG icon from http://tabler-icons.io/i/ghost -->
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M5 11a7 7 0 0 1 14 0v7a1.78 1.78 0 0 1 -3.1 1.4a1.65 1.65 0 0 0 -2.6 0a1.65 1.65 0 0 1 -2.6 0a1.65 1.65 0 0 0 -2.6 0a1.78 1.78 0 0 1 -3.1 -1.4v-7" />
-                        <line x1="10" y1="10" x2="10.01" y2="10" />
-                        <line x1="14" y1="10" x2="14.01" y2="10" />
-                        <path d="M10 14a3.5 3.5 0 0 0 4 0" />
-                    </svg>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row align-items-center">
-                    <div class="col-10">
-                        <h3 class="h1">Tabler Icons</h3>
-                        <div class="markdown text-muted">
-                        All icons come from the Tabler Icons set and are MIT-licensed. Visit
-                        <a href="https://tabler-icons.io" target="_blank" rel="noopener">tabler-icons.io</a>, download any of the 1960 icons in SVG, PNG or&nbsp;React and use them in your favourite design tools.
-                        </div>
-                        <div class="mt-3">
-                        <a href="https://tabler-icons.io" class="btn btn-primary" target="_blank" rel="noopener">Download icons</a>
+            <div class="col-12 col-xl-6 grid-margin stretch-card">
+                <div class="row w-100 flex-grow">
+                    <div class="col-md-6 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-title">Regional Load</p>
+                                <p class="text-muted">Last update: 2 Hours ago</p>
+                                <div class="regional-chart-legend d-flex align-items-center flex-wrap mb-1"
+                                     id="regional-chart-legend"></div>
+                                <canvas height="280" id="regional-chart"></canvas>
+                            </div>
                         </div>
                     </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4">
-                <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Social Media Traffic</h3>
-                </div>
-                <table class="table card-table table-vcenter">
-                    <thead>
-                    <tr>
-                        <th>Network</th>
-                        <th colspan="2">Visitors</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>Instagram</td>
-                        <td>3,550</td>
-                        <td class="w-50">
-                        <div class="progress progress-xs">
-                            <div class="progress-bar bg-primary" style="width: 71.0%"></div>
-                        </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Twitter</td>
-                        <td>1,798</td>
-                        <td class="w-50">
-                        <div class="progress progress-xs">
-                            <div class="progress-bar bg-primary" style="width: 35.96%"></div>
-                        </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Facebook</td>
-                        <td>1,245</td>
-                        <td class="w-50">
-                        <div class="progress progress-xs">
-                            <div class="progress-bar bg-primary" style="width: 24.9%"></div>
-                        </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>TikTok</td>
-                        <td>986</td>
-                        <td class="w-50">
-                        <div class="progress progress-xs">
-                            <div class="progress-bar bg-primary" style="width: 19.72%"></div>
-                        </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Pinterest</td>
-                        <td>854</td>
-                        <td class="w-50">
-                        <div class="progress progress-xs">
-                            <div class="progress-bar bg-primary" style="width: 17.08%"></div>
-                        </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>VK</td>
-                        <td>650</td>
-                        <td class="w-50">
-                        <div class="progress progress-xs">
-                            <div class="progress-bar bg-primary" style="width: 13.0%"></div>
-                        </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Pinterest</td>
-                        <td>420</td>
-                        <td class="w-50">
-                        <div class="progress progress-xs">
-                            <div class="progress-bar bg-primary" style="width: 8.4%"></div>
-                        </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                </div>
-            </div>
-            <div class="col-md-12 col-lg-8">
-                <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Tasks</h3>
-                </div>
-                <div class="table-responsive">
-                    <table class="table card-table table-vcenter">
-                    <tr>
-                        <td class="w-1 pe-0">
-                        <input type="checkbox" class="form-check-input m-0 align-middle" aria-label="Select task" checked />
-                        </td>
-                        <td class="w-100">
-                        <a href="#" class="text-reset">Extend the data model.</a>
-                        </td>
-                        <td class="text-nowrap text-muted">
-                        <!-- Download SVG icon from http://tabler-icons.io/i/calendar -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <rect x="4" y="5" width="16" height="16" rx="2" />
-                            <line x1="16" y1="3" x2="16" y2="7" />
-                            <line x1="8" y1="3" x2="8" y2="7" />
-                            <line x1="4" y1="11" x2="20" y2="11" />
-                            <line x1="11" y1="15" x2="12" y2="15" />
-                            <line x1="12" y1="15" x2="12" y2="18" />
-                        </svg>August 04, 2021
-                        </td>
-                        <td class="text-nowrap">
-                        <a href="#" class="text-muted">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/check -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M5 12l5 5l10 -10" />
-                            </svg>2/7
-                        </a>
-                        </td>
-                        <td class="text-nowrap">
-                        <a href="#" class="text-muted">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/message -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4" />
-                            <line x1="8" y1="9" x2="16" y2="9" />
-                            <line x1="8" y1="13" x2="14" y2="13" />
-                            </svg>3
-                        </a>
-                        </td>
-                        <td>
-                        <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000m.jpg)"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="w-1 pe-0">
-                        <input type="checkbox" class="form-check-input m-0 align-middle" aria-label="Select task" />
-                        </td>
-                        <td class="w-100">
-                        <a href="#" class="text-reset">Verify the event flow.</a>
-                        </td>
-                        <td class="text-nowrap text-muted">
-                        <!-- Download SVG icon from http://tabler-icons.io/i/calendar -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <rect x="4" y="5" width="16" height="16" rx="2" />
-                            <line x1="16" y1="3" x2="16" y2="7" />
-                            <line x1="8" y1="3" x2="8" y2="7" />
-                            <line x1="4" y1="11" x2="20" y2="11" />
-                            <line x1="11" y1="15" x2="12" y2="15" />
-                            <line x1="12" y1="15" x2="12" y2="18" />
-                        </svg>January 03, 2019
-                        </td>
-                        <td class="text-nowrap">
-                        <a href="#" class="text-muted">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/check -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M5 12l5 5l10 -10" />
-                            </svg>3/10
-                        </a>
-                        </td>
-                        <td class="text-nowrap">
-                        <a href="#" class="text-muted">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/message -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4" />
-                            <line x1="8" y1="9" x2="16" y2="9" />
-                            <line x1="8" y1="13" x2="14" y2="13" />
-                            </svg>6
-                        </a>
-                        </td>
-                        <td>
-                        <span class="avatar avatar-sm">JL</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="w-1 pe-0">
-                        <input type="checkbox" class="form-check-input m-0 align-middle" aria-label="Select task" />
-                        </td>
-                        <td class="w-100">
-                        <a href="#" class="text-reset">Database backup and maintenance</a>
-                        </td>
-                        <td class="text-nowrap text-muted">
-                        <!-- Download SVG icon from http://tabler-icons.io/i/calendar -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <rect x="4" y="5" width="16" height="16" rx="2" />
-                            <line x1="16" y1="3" x2="16" y2="7" />
-                            <line x1="8" y1="3" x2="8" y2="7" />
-                            <line x1="4" y1="11" x2="20" y2="11" />
-                            <line x1="11" y1="15" x2="12" y2="15" />
-                            <line x1="12" y1="15" x2="12" y2="18" />
-                        </svg>December 28, 2018
-                        </td>
-                        <td class="text-nowrap">
-                        <a href="#" class="text-muted">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/check -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M5 12l5 5l10 -10" />
-                            </svg>0/6
-                        </a>
-                        </td>
-                        <td class="text-nowrap">
-                        <a href="#" class="text-muted">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/message -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4" />
-                            <line x1="8" y1="9" x2="16" y2="9" />
-                            <line x1="8" y1="13" x2="14" y2="13" />
-                            </svg>1
-                        </a>
-                        </td>
-                        <td>
-                        <span class="avatar avatar-sm" style="background-image: url(./static/avatars/002m.jpg)"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="w-1 pe-0">
-                        <input type="checkbox" class="form-check-input m-0 align-middle" aria-label="Select task" checked />
-                        </td>
-                        <td class="w-100">
-                        <a href="#" class="text-reset">Identify the implementation team.</a>
-                        </td>
-                        <td class="text-nowrap text-muted">
-                        <!-- Download SVG icon from http://tabler-icons.io/i/calendar -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <rect x="4" y="5" width="16" height="16" rx="2" />
-                            <line x1="16" y1="3" x2="16" y2="7" />
-                            <line x1="8" y1="3" x2="8" y2="7" />
-                            <line x1="4" y1="11" x2="20" y2="11" />
-                            <line x1="11" y1="15" x2="12" y2="15" />
-                            <line x1="12" y1="15" x2="12" y2="18" />
-                        </svg>November 07, 2020
-                        </td>
-                        <td class="text-nowrap">
-                        <a href="#" class="text-muted">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/check -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M5 12l5 5l10 -10" />
-                            </svg>6/10
-                        </a>
-                        </td>
-                        <td class="text-nowrap">
-                        <a href="#" class="text-muted">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/message -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4" />
-                            <line x1="8" y1="9" x2="16" y2="9" />
-                            <line x1="8" y1="13" x2="14" y2="13" />
-                            </svg>12
-                        </a>
-                        </td>
-                        <td>
-                        <span class="avatar avatar-sm" style="background-image: url(./static/avatars/003m.jpg)"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="w-1 pe-0">
-                        <input type="checkbox" class="form-check-input m-0 align-middle" aria-label="Select task" />
-                        </td>
-                        <td class="w-100">
-                        <a href="#" class="text-reset">Define users and workflow</a>
-                        </td>
-                        <td class="text-nowrap text-muted">
-                        <!-- Download SVG icon from http://tabler-icons.io/i/calendar -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <rect x="4" y="5" width="16" height="16" rx="2" />
-                            <line x1="16" y1="3" x2="16" y2="7" />
-                            <line x1="8" y1="3" x2="8" y2="7" />
-                            <line x1="4" y1="11" x2="20" y2="11" />
-                            <line x1="11" y1="15" x2="12" y2="15" />
-                            <line x1="12" y1="15" x2="12" y2="18" />
-                        </svg>November 23, 2021
-                        </td>
-                        <td class="text-nowrap">
-                        <a href="#" class="text-muted">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/check -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M5 12l5 5l10 -10" />
-                            </svg>3/7
-                        </a>
-                        </td>
-                        <td class="text-nowrap">
-                        <a href="#" class="text-muted">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/message -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4" />
-                            <line x1="8" y1="9" x2="16" y2="9" />
-                            <line x1="8" y1="13" x2="14" y2="13" />
-                            </svg>5
-                        </a>
-                        </td>
-                        <td>
-                        <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000f.jpg)"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="w-1 pe-0">
-                        <input type="checkbox" class="form-check-input m-0 align-middle" aria-label="Select task" checked />
-                        </td>
-                        <td class="w-100">
-                        <a href="#" class="text-reset">Check Pull Requests</a>
-                        </td>
-                        <td class="text-nowrap text-muted">
-                        <!-- Download SVG icon from http://tabler-icons.io/i/calendar -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <rect x="4" y="5" width="16" height="16" rx="2" />
-                            <line x1="16" y1="3" x2="16" y2="7" />
-                            <line x1="8" y1="3" x2="8" y2="7" />
-                            <line x1="4" y1="11" x2="20" y2="11" />
-                            <line x1="11" y1="15" x2="12" y2="15" />
-                            <line x1="12" y1="15" x2="12" y2="18" />
-                        </svg>January 14, 2021
-                        </td>
-                        <td class="text-nowrap">
-                        <a href="#" class="text-muted">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/check -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M5 12l5 5l10 -10" />
-                            </svg>2/9
-                        </a>
-                        </td>
-                        <td class="text-nowrap">
-                        <a href="#" class="text-muted">
-                            <!-- Download SVG icon from http://tabler-icons.io/i/message -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M4 21v-13a3 3 0 0 1 3 -3h10a3 3 0 0 1 3 3v6a3 3 0 0 1 -3 3h-9l-4 4" />
-                            <line x1="8" y1="9" x2="16" y2="9" />
-                            <line x1="8" y1="13" x2="14" y2="13" />
-                            </svg>3
-                        </a>
-                        </td>
-                        <td>
-                        <span class="avatar avatar-sm" style="background-image: url(./static/avatars/001f.jpg)"></span>
-                        </td>
-                    </tr>
-                    </table>
-                </div>
-                </div>
-            </div>
-            <div class="col-12">
-                <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Invoices</h3>
-                </div>
-                <div class="card-body border-bottom py-3">
-                    <div class="d-flex">
-                    <div class="text-muted">
-                        Show<div class="mx-2 d-inline-block">
-                        <input type="text" class="form-control form-control-sm" value="8" size="3" aria-label="Invoices count" />
-                        </div>entries
-                    </div>
-                    <div class="ms-auto text-muted">
-                        Search:<div class="ms-2 d-inline-block">
-                        <input type="text" class="form-control form-control-sm" aria-label="Search invoice" />
+                    <div class="col-md-6 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body pb-0">
+                                <div class="d-flex align-items-center mb-4">
+                                    <p class="card-title mb-0 me-1">Today activity</p>
+                                    <div class="badge badge-info badge-pill">2</div>
+                                </div>
+                                <div class="d-flex flex-wrap pt-2">
+                                    <div class="me-4 mb-lg-2 mb-xl-0">
+                                        <p>Time On Site</p>
+                                        <h4 class="font-weight-bold mb-0">77.15 %</h4>
+                                    </div>
+                                    <div>
+                                        <p>Page Views</p>
+                                        <h4 class="font-weight-bold mb-0">14.15 %</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <canvas height="150" id="activity-chart"></canvas>
                         </div>
                     </div>
+                    <div class="col-md-12 stretch-card">
+                        <div class="card">
+                            <div class="card-body pb-0">
+                                <p class="card-title">Server Status 247</p>
+                                <div class="d-flex justify-content-between flex-wrap">
+                                    <p class="text-muted">Last update: 2 Hours ago</p>
+                                    <div class="d-flex align-items-center flex-wrap server-status-legend mt-3 mb-3 mb-md-0">
+                                        <div class="item me-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="color-bullet"></div>
+                                                <h5 class="font-weight-bold mb-0">128GB</h5>
+                                            </div>
+                                            <p class="mb-">Total Usage</p>
+                                        </div>
+                                        <div class="item me-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="color-bullet"></div>
+                                                <h5 class="font-weight-bold mb-0">92%</h5>
+                                            </div>
+                                            <p class="mb-">Memory Usage</p>
+                                        </div>
+                                        <div class="item me-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="color-bullet"></div>
+                                                <h5 class="font-weight-bold mb-0">16%</h5>
+                                            </div>
+                                            <p class="mb-">Disk Usage</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <canvas height="170" id="status-chart"></canvas>
+                        </div>
                     </div>
-                </div>
-                <div class="table-responsive">
-                    <table class="table card-table table-vcenter text-nowrap datatable">
-                    <thead>
-                        <tr>
-                        <th class="w-1">
-                            <input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select all invoices" />
-                        </th>
-                        <th class="w-1">
-                            No. <!-- Download SVG icon from http://tabler-icons.io/i/chevron-up -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-sm text-dark icon-thick" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <polyline points="6 15 12 9 18 15" />
-                            </svg>
-                        </th>
-                        <th>Invoice Subject</th>
-                        <th>Client</th>
-                        <th>VAT No.</th>
-                        <th>Created</th>
-                        <th>Status</th>
-                        <th>Price</th>
-                        <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <td>
-                            <input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select invoice" />
-                        </td>
-                        <td>
-                            <span class="text-muted">001401</span>
-                        </td>
-                        <td>
-                            <a href="invoice.html" class="text-reset" tabindex="-1">Design Works</a>
-                        </td>
-                        <td>
-                            <span class="flag flag-country-us"></span>
-                            Carlson Limited
-                        </td>
-                        <td>87956621</td>
-                        <td>15 Dec 2017</td>
-                        <td>
-                            <span class="badge bg-success me-1"></span> Paid
-                        </td>
-                        <td>$887</td>
-                        <td class="text-end">
-                            <span class="dropdown">
-                            <button class="btn dropdown-toggle align-text-top" data-bs-boundary="viewport" data-bs-toggle="dropdown">Actions</button>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                            </div>
-                            </span>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td>
-                            <input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select invoice" />
-                        </td>
-                        <td>
-                            <span class="text-muted">001402</span>
-                        </td>
-                        <td>
-                            <a href="invoice.html" class="text-reset" tabindex="-1">UX Wireframes</a>
-                        </td>
-                        <td>
-                            <span class="flag flag-country-gb"></span>
-                            Adobe
-                        </td>
-                        <td>87956421</td>
-                        <td>12 Apr 2017</td>
-                        <td>
-                            <span class="badge bg-warning me-1"></span> Pending
-                        </td>
-                        <td>$1200</td>
-                        <td class="text-end">
-                            <span class="dropdown">
-                            <button class="btn dropdown-toggle align-text-top" data-bs-boundary="viewport" data-bs-toggle="dropdown">Actions</button>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                            </div>
-                            </span>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td>
-                            <input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select invoice" />
-                        </td>
-                        <td>
-                            <span class="text-muted">001403</span>
-                        </td>
-                        <td>
-                            <a href="invoice.html" class="text-reset" tabindex="-1">New Dashboard</a>
-                        </td>
-                        <td>
-                            <span class="flag flag-country-de"></span>
-                            Bluewolf
-                        </td>
-                        <td>87952621</td>
-                        <td>23 Oct 2017</td>
-                        <td>
-                            <span class="badge bg-warning me-1"></span> Pending
-                        </td>
-                        <td>$534</td>
-                        <td class="text-end">
-                            <span class="dropdown">
-                            <button class="btn dropdown-toggle align-text-top" data-bs-boundary="viewport" data-bs-toggle="dropdown">Actions</button>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                            </div>
-                            </span>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td>
-                            <input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select invoice" />
-                        </td>
-                        <td>
-                            <span class="text-muted">001404</span>
-                        </td>
-                        <td>
-                            <a href="invoice.html" class="text-reset" tabindex="-1">Landing Page</a>
-                        </td>
-                        <td>
-                            <span class="flag flag-country-br"></span>
-                            Salesforce
-                        </td>
-                        <td>87953421</td>
-                        <td>2 Sep 2017</td>
-                        <td>
-                            <span class="badge bg-secondary me-1"></span> Due in 2 Weeks
-                        </td>
-                        <td>$1500</td>
-                        <td class="text-end">
-                            <span class="dropdown">
-                            <button class="btn dropdown-toggle align-text-top" data-bs-boundary="viewport" data-bs-toggle="dropdown">Actions</button>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                            </div>
-                            </span>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td>
-                            <input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select invoice" />
-                        </td>
-                        <td>
-                            <span class="text-muted">001405</span>
-                        </td>
-                        <td>
-                            <a href="invoice.html" class="text-reset" tabindex="-1">Marketing Templates</a>
-                        </td>
-                        <td>
-                            <span class="flag flag-country-pl"></span>
-                            Printic
-                        </td>
-                        <td>87956621</td>
-                        <td>29 Jan 2018</td>
-                        <td>
-                            <span class="badge bg-danger me-1"></span> Paid Today
-                        </td>
-                        <td>$648</td>
-                        <td class="text-end">
-                            <span class="dropdown">
-                            <button class="btn dropdown-toggle align-text-top" data-bs-boundary="viewport" data-bs-toggle="dropdown">Actions</button>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                            </div>
-                            </span>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td>
-                            <input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select invoice" />
-                        </td>
-                        <td>
-                            <span class="text-muted">001406</span>
-                        </td>
-                        <td>
-                            <a href="invoice.html" class="text-reset" tabindex="-1">Sales Presentation</a>
-                        </td>
-                        <td>
-                            <span class="flag flag-country-br"></span>
-                            Tabdaq
-                        </td>
-                        <td>87956621</td>
-                        <td>4 Feb 2018</td>
-                        <td>
-                            <span class="badge bg-secondary me-1"></span> Due in 3 Weeks
-                        </td>
-                        <td>$300</td>
-                        <td class="text-end">
-                            <span class="dropdown">
-                            <button class="btn dropdown-toggle align-text-top" data-bs-boundary="viewport" data-bs-toggle="dropdown">Actions</button>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                            </div>
-                            </span>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td>
-                            <input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select invoice" />
-                        </td>
-                        <td>
-                            <span class="text-muted">001407</span>
-                        </td>
-                        <td>
-                            <a href="invoice.html" class="text-reset" tabindex="-1">Logo & Print</a>
-                        </td>
-                        <td>
-                            <span class="flag flag-country-us"></span>
-                            Apple
-                        </td>
-                        <td>87956621</td>
-                        <td>22 Mar 2018</td>
-                        <td>
-                            <span class="badge bg-success me-1"></span> Paid Today
-                        </td>
-                        <td>$2500</td>
-                        <td class="text-end">
-                            <span class="dropdown">
-                            <button class="btn dropdown-toggle align-text-top" data-bs-boundary="viewport" data-bs-toggle="dropdown">Actions</button>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                            </div>
-                            </span>
-                        </td>
-                        </tr>
-                        <tr>
-                        <td>
-                            <input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select invoice" />
-                        </td>
-                        <td>
-                            <span class="text-muted">001408</span>
-                        </td>
-                        <td>
-                            <a href="invoice.html" class="text-reset" tabindex="-1">Icons</a>
-                        </td>
-                        <td>
-                            <span class="flag flag-country-pl"></span>
-                            Tookapic
-                        </td>
-                        <td>87956621</td>
-                        <td>13 May 2018</td>
-                        <td>
-                            <span class="badge bg-success me-1"></span> Paid Today
-                        </td>
-                        <td>$940</td>
-                        <td class="text-end">
-                            <span class="dropdown">
-                            <button class="btn dropdown-toggle align-text-top" data-bs-boundary="viewport" data-bs-toggle="dropdown">Actions</button>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                            </div>
-                            </span>
-                        </td>
-                        </tr>
-                    </tbody>
-                    </table>
-                </div>
-                <div class="card-footer d-flex align-items-center">
-                    <p class="m-0 text-muted">
-                    Showing <span>1</span> to <span>8</span> of <span>16</span> entries
-                    </p>
-                    <ul class="pagination m-0 ms-auto">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-                        <!-- Download SVG icon from http://tabler-icons.io/i/chevron-left -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <polyline points="15 6 9 12 15 18" />
-                        </svg>prev
-                        </a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">1</a>
-                    </li>
-                    <li class="page-item active">
-                        <a class="page-link" href="#">2</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">3</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">4</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">5</a>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">
-                        next <!-- Download SVG icon from http://tabler-icons.io/i/chevron-right -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <polyline points="9 6 15 12 9 18" />
-                        </svg>
-                        </a>
-                    </li>
-                    </ul>
-                </div>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Financial management review</h4>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>
+                                        User
+                                    </th>
+                                    <th>
+                                        First name
+                                    </th>
+                                    <th>
+                                        Progress
+                                    </th>
+                                    <th>
+                                        Amount
+                                    </th>
+                                    <th>
+                                        Deadline
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td class="py-1">
+                                        <img src="images/faces/face1.jpg" alt="image"/>
+                                    </td>
+                                    <td>
+                                        Herman Beck
+                                    </td>
+                                    <td>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        $ 77.99
+                                    </td>
+                                    <td>
+                                        May 15, 2015
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="py-1">
+                                        <img src="images/faces/face2.jpg" alt="image"/>
+                                    </td>
+                                    <td>
+                                        Messsy Adam
+                                    </td>
+                                    <td>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        $245.30
+                                    </td>
+                                    <td>
+                                        July 1, 2015
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="py-1">
+                                        <img src="images/faces/face3.jpg" alt="image"/>
+                                    </td>
+                                    <td>
+                                        John Richards
+                                    </td>
+                                    <td>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        $138.00
+                                    </td>
+                                    <td>
+                                        Apr 12, 2015
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="py-1">
+                                        <img src="images/faces/face4.jpg" alt="image"/>
+                                    </td>
+                                    <td>
+                                        Peter Meggik
+                                    </td>
+                                    <td>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-primary" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        $ 77.99
+                                    </td>
+                                    <td>
+                                        May 15, 2015
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="py-1">
+                                        <img src="images/faces/face5.jpg" alt="image"/>
+                                    </td>
+                                    <td>
+                                        Edward
+                                    </td>
+                                    <td>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        $ 160.25
+                                    </td>
+                                    <td>
+                                        May 03, 2015
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="py-1">
+                                        <img src="images/faces/face6.jpg" alt="image"/>
+                                    </td>
+                                    <td>
+                                        John Doe
+                                    </td>
+                                    <td>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-info" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        $ 123.21
+                                    </td>
+                                    <td>
+                                        April 05, 2015
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="py-1">
+                                        <img src="images/faces/face7.jpg" alt="image"/>
+                                    </td>
+                                    <td>
+                                        Henry Tom
+                                    </td>
+                                    <td>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-warning" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        $ 150.00
+                                    </td>
+                                    <td>
+                                        June 16, 2015
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- row end -->
+        <div class="row">
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card bg-facebook d-flex align-items-center">
+                    <div class="card-body py-5">
+                        <div
+                                class="d-flex flex-row align-items-center flex-wrap justify-content-md-center justify-content-xl-start py-1">
+                            <i class="mdi mdi-facebook text-white icon-lg"></i>
+                            <div class="ms-3 ml-md-0 ml-xl-3">
+                                <h5 class="text-white font-weight-bold">2.62 Subscribers</h5>
+                                <p class="mt-2 text-white card-text">You main list growing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card bg-google d-flex align-items-center">
+                    <div class="card-body py-5">
+                        <div
+                                class="d-flex flex-row align-items-center flex-wrap justify-content-md-center justify-content-xl-start py-1">
+                            <i class="mdi mdi-google-plus text-white icon-lg"></i>
+                            <div class="ms-3 ml-md-0 ml-xl-3">
+                                <h5 class="text-white font-weight-bold">3.4k Followers</h5>
+                                <p class="mt-2 text-white card-text">You main list growing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card bg-twitter d-flex align-items-center">
+                    <div class="card-body py-5">
+                        <div
+                                class="d-flex flex-row align-items-center flex-wrap justify-content-md-center justify-content-xl-start py-1">
+                            <i class="mdi mdi-twitter text-white icon-lg"></i>
+                            <div class="ms-3 ml-md-0 ml-xl-3">
+                                <h5 class="text-white font-weight-bold">3k followers</h5>
+                                <p class="mt-2 text-white card-text">You main list growing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- row end -->
     </div>
-</div>
+
 {% endblock %}

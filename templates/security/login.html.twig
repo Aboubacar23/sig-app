@@ -1,34 +1,31 @@
 <!DOCTYPE html>
 <html lang="en"> 
 <head>
-    <title>Sonoya Stock login</title>
-    <!-- Meta -->
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <meta name="description" content="Portal - Bootstrap 5 Admin Dashboard Template For Developers">
-    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
-    <link rel="shortcut icon" href="{{asset('images/logo.jpeg')}}">
-    
-    <!-- FontAwesome JS-->
-    <script defer src="{{asset('admin1/assets/plugins/fontawesome/js/all.min.js')}}"></script>
-    
-    <!-- App CSS -->  
-    <link id="theme-style" rel="stylesheet" href="{{asset('admin1/assets/css/portal.css')}}">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>SIG APP</title>
+    <!-- base:css -->
+    <link rel="stylesheet" href="{{ asset('admin/vendors/mdi/css/materialdesignicons.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/vendors/css/vendor.bundle.base.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/css/style.css') }}">
+    <link rel="shortcut icon" href="{{ asset('images/images/logo.png') }}" />
 </head> 
 
-<body class="app app-login p-0">        
-    <div class="row g-0 app-auth-wrapper">
-        <div class="col-12 col-md-7 col-lg-6 auth-main-col text-center p-5">
-            <div class="d-flex flex-column align-content-end">
-                <div class="app-auth-body mx-auto"> 
-                    <div class="app-auth-branding mb-4"><a class="app-logo" href="#"><img class="logo-icon" src="{{asset('images/logo.jpeg')}}" alt="logo client" height="250px;"></a></div>
-                    <h2 class="auth-heading text-center mb-5">Authentification</h2>
-                    <div class="auth-form-container text-start">
-                        <form class="auth-form login-form" method="post">   
-                             {% if error %}
+</html>
+<div class="container-scroller d-flex">
+    <div class="container-fluid page-body-wrapper full-page-wrapper d-flex">
+        <div class="content-wrapper d-flex align-items-stretch auth auth-img-bg">
+            <div class="row flex-grow">
+                <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                    <div class="auth-form-transparent text-left p-3">
+                        <div class="brand-logo text-center">
+                            <img src="{{ asset('images/images/logo.png') }}" alt="logo">
+                        </div>
+                        <h4>Bienvenue sur SIG APP</h4>
+                        <h6 class="font-weight-light">Content de te revoir!</h6>
+                        <form class="auth-form login-form pt-3" method="post">
+                            {% if error %}
                                 <div class="alert alert-danger">Le nom d'utilisateur où mot de passe incorrect !</div>
                             {% endif %}
 
@@ -36,66 +33,58 @@
                                 <div class="mb-3">
                                     Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Se Déconnecter</a>
                                 </div>
-                            {% endif %}      
-                            <div class="email mb-3">
-                                <label class="sr-only" for="signin-email">Nom d'utilisateur</label>
-                                <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" placeholder="Nom d'utilisateur" required autofocus>
-                            </div><!--//form-group-->
-                            <div class="password mb-3">
-                                <label class="sr-only" for="signin-password">Password</label>
-                                 <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Password">
-                                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                                <div class="extra mt-3 row justify-content-between">
-                                    <div class="col-6">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="RememberPassword">
-                                            <label class="form-check-label" for="RememberPassword">
-                                            Remember me
-                                            </label>
-                                        </div>
-                                    </div><!--//col-6-->
-                                    <div class="col-6">
-                                        <div class="forgot-password text-end">
-                                            <a href="reset-password.html">Forgot password?</a>
-                                        </div>
-                                    </div><!--//col-6-->
-                                </div><!--//extra-->
-                            </div><!--//form-group-->
-                            <div class="text-center">
-                                <button type="submit" class="btn app-btn-primary w-100 theme-btn mx-auto">Connexion</button>
+                            {% endif %}
+                            <div class="form-group">
+                                <label for="exampleInputEmail">Nom d'utilisateur</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend bg-transparent">
+                                          <span class="input-group-text bg-transparent border-right-0">
+                                            <i class="mdi mdi-account-outline text-primary"></i>
+                                          </span>
+                                    </div>
+                                    <input type="text" value="{{ last_username }}" name="username" id="exampleInputEmail" class="form-control form-control-lg border-left-0" autocomplete="username" placeholder="Nom d'utilisateur" required autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword">Mot de passe</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend bg-transparent">
+                                      <span class="input-group-text bg-transparent border-right-0">
+                                        <i class="mdi mdi-lock-outline text-primary"></i>
+                                      </span>
+                                    </div>
+                                    <input type="password" name="password" id="exampleInputPassword" class="form-control form-control-lg border-left-0" autocomplete="current-password" required placeholder="Mot de passe">
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                                </div>
+                            </div>
+                            <div class="my-2 d-flex justify-content-between align-items-center">
+                                <div class="form-check">
+                                    <label class="form-check-label text-muted">
+                                        <input class="form-check-input" type="checkbox" value="" id="RememberPassword">
+                                        Gardez-moi connecté
+                                    </label>
+                                </div>
+                                <a href="#" class="auth-link text-black">Mot de passe oublié?</a>
+                            </div>
+                            <div class="my-3">
+                                <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">Connexion</button>
                             </div>
                         </form>
-                    </div><!--//auth-form-container-->  
-
-                </div><!--//auth-body-->
-            
-                <footer class="app-auth-footer">
-                    <div class="container text-center py-3">
-                         <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
-                    <small class="copyright">Developper <i class="fas fa-heart" style="color: #fb866a;"></i> par <a class="app-link" href="http://themes.3rdwavemedia.com" target="_blank">Easy Tech </a>& Expertise</small>
-                    </div>
-                </footer><!--//app-auth-footer-->   
-            </div><!--//flex-column-->   
-        </div><!--//auth-main-col-->
-        <div class="col-12 col-md-5 col-lg-6 h-100 auth-background-col">
-            <div class="auth-background-holder">
-            </div>
-            <div class="auth-background-mask"></div>
-            <div class="auth-background-overlay p-3 p-lg-5">
-                <div class="d-flex flex-column align-content-end h-100">
-                    <div class="h-100">Bienvenue</div>
-                    <div class="overlay-content p-3 p-lg-4 rounded text-center">
-                        <h5 class="mb-3 overlay-title">Sonoya Stock</h5>
-                        <img src="{{asset('images/logo.jpeg')}}" width="100px" height="100px;">
-                        <div>La meilleur application de la gestion des stocks.</div>
                     </div>
                 </div>
-            </div><!--//auth-background-overlay-->
-        </div><!--//auth-background-col-->
-    
-    </div><!--//row-->
-
-
-</body>
-</html> 
-
+                <div class="col-lg-6 login-half-bg d-none d-lg-flex flex-row">
+                    <p class="text-white font-weight-medium text-center flex-grow align-self-end">Développé par  &copy; SONOYA TECHNOLOGY GROUP</p>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<script src="{{ asset('admin/vendors/js/vendor.bundle.base.js')}}"></script>
+<!-- endinject -->
+<script src="{{ asset('admin/js/jquery.cookie.js')}}" type="text/javascript"></script>
+<!-- inject:js -->
+<script src="{{ asset('admin/js/off-canvas.js')}}"></script>
+<script src="{{ asset('admin/js/hoverable-collapse.js')}}"></script>
+<script src="{{ asset('admin/js/template.js')}}"></script>
