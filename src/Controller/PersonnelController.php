@@ -56,7 +56,7 @@ class PersonnelController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_personnel_show', methods: ['GET'])]
+    #[Route('/show-details/{id}', name: 'app_personnel_show', methods: ['GET'])]
     public function show(Personnel $personnel): Response
     {
         return $this->render('personnel/show.html.twig', [
@@ -64,7 +64,7 @@ class PersonnelController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_personnel_edit', methods: ['GET', 'POST'])]
+    #[Route('/modifier-personnel/{id}/edit', name: 'app_personnel_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Personnel $personnel, PersonnelRepository $personnelRepository,EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(PersonnelType::class, $personnel);
@@ -88,13 +88,15 @@ class PersonnelController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_personnel_delete', methods: ['POST'])]
+    #[Route('/delete/{id}', name: 'app_personnel_delete', methods: ['GET'])]
     public function delete(Request $request, Personnel $personnel, PersonnelRepository $personnelRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$personnel->getId(), $request->request->get('_token'))) {
+        if ($personnel)
+        {
             $personnelRepository->remove($personnel);
         }
 
+        $this->addFlash('success', 'Personnel modifié avec success');
         return $this->redirectToRoute('app_personnel_index', [], Response::HTTP_SEE_OTHER);
     }
 

@@ -1,75 +1,58 @@
-{% extends 'base123.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Personnel{% endblock %}
 
 {% block body %}
-<div class="container-xl">
-    <div class="page-header d-print-none">
-        <div class="row g-2 align-items-center">
-            <div class="col">
-            <h2 class="page-title">
-                Employé
-            </h2>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="page-body">
-    <div class="container-xl">
-        <div class="row row-cards">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Détail Employé</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="row mb-2">
-                            <div class="col-md-9">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <th>Nom</th>
-                                            <td>{{ personnel.nom }}</td>
-                                            <th>Prenom</th>
-                                            <td>{{ personnel.prenom }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Email</th>
-                                            <td>{{ personnel.email }}</td>
-                                            <th>Tel</th>
-                                            <td>{{ personnel.tel }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Pays</th>
-                                            <td>{{ personnel.pays | country_name }}</td>
-                                            <th>Ville</th>
-                                            <td>{{ personnel.ville }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="col-md-3">
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Détails Employé</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-md-9">
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <th>Nom</th>
+                                    <td>{{ personnel.nom }}</td>
+                                    <th>Prenom</th>
+                                    <td>{{ personnel.prenom }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Email</th>
+                                    <td>{{ personnel.email }}</td>
+                                    <th>Tel</th>
+                                    <td>{{ personnel.tel }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Pays</th>
+                                    <td>{{ personnel.pays | country_name }}</td>
+                                    <th>Ville</th>
+                                    <td>{{ personnel.ville }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-3">
                                 <span>
                                     {% if personnel.image == '' %}
-                                        <img src="{{asset('images/user.png')}}" height="400" width="200">
+                                        <img src="{{asset('iamges/images/user.png')}}" height="200" width="200">
                                     {% else %}
-                                        <img src="{{asset('images/employees/'~ personnel.image)}}" height="200" width="400">
+                                        <img src="{{asset('images/employees/'~ personnel.image)}}" height="200" width="200">
                                     {% endif %}
                                 </span>
-                            </div>
                         </div>
                     </div>
-                    <div class="card-footer">
-                        <div class="row">
-                            <div class="col-md-9">
-                                <a href="{{path('app_personnel_edit', {'id' : personnel.id })}}" class="btn btn-warning btn-sm">Modifier <i class="fa fa-edit fa-2x p-1"></i></a>
-                                <a href="{{path('app_personnel_index')}}" class="btn btn-secondary btn-sm m-2">Retour <i class="fa fa-reply fa-2x p-1"></i></a>
-                            </div>
-                            <div class="col-md-3 p-2 text-end">
-                                {{ include('personnel/_delete_form.html.twig') }}
-                            </div>
-                        </div>
-                    </div>    
+                </div>
+                <div class="card-footer text-end">
+                    <div class="d-flex">
+                        <a href="{{path('app_personnel_edit', {'id' : personnel.id })}}" class="btn btn-warning btn-sm m-2 text-white">Modifier <i class="mdi mdi-pencil-box-outline "></i></a>
+                        <a href="{{path('app_personnel_delete', {'id' : personnel.id })}}" class="btn btn-danger btn-sm m-2 text-white" onclick="return confirm('Voulez-vous confirmer ?')">Supprimer <i class="mdi mdi-delete"></i></a>
+                        <a href="{{path('app_personnel_index')}}" class="btn btn-secondary btn-sm m-2 ms-auto text-white">Retour <i class="mdi mdi-reply"></i></a>
+                    </div>
                 </div>
             </div>
         </div>

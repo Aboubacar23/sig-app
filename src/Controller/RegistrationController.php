@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Personnel;
 use App\Form\RegistrationFormType;
+use App\Form\UserEditType;
 use App\Repository\UserRepository;
 use App\Repository\PersonnelRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,7 +19,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route('/users')]
 class RegistrationController extends AbstractController
 {
-    #[Route('/register', name: 'app_register')]
+    #[Route('/register-admin', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, PersonnelRepository $personnelRepository, SluggerInterface $slugger): Response
     {
         $user = new User();
@@ -93,7 +94,7 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    #[Route('/index', name: 'app_user_index', methods: ['GET'])]
+    #[Route('/index-all-admin', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
         $users = $userRepository->findBy([], ['id'=> 'desc']);
@@ -102,23 +103,15 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-    #[Route('/edit/{id}', name: 'app_user_edit', methods: ['GET', 'POST'])]
+    #[Route('/edit-admin/{id}', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(User $user,Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
    
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(UserEditType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            $user->setPassword(
-            $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
-            
-                        //insertion de l'image
+            //insertion de l'image
             $image = $form->get('image')->getData();
             if ($image) {
                 $originalePhoto = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME); 
@@ -153,20 +146,21 @@ class RegistrationController extends AbstractController
     }
 
 
-    #[Route('/show/{id}', name: 'app_user_show', methods: ['GET'])]
+    #[Route('/show-admin/{id}', name: 'app_user_show', methods: ['GET'])]
     public function show(User $user){
         return $this->render('registration/show.html.twig', [
             'user' => $user
         ]);
     }
 
-    #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
+    #[Route('/delete{id}', name: 'app_user_delete', methods: ['GET'])]
     public function delete(Request $request, User $user, UserRepository $userRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($user) {
             $userRepository->remove($user);
         }
 
-        return $this->redirectToRoute('app_personnel_index', [], Response::HTTP_SEE_OTHER);
+        $this->addFlash('success', 'Administreteur supprimé avec success');
+        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
 }

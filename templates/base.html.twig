@@ -22,16 +22,23 @@
                 <span></span>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ path('app_home') }}">
                     <i class="mdi mdi-view-quilt menu-icon"></i>
                     <span class="menu-title">Tableau de bord</span>
                     <div class="badge badge-info badge-pill">1</div>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{ path('app_user_index') }}">
                     <i class="mdi mdi-account-circle  menu-icon"></i>
                     <span class="menu-title">Administrateur</span>
+                    <div class="badge badge-info badge-pill">2</div>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('app_personnel_index') }}">
+                    <i class="mdi mdi-account-circle  menu-icon"></i>
+                    <span class="menu-title">Employés</span>
                     <div class="badge badge-info badge-pill">2</div>
                 </a>
             </li>
@@ -47,49 +54,59 @@
                 </a>
                 <div class="collapse" id="ui-basic">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#">Camions</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#">Entrées</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#">Sorties</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#">Historiques</a></li>
                     </ul>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
                     <i class="mdi mdi-palette menu-icon"></i>
                     <span class="menu-title">Gestion Produit</span>
                     <i class="menu-arrow"></i>
                 </a>
-                <div class="collapse" id="ui-basic">
+                <div class="collapse" id="ui-basic1">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#">Produits</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#tml">Entrepôts</a></li>
                     </ul>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
                     <i class="mdi mdi-palette menu-icon"></i>
                     <span class="menu-title">Gestion Commandes</span>
                     <i class="menu-arrow"></i>
                 </a>
-                <div class="collapse" id="ui-basic">
+                <div class="collapse" id="ui-basic2">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#">Commandes</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#tml">Factures</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#tml">Historiques</a></li>
                     </ul>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic3">
                     <i class="mdi mdi-palette menu-icon"></i>
                     <span class="menu-title">Site Web</span>
                     <i class="menu-arrow"></i>
                 </a>
-                <div class="collapse" id="ui-basic">
+                <div class="collapse" id="ui-basic3">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="#">Contenu du site</a></li>
                     </ul>
                 </div>
+            </li> <li class="nav-item sidebar-category">
+                <p>Développé par </p>
+                <span></span>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://sonoya-technology-group.com/">
+                    <button class="btn bg-danger btn-sm menu-title" style="font-size: 12px">SONOYA TECHNOLOGY GROUP</button>
+                </a>
             </li>
         </ul>
     </nav>
@@ -124,57 +141,38 @@
                 <ul class="navbar-nav mr-lg-2">
                     <li class="nav-item nav-search d-none d-lg-block">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search Here..." aria-label="search" aria-describedby="search">
+                            <input type="text" class="form-control" placeholder="..." aria-label="search" aria-describedby="search">
                         </div>
                     </li>
                 </ul>
                 <ul class="navbar-nav navbar-nav-right">
                     <li class="nav-item nav-profile dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
-                            <img src="images/faces/face5.jpg" alt="profile"/>
-                            <span class="nav-profile-name">Eleanor Richardson</span>
+                            {% if app.user %}
+                                <img src="{{asset('images/employees/'~ app.user.image)}}" height="50" width="50">
+                            {% else %}
+                                <img src="{{asset('images/images/user.png')}}" height="50" width="50">
+                            {% endif %}
+                            <span class="nav-profile-name">{{ app.user ? app.user.nom }} - {{ app.user ? app.user.prenom }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                             <a class="dropdown-item">
                                 <i class="mdi mdi-settings text-primary"></i>
-                                Settings
+                                Profil
                             </a>
-                            <a class="dropdown-item">
+                            <a class="dropdown-item" href="{{ path('app_logout') }}">
                                 <i class="mdi mdi-logout text-primary"></i>
-                                Logout
+                                Déconnexion
                             </a>
                         </div>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link icon-link">
-                            <i class="mdi mdi-plus-circle-outline"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link icon-link">
-                            <i class="mdi mdi-web"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link icon-link">
-                            <i class="mdi mdi-clock-outline"></i>
-                        </a>
                     </li>
                 </ul>
             </div>
         </nav>
         <!-- partial -->
         <div class="main-panel">
-
-            <footer class="footer">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-sm-flex justify-content-center justify-content-sm-between py-2">
-                            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Développé par  &copy; SONOYA TECHNOLOGY GROUP</span>
-                        </div>
-                    </div>
-                </div>
-            </footer>
+            {% block body %}
+            {% endblock %}
             <!-- partial -->
         </div>
         <!-- main-panel ends -->

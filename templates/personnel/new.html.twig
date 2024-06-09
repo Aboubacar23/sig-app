@@ -1,26 +1,38 @@
-{% extends 'base123.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}New Personnel{% endblock %}
 
 {% block body %}
-<div class="container-xl">
-    <div class="page-header d-print-none">
-    <div class="row g-2 align-items-center">
-        <div class="col">
-        <h2 class="page-title">
-            Employées
-        </h2>
-        </div>
-    </div>
-    </div>
-</div>
-<div class="page-body">
-    <div class="container-xl">
-        <div class="row row-cards">
-            <div class="col-12">
-                <div class="card">
-                    {{ include('personnel/_form.html.twig') }}
+
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+                {{ form_start(form) }}
+                <div class="card-header">
+                    <h4 class="card-title">Ajouter un employé</h4>
                 </div>
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-md-3">{{ form_row(form.code_personnel)}}</div>
+                        <div class="col-md-3">{{ form_row(form.nom)}}</div>
+                        <div class="col-md-3">{{ form_row(form.prenom)}}</div>
+                        <div class="col-md-3">{{ form_row(form.email)}}</div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-3">{{ form_row(form.tel)}}</div>
+                        <div class="col-md-3">{{ form_row(form.pays)}}</div>
+                        <div class="col-md-3">{{ form_row(form.ville)}}</div>
+                        <div class="col-md-3">{{ form_row(form.image)}}</div>
+                    </div>
+                </div>
+                <div class="card-footer text-end">
+                    <div class="d-flex">
+                        <button type="submit" class="btn btn-primary btn-sm ">Enregistrer <i class="mdi mdi-content-save"></i></button>
+                        <a href="{{path('app_personnel_index')}}" class="btn btn-secondary btn-sm ms-auto text-white">Retour <i class="mdi mdi-reply"></i></a>
+                    </div>
+                </div>
+                {{ form_end(form) }}
             </div>
         </div>
     </div>
