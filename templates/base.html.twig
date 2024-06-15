@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Spica Admin</title>
+    <title>SIG Admin</title>
     <!-- base:css -->
     <link rel="stylesheet" href="{{ asset('admin/vendors/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/vendors/css/vendor.bundle.base.css') }}">
@@ -38,25 +38,25 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('app_personnel_index') }}">
                     <i class="mdi mdi-account-circle  menu-icon"></i>
-                    <span class="menu-title">Employés</span>
-                    <div class="badge badge-info badge-pill">2</div>
+                    <span class="menu-title">Personnel</span>
+                    <div class="badge badge-info badge-pill">3</div>
                 </a>
             </li>
             <li class="nav-item sidebar-category">
-                <p>Components</p>
+                <p>App Menu</p>
                 <span></span>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic44" aria-expanded="false" aria-controls="ui-basic44">
                     <i class="mdi mdi-truck menu-icon"></i>
                     <span class="menu-title">Gestion Logistique</span>
                     <i class="menu-arrow"></i>
                 </a>
-                <div class="collapse" id="ui-basic">
+                <div class="collapse" id="ui-basic44">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="#">Camions</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="#">Entrées</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="#">Sorties</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ path('app_camion_index') }}">Camions</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ path('app_recette_camion_index') }}">Recettes</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ path('app_depense_camion_index') }}">Dépenses</a></li>
                         <li class="nav-item"> <a class="nav-link" href="#">Historiques</a></li>
                     </ul>
                 </div>
@@ -148,7 +148,7 @@
                 <ul class="navbar-nav navbar-nav-right">
                     <li class="nav-item nav-profile dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
-                            {% if app.user %}
+                            {% if app.user.image != '' %}
                                 <img src="{{asset('images/employees/'~ app.user.image)}}" height="50" width="50">
                             {% else %}
                                 <img src="{{asset('images/images/user.png')}}" height="50" width="50">

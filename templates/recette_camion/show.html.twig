@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RecetteCamion{% endblock %}
+
+{% block body %}
+    <h1>RecetteCamion</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ recette_camion.id }}</td>
+            </tr>
+            <tr>
+                <th>Montant_transport</th>
+                <td>{{ recette_camion.montantTransport }}</td>
+            </tr>
+            <tr>
+                <th>Mode_paiement</th>
+                <td>{{ recette_camion.modePaiement }}</td>
+            </tr>
+            <tr>
+                <th>Date_recette</th>
+                <td>{{ recette_camion.dateRecette ? recette_camion.dateRecette|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Depart</th>
+                <td>{{ recette_camion.depart }}</td>
+            </tr>
+            <tr>
+                <th>Banque</th>
+                <td>{{ recette_camion.banque }}</td>
+            </tr>
+            <tr>
+                <th>Numero_cheque</th>
+                <td>{{ recette_camion.numeroCheque }}</td>
+            </tr>
+            <tr>
+                <th>Destination</th>
+                <td>{{ recette_camion.destination }}</td>
+            </tr>
+            <tr>
+                <th>Type_tc</th>
+                <td>{{ recette_camion.typeTc }}</td>
+            </tr>
+            <tr>
+                <th>Observation</th>
+                <td>{{ recette_camion.observation }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_recette_camion_index') }}">back to list</a>
+
+    <a href="{{ path('app_recette_camion_edit', {'id': recette_camion.id}) }}">edit</a>
+
+    {{ include('recette_camion/_delete_form.html.twig') }}
+{% endblock %}

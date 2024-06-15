@@ -50,8 +50,11 @@ security:
          - { path: ^/produit, roles: ROLE_SUPER_ADMIN } 
          - { path: ^/users, roles: ROLE_SUPER_ADMIN } 
          - { path: ^/service, roles: ROLE_SUPER_ADMIN }
-         - { path: ^/service, roles: versement }
          - { path: ^/index, roles: ROLE_SUPER_ADMIN }
+         - { path: ^/camion, roles: ROLE_SUPER_ADMIN }
+         - { path: ^/index, roles: ROLE_SUPER_ADMIN }
+         - { path: ^/recette-camion, roles: ROLE_SUPER_ADMIN }
+         - { path: ^/depense-camion, roles: ROLE_SUPER_ADMIN }
 
 when@test:
     security:

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DepenseCamion index{% endblock %}
+
+{% block body %}
+    <h1>DepenseCamion index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Banque</th>
+                <th>Montant</th>
+                <th>Date_depense</th>
+                <th>Mode_paiement</th>
+                <th>Numero_cheque</th>
+                <th>Ordre_de</th>
+                <th>Observation</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for depense_camion in depense_camions %}
+            <tr>
+                <td>{{ depense_camion.id }}</td>
+                <td>{{ depense_camion.banque }}</td>
+                <td>{{ depense_camion.montant }}</td>
+                <td>{{ depense_camion.dateDepense ? depense_camion.dateDepense|date('Y-m-d') : '' }}</td>
+                <td>{{ depense_camion.modePaiement }}</td>
+                <td>{{ depense_camion.numeroCheque }}</td>
+                <td>{{ depense_camion.ordreDe }}</td>
+                <td>{{ depense_camion.observation }}</td>
+                <td>
+                    <a href="{{ path('app_depense_camion_show', {'id': depense_camion.id}) }}">show</a>
+                    <a href="{{ path('app_depense_camion_edit', {'id': depense_camion.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_depense_camion_new') }}">Create new</a>
+{% endblock %}

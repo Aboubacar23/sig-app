@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New RecetteCamion{% endblock %}
+
+{% block body %}
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+                {{ include('recette_camion/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

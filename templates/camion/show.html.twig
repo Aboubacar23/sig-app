@@ -1,0 +1,144 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Camion{% endblock %}
+
+{% block body %}
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="card-title">Détails Camion</h4>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <a href="{{path('app_camion_edit', {'id' : camion.id })}}" class="btn btn-warning btn-sm m-2 text-white">Modifier <i class="mdi mdi-pencil-box-outline "></i></a>
+                            <a href="{{path('app_camion_delete', {'id' : camion.id })}}" class="btn btn-danger btn-sm m-2 text-white" onclick="return confirm('Voulez-vous confirmer ?')">Supprimer <i class="mdi mdi-delete"></i></a>
+                            <a href="{{path('app_camion_index')}}" class="btn btn-secondary btn-sm m-2 ms-auto text-white">Retour <i class="mdi mdi-reply"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <table class="table">
+                            <tbody class="bg-secondary text-white">
+                                <tr>
+                                    <th>Numéro Camion</th>
+                                    <td>{{ camion.numeroCamion }}</td>
+                                    <th>Chauffeur</th>
+                                    <td>{{ camion.chauffeur }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Model</th>
+                                    <td>{{ camion.model }}</td>
+                                    <th>Marque</th>
+                                    <td>{{ camion.marque }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <table class="table table-striped">
+                            <thead class="table-dark">
+                            <tr>
+                                <th colspan="11" class="text-center">Recettes</th>
+                            </tr>
+                            <tr>
+                                <th>N°</th>
+                                <th>Montant Transport</th>
+                                <th>Mode Paiement</th>
+                                <th>Date Recette</th>
+                                <th>Depart</th>
+                                <th>Banque</th>
+                                <th>Numéro chèque</th>
+                                <th>Destination</th>
+                                <th>Type TC</th>
+                                <th>Observation</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% set i = 0 %}
+                            {% for item in camion.recetteCamions  %}
+                                {% set i = i + 1 %}
+                                <tr>
+                                    <td>{{ i }}</td>
+                                    <td>{{ item.montantTransport }}</td>
+                                    <td>{{ item.modePaiement }}</td>
+                                    <td>{{ item.dateRecette ? item.dateRecette|date('Y-m-d') : '' }}</td>
+                                    <td>{{ item.depart }}</td>
+                                    <td>{{ item.banque }}</td>
+                                    <td>{{ item.numeroCheque }}</td>
+                                    <td>{{ item.destination }}</td>
+                                    <td>{{ item.typeTc }}</td>
+                                    <td>{{ item.observation }}</td>
+                                    <td>
+                                        {#  <a href="{{ path('app_recette_camion_show', {'id': item.id}) }}"><i class="mdi mdi-eye mdi-24px"></i></a>#}
+                                        <a href="{{ path('app_recette_camion_edit', {'id': item.id}) }}"><i class="mdi mdi-pencil-box-outline mdi-24px"></i></a>
+                                    </td>
+                                </tr>
+                                {% else  %}
+                                <tr>
+                                    <td colspan="12" class="text-center">Pas de recette</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <table class="table table-striped">
+                            <thead class="table-dark">
+                            <tr>
+                                <th colspan="11" class="text-center">Dépenses</th>
+                            </tr>
+                            <tr>
+                                <th>N°</th>
+                                <th>Date dépense</th>
+                                <th>Montant</th>
+                                <th>Banque</th>
+                                <th>Mode_paiement</th>
+                                <th>Numero_cheque</th>
+                                <th>Ordre De</th>
+                                <th>Observation</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% set i = 0 %}
+                            {% for item in camion.depenseCamions  %}
+                                {% set i = i + 1 %}
+                                <tr>
+                                    <td>{{ i }}</td>
+                                    <td>{{ item.dateDepense ? item.dateDepense|date('d-m-Y') : '' }}</td>
+                                    <td>{{ item.montant }}</td>
+                                    <td>{{ item.banque }}</td>
+                                    <td>{{ item.modePaiement }}</td>
+                                    <td>{{ item.numeroCheque }}</td>
+                                    <td>{{ item.ordreDe }}</td>
+                                    <td>{{ item.observation }}</td>
+                                    <td>
+                                        <a href="{{ path('app_depense_camion_show', {'id': item.id}) }}">show</a>
+                                        <a href="{{ path('app_depense_camion_edit', {'id': item.id}) }}">edit</a>
+                                    </td>
+                                </tr>
+                            {% else  %}
+                                <tr>
+                                    <td colspan="12" class="text-center">Pas de depenses</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer text-end">
+                    <div class="d-flex">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
