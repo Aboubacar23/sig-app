@@ -1,4 +1,26 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="card-header">
+        <h4 class="card-title">Ajouter une Dépense</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">{{ form_row(form.date_depense)}}</div>
+            <div class="col-md-4">{{ form_row(form.montant)}}</div>
+            <div class="col-md-4">{{ form_row(form.banque)}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">{{ form_row(form.mode_paiement)}}</div>
+            <div class="col-md-4">{{ form_row(form.numero_cheque)}}</div>
+            <div class="col-md-4">{{ form_row(form.ordre_de)}}</div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">{{ form_row(form.observation)}}</div>
+        </div>
+    </div>
+    <div class="card-footer text-end">
+        <div class="d-flex">
+            <button type="submit" class="btn btn-primary btn-sm ">Enregistrer <i class="mdi mdi-content-save"></i></button>
+            <a href="{{path('app_camion_index')}}" class="btn btn-secondary btn-sm ms-auto text-white">Retour <i class="mdi mdi-reply"></i></a>
+        </div>
+    </div>
 {{ form_end(form) }}

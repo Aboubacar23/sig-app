@@ -30,11 +30,12 @@ class RecetteCamionController extends AbstractController
         $form = $this->createForm(RecetteCamionType::class, $recetteCamion);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $recetteCamion->setCamion($camion);
             $entityManager->persist($recetteCamion);
             $entityManager->flush();
-
+            $this->addFlash('success', 'Recette créée avec succès !');
             return $this->redirectToRoute('app_camion_show', ['id' => $camion->getId()], Response::HTTP_SEE_OTHER);
         }
 
@@ -52,7 +53,7 @@ class RecetteCamionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_recette_camion_edit', methods: ['GET', 'POST'])]
+    #[Route('/modifier/{id}/edit', name: 'app_recette_camion_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, RecetteCamion $recetteCamion, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(RecetteCamionType::class, $recetteCamion);
@@ -60,8 +61,8 @@ class RecetteCamionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_recette_camion_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Recette modifiée avec succès !');
+            return $this->redirectToRoute('app_camion_show', ['id' => $recetteCamion->getCamion()->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('recette_camion/edit.html.twig', [
@@ -70,14 +71,15 @@ class RecetteCamionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_recette_camion_delete', methods: ['POST'])]
+    #[Route('/delete/{id}', name: 'app_recette_camion_delete', methods: ['GET'])]
     public function delete(Request $request, RecetteCamion $recetteCamion, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$recetteCamion->getId(), $request->request->get('_token'))) {
+        $id = $recetteCamion->getCamion()->getId();
+        if ($recetteCamion) {
             $entityManager->remove($recetteCamion);
             $entityManager->flush();
         }
-
-        return $this->redirectToRoute('app_recette_camion_index', [], Response::HTTP_SEE_OTHER);
+        $this->addFlash('error', 'Recette supprimer avec succès !');
+        return $this->redirectToRoute('app_camion_show', ['id' => $id], Response::HTTP_SEE_OTHER);
     }
 }

@@ -59,7 +59,7 @@ class CamionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_camion_show', methods: ['GET'])]
+    #[Route('/show-one-camion/{id}', name: 'app_camion_show', methods: ['GET'])]
     public function show(Camion $camion): Response
     {
         return $this->render('camion/show.html.twig', [
@@ -85,12 +85,18 @@ class CamionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_camion_delete', methods: ['POST'])]
+    #[Route('/supprimer/{id}', name: 'app_camion_delete', methods: ['GET'])]
     public function delete(Request $request, Camion $camion, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$camion->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($camion);
-            $entityManager->flush();
+        if ($camion) {
+            if ($camion->getDepenseCamions() || $camion->getRecetteCamions())
+            {
+                $this->addFlash('error', 'Désolé ce camion contient des dépenses ou recettes');
+            }else
+            {
+                $entityManager->remove($camion);
+                $entityManager->flush();
+            }
         }
 
         return $this->redirectToRoute('app_camion_index', [], Response::HTTP_SEE_OTHER);

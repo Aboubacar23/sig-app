@@ -13,6 +13,9 @@
                             <h4 class="card-title">Détails Camion</h4>
                         </div>
                         <div class="col-md-6 text-end">
+                            <a class="btn-sm btn btn-success btn-sm text-white m-2" href="{{path('app_recette_camion_new', {'id' : camion.id})}}" target="_blank">Imprimer <i class="mdi mdi-printer"></i></a>
+                            <a class="btn-sm btn btn-info btn-sm text-white m-2" href="{{path('app_recette_camion_new', {'id' : camion.id})}}?name=recette_camion" onclick="return confirm('Voulez-vous confirmer ?')">Recettes <i class="mdi mdi-check"></i></a>
+                            <a class="btn-sm btn btn-primary btn-sm text-white m-2" href="{{path('app_depense_camion_new', {'id' : camion.id})}}?name=depense_camion" onclick="return confirm('Voulez-vous confirmer ?')">Dépenses <i class="mdi mdi-check"></i></a>
                             <a href="{{path('app_camion_edit', {'id' : camion.id })}}" class="btn btn-warning btn-sm m-2 text-white">Modifier <i class="mdi mdi-pencil-box-outline "></i></a>
                             <a href="{{path('app_camion_delete', {'id' : camion.id })}}" class="btn btn-danger btn-sm m-2 text-white" onclick="return confirm('Voulez-vous confirmer ?')">Supprimer <i class="mdi mdi-delete"></i></a>
                             <a href="{{path('app_camion_index')}}" class="btn btn-secondary btn-sm m-2 ms-auto text-white">Retour <i class="mdi mdi-reply"></i></a>
@@ -21,6 +24,16 @@
                 </div>
                 <div class="card-body">
                     <div class="row mb-2">
+                        {% for message in app.flashes('success') %}
+                            <div class="alert alert-success">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                        {% for message in app.flashes('error') %}
+                            <div class="alert alert-danger">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
                         <table class="table">
                             <tbody class="bg-secondary text-white">
                                 <tr>
@@ -40,43 +53,45 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <table class="table table-striped">
+                        <table class="table table-striped table-sm">
                             <thead class="table-dark">
                             <tr>
                                 <th colspan="11" class="text-center">Recettes</th>
                             </tr>
                             <tr>
-                                <th>N°</th>
-                                <th>Montant Transport</th>
-                                <th>Mode Paiement</th>
+                                <th width="2%">N°</th>
                                 <th>Date Recette</th>
                                 <th>Depart</th>
-                                <th>Banque</th>
-                                <th>Numéro chèque</th>
                                 <th>Destination</th>
                                 <th>Type TC</th>
+                                <th>Montant GNF</th>
+                                <th>Mode Paiement</th>
+                                <th>Banque</th>
+                                <th>Numéro chèque</th>
                                 <th>Observation</th>
-                                <th></th>
+                                <th width="150px"></th>
                             </tr>
                             </thead>
                             <tbody>
                             {% set i = 0 %}
+                            {% set montant = 0 %}
                             {% for item in camion.recetteCamions  %}
+                                {% set montant = montant + item.montantTransport %}
                                 {% set i = i + 1 %}
                                 <tr>
                                     <td>{{ i }}</td>
-                                    <td>{{ item.montantTransport }}</td>
-                                    <td>{{ item.modePaiement }}</td>
-                                    <td>{{ item.dateRecette ? item.dateRecette|date('Y-m-d') : '' }}</td>
+                                    <td>{{ item.dateRecette ? item.dateRecette|date('d-m-Y') : '' }}</td>
                                     <td>{{ item.depart }}</td>
-                                    <td>{{ item.banque }}</td>
-                                    <td>{{ item.numeroCheque }}</td>
                                     <td>{{ item.destination }}</td>
                                     <td>{{ item.typeTc }}</td>
+                                    <td>{{ item.montantTransport | number_format }}</td>
+                                    <td>{{ item.modePaiement }}</td>
+                                    <td>{{ item.banque }}</td>
+                                    <td>{{ item.numeroCheque }}</td>
                                     <td>{{ item.observation }}</td>
                                     <td>
-                                        {#  <a href="{{ path('app_recette_camion_show', {'id': item.id}) }}"><i class="mdi mdi-eye mdi-24px"></i></a>#}
-                                        <a href="{{ path('app_recette_camion_edit', {'id': item.id}) }}"><i class="mdi mdi-pencil-box-outline mdi-24px"></i></a>
+                                        <a class="btn btn-danger btn-sm text-white" href="{{ path('app_recette_camion_delete', {'id': item.id}) }}" onclick="return confirm('Voulez-vous confirmer ?')"><i class="mdi mdi-delete mdi-24px"></i></a>
+                                        <a class="btn btn-primary btn-sm" href="{{ path('app_recette_camion_edit', {'id': item.id}) }}"><i class="mdi mdi-pencil-box-outline mdi-24px"></i></a>
                                     </td>
                                 </tr>
                                 {% else  %}
@@ -85,43 +100,52 @@
                                 </tr>
                             {% endfor %}
                             </tbody>
+                            <tfoot class="table-secondary">
+                                <tr>
+                                    <th colspan="5">Total</th>
+                                    <th>{{ montant | number_format }} GNF</th>
+                                    <th colspan="5"></th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                     <hr>
                     <div class="row">
-                        <table class="table table-striped">
+                        <table class="table table-striped table-sm">
                             <thead class="table-dark">
                             <tr>
                                 <th colspan="11" class="text-center">Dépenses</th>
                             </tr>
                             <tr>
-                                <th>N°</th>
+                                <th width="2%">N°</th>
                                 <th>Date dépense</th>
-                                <th>Montant</th>
+                                <th>Montant GNF</th>
                                 <th>Banque</th>
-                                <th>Mode_paiement</th>
-                                <th>Numero_cheque</th>
+                                <th>Mode Paiement</th>
+                                <th>Numéro Cheque</th>
                                 <th>Ordre De</th>
                                 <th>Observation</th>
-                                <th></th>
+                                <th width="150px"></th>
                             </tr>
                             </thead>
                             <tbody>
                             {% set i = 0 %}
+                            {% set montant = 0 %}
                             {% for item in camion.depenseCamions  %}
+                                {% set montant = montant + item.montant %}
                                 {% set i = i + 1 %}
                                 <tr>
                                     <td>{{ i }}</td>
                                     <td>{{ item.dateDepense ? item.dateDepense|date('d-m-Y') : '' }}</td>
-                                    <td>{{ item.montant }}</td>
+                                    <td>{{ item.montant | number_format }}</td>
                                     <td>{{ item.banque }}</td>
                                     <td>{{ item.modePaiement }}</td>
                                     <td>{{ item.numeroCheque }}</td>
                                     <td>{{ item.ordreDe }}</td>
                                     <td>{{ item.observation }}</td>
                                     <td>
-                                        <a href="{{ path('app_depense_camion_show', {'id': item.id}) }}">show</a>
-                                        <a href="{{ path('app_depense_camion_edit', {'id': item.id}) }}">edit</a>
+                                        <a class="btn btn-danger btn-sm text-white" href="{{ path('app_depense_camion_delete', {'id': item.id}) }}" onclick="return confirm('Voulez-vous confirmer ?')"><i class="mdi mdi-delete mdi-24px"></i></a>
+                                        <a class="btn btn-primary btn-sm" href="{{ path('app_depense_camion_edit', {'id': item.id}) }}"><i class="mdi mdi-pencil-box-outline mdi-24px"></i></a>
                                     </td>
                                 </tr>
                             {% else  %}
@@ -130,6 +154,13 @@
                                 </tr>
                             {% endfor %}
                             </tbody>
+                            <tfoot class="table-secondary">
+                            <tr>
+                                <th colspan="2">Total</th>
+                                <th>{{ montant | number_format }} GNF</th>
+                                <th colspan="7"></th>
+                            </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>

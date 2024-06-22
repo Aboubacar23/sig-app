@@ -1,11 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New DepenseCamion{% endblock %}
+{% block title %}New RecetteCamion{% endblock %}
 
 {% block body %}
-    <h1>Create new DepenseCamion</h1>
-
-    {{ include('depense_camion/_form.html.twig') }}
-
-    <a href="{{ path('app_depense_camion_index') }}">back to list</a>
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    {{ include('depense_camion/_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

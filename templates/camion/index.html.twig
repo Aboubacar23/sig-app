@@ -17,9 +17,9 @@
                                         <h4 class="card-title">Liste des camions</h4>
                                     </div>
                                     <div class="col-md-9 text-end">
-                                        <a href="#" class="btn btn-secondary text-white">Nombres : {{ camions | length}}</a>
+                                        <a href="#" class="btn btn-secondary btn-sm text-white">Nombres : {{ camions | length}}</a>
                                         <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                             Ajouter<i class="mdi mdi-plus"></i>
                                         </button>
                                     </div>
@@ -28,6 +28,11 @@
                             <div class="card-body">
                                 {% for message in app.flashes('success') %}
                                     <div class="alert alert-success">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                                {% for message in app.flashes('error') %}
+                                    <div class="alert alert-danger">
                                         {{ message }}
                                     </div>
                                 {% endfor %}
@@ -57,7 +62,7 @@
                                                 <td class="text-center">
                                                     <a class="btn-sm btn btn-success text-white btn-sm" href="{{path('app_camion_show', {'id' : camion.id})}}">Détails <i class="mdi mdi-eye"></i></a>
                                                     <a class="btn-sm btn btn-info btn-sm text-white" href="{{path('app_recette_camion_new', {'id' : camion.id})}}?name=recette_camion">Recettes <i class="mdi mdi-check"></i></a>
-                                                    <a class="btn-sm btn btn-primary btn-sm text-white" href="{{path('app_depense_camion_new', {'id' : camion.id})}}">Dépenses <i class="mdi mdi-check"></i></a>
+                                                    <a class="btn-sm btn btn-primary btn-sm text-white" href="{{path('app_depense_camion_new', {'id' : camion.id})}}?name=depense_camion">Dépenses <i class="mdi mdi-check"></i></a>
                                                 </td>
                                             </tr>
                                         {% else %}

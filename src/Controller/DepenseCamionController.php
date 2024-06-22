@@ -30,11 +30,13 @@ class DepenseCamionController extends AbstractController
         $form = $this->createForm(DepenseCamionType::class, $depenseCamion);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $depenseCamion->setCamion($camion);
             $entityManager->persist($depenseCamion);
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_depense_camion_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Dépense ajouté avec succès !');
+            return $this->redirectToRoute('app_camion_show', ['id' => $camion->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('depense_camion/new.html.twig', [
@@ -43,7 +45,7 @@ class DepenseCamionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_depense_camion_show', methods: ['GET'])]
+    #[Route('/show-depense/{id}', name: 'app_depense_camion_show', methods: ['GET'])]
     public function show(DepenseCamion $depenseCamion): Response
     {
         return $this->render('depense_camion/show.html.twig', [
@@ -51,16 +53,17 @@ class DepenseCamionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_depense_camion_edit', methods: ['GET', 'POST'])]
+    #[Route('/modifier/{id}/edit', name: 'app_depense_camion_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, DepenseCamion $depenseCamion, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(DepenseCamionType::class, $depenseCamion);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
 
-            return $this->redirectToRoute('app_depense_camion_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Dépense modifié avec succès !');
+            $entityManager->flush();
+            return $this->redirectToRoute('app_camion_show', ['id' => $depenseCamion->getCamion()->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('depense_camion/edit.html.twig', [
@@ -69,14 +72,19 @@ class DepenseCamionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_depense_camion_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_depense_camion_delete', methods: ['GET'])]
     public function delete(Request $request, DepenseCamion $depenseCamion, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$depenseCamion->getId(), $request->request->get('_token'))) {
+        $id = $depenseCamion->getCamion()->getId();
+
+        if ($depenseCamion->getId())
+        {
+
             $entityManager->remove($depenseCamion);
             $entityManager->flush();
+            $this->addFlash('error', 'Dépense supprimé avec succès !');
         }
 
-        return $this->redirectToRoute('app_depense_camion_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_camion_show', ['id' => $id], Response::HTTP_SEE_OTHER);
     }
 }

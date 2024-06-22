@@ -3,11 +3,38 @@
 {% block title %}Edit DepenseCamion{% endblock %}
 
 {% block body %}
-    <h1>Edit DepenseCamion</h1>
-
-    {{ include('depense_camion/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_depense_camion_index') }}">back to list</a>
-
-    {{ include('depense_camion/_delete_form.html.twig') }}
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    {{ form_start(form) }}
+                    <div class="card-header">
+                        <h4 class="card-title">Modifier une recette</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">{{ form_row(form.date_depense)}}</div>
+                            <div class="col-md-4">{{ form_row(form.montant)}}</div>
+                            <div class="col-md-4">{{ form_row(form.banque)}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">{{ form_row(form.mode_paiement)}}</div>
+                            <div class="col-md-4">{{ form_row(form.numero_cheque)}}</div>
+                            <div class="col-md-4">{{ form_row(form.ordre_de)}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">{{ form_row(form.observation)}}</div>
+                        </div>
+                    </div>
+                    <div class="card-footer text-end">
+                        <div class="d-flex">
+                            <button type="submit" class="btn btn-primary btn-sm ">Modifier <i class="mdi mdi-content-save"></i></button>
+                            <a href="{{path('app_camion_show', {'id' : depense_camion.camion.id})}}" class="btn btn-secondary btn-sm ms-auto text-white">Retour <i class="mdi mdi-reply"></i></a>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
