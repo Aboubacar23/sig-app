@@ -1,0 +1,137 @@
+{% extends 'base_print.html.twig' %}
+{% block body %}
+<body>
+<header class="clearfix">
+    <div id="logo">
+        <img src="{{ absolute_url(asset('images/images/logo.jpeg')) }}" >
+    </div>
+    <h1>Facture Camion</h1>
+    <div id="company" class="clearfix">
+        <div>Sacko Investment Group - SARL</div>
+        <div>Dixinn face a la commune immeuble dem 4 em étage
+            ,<br /> Conakry République de Guinée</div>
+        <div>+224 628 44 67 40</div>
+        <div><a href="#">Sackomory547@gmail.com</a></div>
+    </div>
+    <div id="project">
+        <div><span>N° MATRICULE : </span> <small>{{ camion.numeroCamion }}</small></div>
+        <div><span>CHAUFFEUR :</span> <small>{{ camion.chauffeur }}</small></div>
+        <div><span>MODEL :</span> <small>{{ camion.model }}</small></div>
+        <div><span>MARQUE :</span> <small>{{ camion.marque }}</small></div>
+    </div>
+</header>
+<main>
+    <table>
+        <thead>
+        <tr>
+            <th class="service" colspan="10"></th>
+        </tr>
+        <tr class="text-center">
+            <th class="service thCenter" colspan="10" style="text-align: center!important;">Recettes</th>
+        </tr>
+        <tr>
+            <th style="width: 5px!important;">N°</th>
+            <th style="width: 70px!important;">DATE</th>
+            <th >Depart</th>
+            <th>Destination</th>
+            <th style="width: 10px!important;">Type TC</th>
+            <th style="width: 100px!important;">Montant</th>
+            <th>Mode Paiement</th>
+            <th>Banque</th>
+            <th>Numéro chèque</th>
+            <th>Observation</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set i = 0 %}
+        {% set montant1 = 0 %}
+        {% for item in camion.recetteCamions  %}
+            {% set montant1 = montant1 + item.montantTransport %}
+            {% set i = i + 1 %}
+            <tr>
+                <td>{{ i }}</td>
+                <td>{{ item.dateRecette ? item.dateRecette|date('d-m-Y') : '' }}</td>
+                <td>{{ item.depart }}</td>
+                <td>{{ item.destination }}</td>
+                <td>{{ item.typeTc }}</td>
+                <td>{{ item.montantTransport | number_format }} GNF</td>
+                <td>{{ item.modePaiement }}</td>
+                <td>{{ item.banque }}</td>
+                <td>{{ item.numeroCheque }}</td>
+                <td>{{ item.observation }}</td>
+            </tr>
+        {% else  %}
+            <tr>
+                <td colspan="12" class="text-center">Pas de recette</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot class="table-secondary">
+        <tr>
+            <th colspan="5">Total</th>
+            <th class="grand_total">{{ montant1 | number_format }} GNF</th>
+            <th colspan="5"></th>
+        </tr>
+        </tfoot>
+    </table>
+    <table>
+        <thead>
+        <tr>
+            <th class="service" colspan="8"></th>
+        </tr>
+        <tr class="text-center">
+            <th class="service thCenter" colspan="8" style="text-align: center!important;">Dépenses</th>
+        </tr>
+        <tr>
+            <th style="width: 5px!important;">N°</th>
+            <th style="width: 70px!important;">DATE</th>>
+            <th style="width: 100px!important;">Montant</th>
+            <th>Banque</th>
+            <th>Mode Paiement</th>
+            <th>Numéro Cheque</th>
+            <th>Ordre De</th>
+            <th>Observation</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% set i = 0 %}
+            {% set montant2 = 0 %}
+            {% for item in camion.depenseCamions  %}
+            {% set montant2 = montant2 + item.montant %}
+            {% set i = i + 1 %}
+            <tr>
+                <td>{{ i }}</td>
+                <td>{{ item.dateDepense ? item.dateDepense|date('d-m-Y') : '' }}</td>
+                <td>{{ item.montant | number_format }} GNF</td>
+                <td>{{ item.banque }}</td>
+                <td>{{ item.modePaiement }}</td>
+                <td>{{ item.numeroCheque }}</td>
+                <td>{{ item.ordreDe }}</td>
+                <td>{{ item.observation }}</td>
+            </tr>
+        {% else  %}
+            <tr>
+                <td colspan="12" class="text-center">Pas de dépense</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot class="table-secondary">
+            <tr>
+                <th colspan="2">Total</th>
+                <th class="grand_total">{{ montant2 | number_format }} GNF</th>
+                <th colspan="5"></th>
+            </tr>
+        </tfoot>
+    </table>
+    <div id="notices">
+        {% set montant = montant1 - montant2 %}
+        <div class="notice">Solde: {{ montant | number_format }} GNF </div>
+        <hr>
+        <div class="grand_total" style="text-transform: uppercase">Montant en lettre : <span style="font-size: 12px">{{ lettre }}</span></div>
+    </div>
+</main>
+<footer>
+    Cette facture est valable qu'avec signature ou cachet
+</footer>
+</body>
+{% endblock %}

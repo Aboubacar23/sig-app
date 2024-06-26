@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Camion;
 use App\Form\CamionType;
 use App\Repository\CamionRepository;
+use App\Service\PrintPdf;
 use Doctrine\ORM\EntityManagerInterface;
+use Numbers_Words;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -67,7 +69,7 @@ class CamionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_camion_edit', methods: ['GET', 'POST'])]
+    #[Route('/modifier/{id}/edit', name: 'app_camion_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Camion $camion, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(CamionType::class, $camion);
@@ -75,8 +77,8 @@ class CamionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
-            return $this->redirectToRoute('app_camion_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Camion modifié avec succès !');
+            return $this->redirectToRoute('app_camion_show', ['id' => $camion->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('camion/edit.html.twig', [
@@ -100,5 +102,33 @@ class CamionController extends AbstractController
         }
 
         return $this->redirectToRoute('app_camion_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/print-facture/{id}', name: 'app_camion_print', methods: ['GET'])]
+    public function print(Request $request, Camion $camion,PrintPdf $printPdf): Response
+    {
+
+        $words = new Numbers_Words();
+        $montant1 = 0;
+        $montant2 = 0;
+        foreach ($camion->getRecetteCamions() as $item)
+        {
+            $montant1 = $montant1 + $item->getMontantTransport();
+        }
+
+        foreach ($camion->getDepenseCamions() as $item)
+        {
+            $montant2 = $montant2 + $item->getMontant();
+        }
+        $montant = $montant1 - $montant2;
+        $lettre = $words->toWords($montant, 'fr');
+        $html = $this->renderView('camion/print.html.twig', [
+            'camion' => $camion,
+            'lettre' => $lettre
+        ]);
+
+        $name = 'Facture Camion '.$camion;
+
+        return $printPdf->print($html, $name);
     }
 }

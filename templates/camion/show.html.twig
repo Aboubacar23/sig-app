@@ -13,7 +13,7 @@
                             <h4 class="card-title">Détails Camion</h4>
                         </div>
                         <div class="col-md-6 text-end">
-                            <a class="btn-sm btn btn-success btn-sm text-white m-2" href="{{path('app_recette_camion_new', {'id' : camion.id})}}" target="_blank">Imprimer <i class="mdi mdi-printer"></i></a>
+                            <a class="btn-sm btn btn-success btn-sm text-white m-2" href="{{path('app_camion_print', {'id' : camion.id})}}" target="_blank">Imprimer <i class="mdi mdi-printer"></i></a>
                             <a class="btn-sm btn btn-info btn-sm text-white m-2" href="{{path('app_recette_camion_new', {'id' : camion.id})}}?name=recette_camion" onclick="return confirm('Voulez-vous confirmer ?')">Recettes <i class="mdi mdi-check"></i></a>
                             <a class="btn-sm btn btn-primary btn-sm text-white m-2" href="{{path('app_depense_camion_new', {'id' : camion.id})}}?name=depense_camion" onclick="return confirm('Voulez-vous confirmer ?')">Dépenses <i class="mdi mdi-check"></i></a>
                             <a href="{{path('app_camion_edit', {'id' : camion.id })}}" class="btn btn-warning btn-sm m-2 text-white">Modifier <i class="mdi mdi-pencil-box-outline "></i></a>

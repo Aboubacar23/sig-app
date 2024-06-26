@@ -1,140 +1,156 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Sonoya Stocks</title>
+        <title>SIG APP</title>
     </head>
-    <style type="text/css">
+    <style>
+        .clearfix:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
 
-    table, th, td {
+        a {
+            color: #5D6975;
+            text-decoration: underline;
+        }
 
-        border-collapse: collapse;
-        border-spacing: 0;
-        width: 100%;
-        border: 1px solid;
-        font-size: 13px;
-    }
-     th, td {
-      padding: 8px;
-    }
 
-    .num_tab{
-        width: 4px;
-    }
-    .tab_produit{
-        width: 120px;
-    }
 
-    .tab_prix{
-        width: 83px;
-    }
+        header {
+            padding: 10px 0;
+            margin-bottom: 30px;
 
-    .tab_q{
-        width: 40px;
-    }
-    .table_tab_right{
-        background-color: #737373;
-    }
+        }
 
-    .table_mt{
-        text-align: right;
-    }
+        #logo {
+            text-align: center;
+            margin-bottom: 5px;
+        }
 
-    .tab_right{
-        text-align: right;
-        width: 40%;
-    }
-    
-    img {
-        height: 200px;
-        width: 200px;
-    }
+        #logo img {
+            width: 70px;
+            height: 70px;
+        }
 
-    h2 {
-        color: #004d00;
-    }
+        h1 {
+            border-top: 1px solid  #5D6975;
+            border-bottom: 1px solid  #5D6975;
+            color: #5D6975;
+            font-size: 1.5em;
+            line-height: 1.4em;
+            font-weight: normal;
+            text-align: center;
+            margin: 0 0 10px 0;
+            background: url({{ absolute_url(asset('images/images/dimension.png')) }});
+        }
 
-    p{
-        font-size: 12px;
-    }
+        #project {
+            float: left;
+        }
 
-    .span_p{
-        font-size: 10;
-        font-style: inherit;
-        font-family: serif;
-        font-weight: bolder;
-    }
+        #project span {
+            color: #5D6975;
+            text-align: left;
+            width: 80px;
+            margin-right: 10px;
+            display: inline-block;
+            font-size: 0.8em;
+        }
 
-    .header_left{
-        float: left;
-        height: 300px;
-        padding-top: 0px;
-    }
+        #company {
+            float: right;
+            text-align: right;
+        }
 
-    .header_right{
-        float: right;
-        padding-left: 300px;
-    }
+        #project div,
+        #company div {
+            white-space: nowrap;
+        }
 
-    .main_tableau{
-        padding-top: 220px;
-    }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            margin-bottom: 20px;
+            font-size: 12px;
+        }
 
-    .tab_left{
-        float: right;
-        width: 50%;
+        table tr:nth-child(2n-1) td {
+            background: #F5F5F5;
+        }
 
-    }
+        table th,
+        table td {
+            text-align: left;
+        }
 
-    #titre_table{
-        text-align: left;
-        font-size: 14px;
-        font-family: normal;
-        font-style: inherit;
-        padding: 20px;
-        background-color: #737373;
-    }
-    #titre_table2{
-        text-align: left;
-        font-size: 14px;
-        font-family: normal;
-        font-style: inherit;
-        padding: 20px;
-        background-color: #737373;
-    }
+        table th {
+            padding: 5px 5px;
+            color: #5D6975;
+            border-bottom: 1px solid #C1CED9;
+            white-space: nowrap;
+            font-weight: normal;
+            font-size: 10px;
+        }
 
-    .main{
-        padding-top: 50px;
-    }
+        table .service,
+        table .desc {
+            text-align: left;
+            font-size: 12px;
+        }
 
-    .footer{
-        padding-top: 160px;
-    }
-    .footer_left{
-        float: left;
-    }
+        table td {
+            padding: 5px;
+            text-align: left;
+            font-size: 10px!important;
+        }
 
-    .footer_right{
-        text-align: right;
+        table td.service,
+        table td.desc {
+            vertical-align: top;
+        }
 
-    }
+        table td.unit,
+        table td.qty,
+        table td.total {
+            font-size: 12px;
+        }
+        th {
+            text-transform: uppercase;
+            text-align: left!important;
+        }
+        td {
+            text-align: left!important;
+        }
+        table td.grand {
+            border-top: 1px solid #5D6975;;
+        }
 
-    .total{
-        float: right;
-        text-align: right;
-        padding-top: 5px;
-        width: 29%;
-    }
+        #notices .notice {
+            color: #5D6975;
+            font-size: 1.2em;
+            padding-top: 50px;
+        }
 
-    .footer_date{
-        float: right;
-        padding-top: 150px;
-    }
-    .tab_t2{
-		text-align: left;
-		padding-left: 2px;
-        width: 50%;
-	}
+        footer {
+            color: #5D6975;
+            width: 100%;
+            height: 30px;
+            position: absolute;
+            bottom: 0;
+            border-top: 1px solid #C1CED9;
+            padding: 8px 0;
+            text-align: center;
+        }
+        .thCenter {
+            text-align: center;
+        }
 
+        small{
+            font-size: 12px;
+            padding-left: 15px;
+        }
 </style>
     <body>  
         <div>

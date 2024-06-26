@@ -58,6 +58,7 @@ class DepenseCamionType extends AbstractType
             ])
             ->add('observation',TextareaType::class, [
                 'label' => 'Observation',
+                'required' => false,
                 'attr' => [
                     'rows' => 8,
                 ]
