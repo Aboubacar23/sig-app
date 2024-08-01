@@ -4,16 +4,16 @@
 </div>
 <div class="card-body">
     <div class="row mb-2">
-        <div class="col-md-6">{{ form_row(form.libelle)}}</div>
-        <div class="col-md-6">{{ form_row(form.adresse)}}</div>
+        <div class="col-md-4">{{ form_row(form.libelle)}}</div>
+        <div class="col-md-4">{{ form_row(form.adresse)}}</div>
+        <div class="col-md-4">{{ form_row(form.telephone)}}</div>
     </div>
     <div class="row mb-2">
         <div class="col-md-6">{{ form_row(form.pays)}}</div>
         <div class="col-md-6">{{ form_row(form.ville)}}</div>
     </div>
     <div class="row mb-2">
-        <div class="col-md-6">{{ form_row(form.telephone)}}</div>
-        <div class="col-md-2">{{ form_row(form.etat)}}</div>
+        <div class="col-md-2 m-10">{{ form_row(form.etat)}}</div>
     </div>
     <div class="row mb-2">
         <div class="col-md-12">{{ form_row(form.description)}}</div>
@@ -21,8 +21,8 @@
 </div>
 <div class="card-footer text-end">
     <div class="d-flex">
-        <a href="{{path('app_entrepot_index')}}" class="btn btn-secondary btn-sm">Retour</a>
-        <button type="submit" class="btn btn-primary btn-sm ms-auto">Enregistrer</button>
+        <button type="submit" class="btn btn-primary btn-sm "><i class="mdi mdi-content-save icon-table"></i></button>
+        <a href="{{path('app_entrepot_index')}}" class="btn btn-secondary btn-sm ms-auto text-white"><i class="mdi mdi-reply icon-table"></i></a>
     </div>
 </div>   
 {{ form_end(form) }}

@@ -18,7 +18,7 @@
                                     </div>
                                     <div class="col-md-9 text-end">
                                         <a href="#" class="btn btn-secondary btn-sm text-white">Nombres : {{ recette_camions | length}}</a>
-                                        <a href="{{ path('app_camion_index') }}" class="btn btn-primary btn-sm text-white">Allez au Camion</a>
+                                        <a href="{{ path('app_camion_index') }}" class="btn btn-primary btn-sm text-white">Allez au Camion <i class="mdi mdi-format-list-bulleted"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -29,21 +29,21 @@
                                     </div>
                                 {% endfor %}
                                 <div class="table-responsive">
-                                    <table class="table table-striped">
-                                        <thead class="table-dark">
-                                        <tr>
-                                            <th width="2">N°</th>
-                                            <th>Depart</th>
-                                            <th>Date Recette</th>
-                                            <th>Destination</th>
-                                            <th>Type TC</th>
-                                            <th>Montant Transport</th>
-                                            <th>Mode Paiement</th>
-                                            <th>Banque</th>
-                                            <th>Numéro chèque</th>
-                                            <th>Observation</th>
-                                            <th class="text-center" width="150"></th>
-                                        </tr>
+                                    <table id="dataTable" class="table table-striped mb-0"  style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th width="2">N°</th>
+                                                <th>Depart</th>
+                                                <th>Date Recette</th>
+                                                <th>Destination</th>
+                                                <th>Type TC</th>
+                                                <th>Montant Transport</th>
+                                                <th>Mode Paiement</th>
+                                                <th>Banque</th>
+                                                <th>Numéro chèque</th>
+                                                <th>Observation</th>
+                                                <th class="text-center" width="150"></th>
+                                            </tr>
                                         </thead>
                                         <tbody>
                                         {% set i = 0 %}

@@ -3,9 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Entrepot;
-use App\Entity\Produit;
 use App\Form\EntrepotType;
-use App\Form\ApprovisionnementType;
 use App\Repository\EntrepotRepository;
 use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,12 +15,23 @@ use Doctrine\ORM\EntityManagerInterface;
 #[Route('/entrepot')]
 class EntrepotController extends AbstractController
 {
-    #[Route('/', name: 'app_entrepot_index', methods: ['GET'])]
-    public function index(EntrepotRepository $entrepotRepository, ProduitRepository $produitRepository): Response
+    #[Route('/liste-items', name: 'app_entrepot_index', methods: ['GET', 'POST'])]
+    public function index(EntrepotRepository $entrepotRepository, ProduitRepository $produitRepository, Request $request): Response
     {
+        $entrepot = new Entrepot();
+        $form = $this->createForm(EntrepotType::class, $entrepot);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entrepot->setEtat(1);
+            $entrepotRepository->add($entrepot);
+            return $this->redirectToRoute('app_entrepot_index', [], Response::HTTP_SEE_OTHER);
+        }
+
         return $this->render('entrepot/index.html.twig', [
             'entrepots' => $entrepotRepository->findBy([], ['id' => 'desc']),
-            'produits' => $produitRepository->findAll()
+            'produits' => $produitRepository->findAll(),
+            'form' => $form->createView(),
         ]);
     }
 
@@ -44,7 +53,7 @@ class EntrepotController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_entrepot_show', methods: ['GET'])]
+    #[Route('/show/{id}', name: 'app_entrepot_show', methods: ['GET'])]
     public function show(Entrepot $entrepot, ProduitRepository $produitRepository): Response
     {
         return $this->render('entrepot/show.html.twig', [
@@ -53,7 +62,7 @@ class EntrepotController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_entrepot_edit', methods: ['GET', 'POST'])]
+    #[Route('/modification/{id}/edit', name: 'app_entrepot_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Entrepot $entrepot, EntrepotRepository $entrepotRepository): Response
     {
         $form = $this->createForm(EntrepotType::class, $entrepot);
@@ -70,10 +79,11 @@ class EntrepotController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_entrepot_delete', methods: ['POST'])]
+    #[Route('/delete/{id}', name: 'app_entrepot_delete', methods: ['GET'])]
     public function delete(Request $request, Entrepot $entrepot, EntrepotRepository $entrepotRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$entrepot->getId(), $request->request->get('_token'))) {
+        if ($entrepot)
+        {
             $entrepotRepository->remove($entrepot);
         }
 

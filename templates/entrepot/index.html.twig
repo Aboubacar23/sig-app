@@ -3,80 +3,129 @@
 {% block title %}Entrepot index{% endblock %}
 
 {% block body %}
-<div class="container-xl">
-    <div class="page-header d-print-none">
-        <div class="row g-2 align-items-center">
-            <div class="col">
-                <h2 class="page-title">Entrepot</h2>
-            </div>
-            <div class="col-12 col-md-auto ms-auto d-print-none">
-                <div class="btn-list">
-                    <span class="d-none d-sm-inline">
-                    <a href="#" class="btn btn-white">Nombres : {{ entrepots | length}}</a>
-                    <a href="{{path('app_entrepot_new')}}" class="btn btn-primary d-none d-sm-inline-block">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>Ajouter</a>
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="row">
+                    <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-header">
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <h4 class="card-title">Liste des entrepôts</h4>
+                                    </div>
+                                    <div class="col-md-9 text-end">
+                                        {# <a href="#" class="btn btn-secondary text-white">Nombres : {{ entrepots | length}}</a>
+                                        <a href="{{path('app_entrepot_new')}}" class="btn btn-primary btn-sm"><i class="mdi mdi-plus-circle icon-table"></i></a>#}
+                                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <i class="mdi mdi-plus-box icon-table"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                {% for message in app.flashes('success') %}
+                                    <div class="alert alert-success">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                                <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true">
+                                    <table class="table table-striped mb-0">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">N°</th>
+                                            <th scope="col">Libelle</th>
+                                            <th scope="col">Pays</th>
+                                            <th scope="col">Ville</th>
+                                            <th scope="col">Adresse</th>
+                                            <th scope="col">Telephone</th>
+                                            <th scope="col">Total Produit</th>
+                                            <th scope="col">Etat</th>
+                                            <th class="text-center" width="250">Actions</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% set i = 0 %}
+                                        {% for entrepot in entrepots %}
+                                            {% set i = i + 1 %}
+                                            {% set toatlProduit = 0 %}
+                                            {% for produit in produits %}
+                                                {% if entrepot.id == produit.entrepot.id %}
+                                                    {% set toatlProduit = toatlProduit + produit.quantite %}
+                                                {% endif %}
+                                            {% endfor %}
+                                            <tr>
+                                                <td>{{ i }}</td>
+                                                <td>{{ entrepot.libelle }}</td>
+                                                <td>{{ entrepot.pays | country_name }}</td>
+                                                <td>{{ entrepot.ville }}</td>
+                                                <td>{{ entrepot.adresse }}</td>
+                                                <td>{{ entrepot.telephone }}</td>
+                                                <td class="text-center"><span class="btn btn-warning btn-sm">{{ toatlProduit | number_format }}</span></td>
+                                                <td>
+                                                    {% if entrepot.etat == true %}
+                                                        <span class="btn bg-success btn-sm text-white">{{ entrepot.etat ? 'Ouvert' : 'Fermé' }}</span>
+                                                    {% else %}
+                                                        <span class="btn bg-danger btn-sm text-white">{{ entrepot.etat ? 'Ouvert' : 'Fermé' }}</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="text-center">
+                                                    <a href="{{ path('app_entrepot_show', {'id': entrepot.id}) }}" class="btn btn-info  btn-sm"><i class="mdi mdi-eye icon-table"></i></a>
+                                                    <a href="{{ path('app_entrepot_edit', {'id': entrepot.id}) }}" class="btn btn-primary  btn-sm"><i class="mdi mdi-pencil-box-outline icon-table"></i></a>
+                                                    <a href="{{ path('app_entrepot_produit', {'id': entrepot.id}) }}" class="btn btn-success  btn-sm"><i class="mdi mdi-archive icon-table"></i></a>
+                                                </td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="10">Pas d'entrepots </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div> 
-</div>
-<div class="card p-2 m-4">
-    <div class="card-header mb-2">
-        <h3 class="card-title">Liste</h3>
-    </div>
-    <div class="table-responsive">
-        <table class="table card-table table-hover dataTable">
-            <thead class="table-dark">
-                <tr>  
-                    <th>N°</th>
-                    <th>Libelle</th> 
-                    <th>Pays</th>
-                    <th>Ville</th>
-                    <th>Adresse</th>
-                    <th>Telephone</th>
-                    <th>Total Produit</th>
-                    <th>Etat</th>
-                    <th class="text-center">Actions</th>
-                </tr>
-            </thead>
-            <tbody> 
-                {% set i = 0 %}
-                {% for entrepot in entrepots %}
-                    {% set i = i + 1 %}
-                    {% set toatlProduit = 0 %}
-                    {% for produit in produits %}
-                        {% if entrepot.id == produit.entrepot.id %}
-                            {% set toatlProduit = toatlProduit + produit.quantite %}
-                        {% endif %}
-                    {% endfor %}
-                    <tr>
-                        <td>{{ i }}</td>
-                        <td>{{ entrepot.libelle }}</td>
-                        <td>{{ entrepot.pays | country_name }}</td>
-                        <td>{{ entrepot.ville }}</td>
-                        <td>{{ entrepot.adresse }}</td>
-                        <td>{{ entrepot.telephone }}</td>
-                        <td class="text-center"><span class="btn btn-warning btn-sm">{{ toatlProduit | number_format }}</span></td>
-                        <td> 
-                            {% if entrepot.etat == true %}
-                                <span class="btn bg-success btn-sm text-white">{{ entrepot.etat ? 'Ouvert' : 'Fermé' }}</span>
-                            {% else %}
-                                <span class="btn bg-danger btn-sm text-white">{{ entrepot.etat ? 'Ouvert' : 'Fermé' }}</span>
-                            {% endif %}
-                        </td>
-                        <td class="text-center">
-                            <a href="{{ path('app_entrepot_show', {'id': entrepot.id}) }}" class="btn btn-info  btn-sm">Détails</a>
-                            <a href="{{ path('app_entrepot_edit', {'id': entrepot.id}) }}" class="btn btn-primary  btn-sm">Modifier</a>
-                            <a href="{{ path('app_entrepot_produit', {'id': entrepot.id}) }}" class="btn btn-secondary  btn-sm">Produits</a>
-                        </td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="10">no records found</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            {{ form_start(form) }}
+                <div class="modal-body">
+                    <div class="row mb-4">
+                        <div class="col-md-12">{{ form_widget(form.libelle) }}</div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-6">{{ form_widget(form.pays) }}</div>
+                        <div class="col-md-6">{{ form_widget(form.ville) }}</div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-6">{{ form_widget(form.adresse) }}</div>
+                        <div class="col-md-6">{{ form_widget(form.telephone) }}</div>
+                    </div>
+                    <div class="row mb-4">
+                        <div class="col-md-12">{{ form_widget(form.description) }}</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="mdi mdi-close icon-table"></i></button>
+                    <button type="submit" class="btn btn-primary"><i class="mdi mdi-content-save icon-table"></i></button>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+
 {% endblock %}

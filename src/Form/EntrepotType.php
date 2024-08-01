@@ -58,10 +58,10 @@ class EntrepotType extends AbstractType
                 ],
                 'required' => false,
             ])
-            ->add('etat',CheckboxType::class, [
+           /* ->add('etat',CheckboxType::class, [
                 'label' => "Etat de L'entrepot",
                 'required' => false,
-            ])
+            ])*/
         ;
     }
 

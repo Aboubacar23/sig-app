@@ -125,7 +125,6 @@ class RegistrationFormType extends AbstractType
             ->add('roles', ChoiceType::class, [
                 'choices' => [
                     'Super Admin' => 'ROLE_SUPER_ADMIN',
-                    'Admin' => 'ROLE_ADMIN',
                     ],
                     'multiple' => true,
                     'expanded' => true,

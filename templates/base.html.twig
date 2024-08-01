@@ -11,8 +11,35 @@
     <link rel="stylesheet" href="{{ asset('admin/vendors/css/vendor.bundle.base.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/css/style.css') }}">
     <link rel="shortcut icon" href="{{ asset('images/images/logo.png') }}" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
+    <link href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
 </head>
 <body>
+<style>
+    .icon-table{
+        font-size: 25px!important;
+        color : white;
+        padding: 5px;
+        margin: 5px;
+    }
+
+    table td,
+    table th {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    tbody td {
+        font-weight: 500;
+        color: #999999;
+    }
+
+
+    thead{
+        background-color: #223e9c;
+        color: white;
+    }
+</style>
 <div class="container-scroller d-flex">
     <!-- partial:./partials/_sidebar.html -->
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -69,8 +96,8 @@
                 </a>
                 <div class="collapse" id="ui-basic1">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="#">Produits</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="#tml">Entrepôts</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ path('app_produit_index') }}">Produits</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ path('app_entrepot_index') }}">Entrepôts</a></li>
                     </ul>
                 </div>
             </li>
@@ -180,7 +207,11 @@
     <!-- page-body-wrapper ends -->
 </div>
 <!-- container-scroller -->
-
+<script>
+    new DataTable('#dataTable', {
+        responsive: true
+    });
+</script>
 <!-- base:js -->
 <script src="{{ asset('admin/vendors/js/vendor.bundle.base.js') }}"></script>
 <script src="{{ asset('admin/vendors/chart.js/Chart.min.js') }}"></script>
@@ -190,6 +221,9 @@
 <script src="{{ asset('admin/js/template.js') }}"></script>
 <script src="{{ asset('admin/js/jquery.cookie.js') }}" type="text/javascript"></script>
 <script src="{{ asset('admin/js/dashboard.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
 <!-- End custom js for this page-->
 </body>
 

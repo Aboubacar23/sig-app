@@ -3,7 +3,6 @@
 {% block title %}admin index{% endblock %}
 
 {% block body %}
-
 <div class="content-wrapper">
     <div class="row">
         <div class="col-12 grid-margin stretch-card">
@@ -18,8 +17,7 @@
                                         <h4 class="card-title">Liste des administrateurs</h4>
                                     </div>
                                     <div class="col-md-9 text-end">
-                                        <a href="#" class="btn btn-secondary text-white">Nombres : {{ users | length}}</a>
-                                        <a href="{{path('app_register')}}" class="btn btn-primary btn-flow">Ajouter<i class="mdi mdi-plus"></i></a>
+                                        <a href="{{path('app_register')}}" class="btn btn-primary btn-sm"><i class="mdi mdi-plus-circle icon-table"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -29,21 +27,21 @@
                                         {{ message }}
                                     </div>
                                 {% endfor %}
-                                <div class="table-responsive">
-                                    <table class="table table-striped">
-                                        <thead class="table-dark">
+                                <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true">
+                                    <table class="table table-striped mb-0">
+                                        <thead>
                                             <tr>
-                                                <th>N°</th>
-                                                <th>Username</th>
-                                                <th>Nom</th>
-                                                <th>Prenom</th>
-                                                <th>Email</th>
-                                                <th>Tél</th>
-                                                <th>Roles</th>
-                                                <th>Ville</th>
-                                                <th>Pays</th>
-                                                <th>Images</th>
-                                                <th class="text-center" width="250">Actions</th>
+                                                <th scope="col">N°</th>
+                                                <th scope="col">Images</th>
+                                                <th scope="col">Username</th>
+                                                <th scope="col">Nom</th>
+                                                <th scope="col">Prenom</th>
+                                                <th scope="col">Email</th>
+                                                <th scope="col">Tél</th>
+                                                <th scope="col">Roles</th>
+                                                <th scope="col">Ville</th>
+                                                <th scope="col">Pays</th>
+                                                <th scope="col" class="text-center" width="100"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -53,6 +51,13 @@
                                             {% set i = i + 1 %}
                                             <tr>
                                                 <td>{{ i }}</td>
+                                                <td>
+                                                    {% if user.image == '' %}
+                                                        <img src="{{asset('images/images/user.png')}}" height="50" width="50">
+                                                    {% else %}
+                                                        <img src="{{asset('images/employees/'~ user.image)}}" height="50" width="50">
+                                                    {% endif %}
+                                                </td>
                                                 <td>{{ user.username }}</td>
                                                 <td>{{ user.nom }}</td>
                                                 <td>{{ user.prenom }}</td>
@@ -62,23 +67,14 @@
                                                     {% for role in user.roles %}
                                                         {% if role == "ROLE_SUPER_ADMIN" %}
                                                             Super Admin
-                                                        {% elseif role == "ROLE_ADMIN" %}
-                                                            Admin
                                                         {% endif %}
                                                     {% endfor %}
                                                 </td>
                                                 <td>{{ user.ville }}</td>
                                                 <td>{{ user.pays | country_name }}</td>
-                                                <td>
-                                                    {% if user.image == '' %}
-                                                        <img src="{{asset('images/images/user.png')}}" height="50" width="50">
-                                                    {% else %}
-                                                        <img src="{{asset('images/employees/'~ user.image)}}" height="50" width="50">
-                                                    {% endif %}
-                                                </td>
                                                 <td class="text-center">
-                                                    <a class="btn-sm btn btn-success text-white btn-sm" href="{{path('app_user_show', {'id' : user.id})}}">Détails <i class="mdi mdi-eye"></i></a>
-                                                    <a class="btn-sm btn btn-primary btn-sm" href="{{path('app_user_edit', {'id' : user.id})}}">Modifier <i class="mdi mdi-pencil-box-outline"></i></a>
+                                                    <a class="btn-sm btn btn-success text-white btn-sm" href="{{path('app_user_show', {'id' : user.id})}}"><i class="mdi mdi-eye icon-table"></i></a>
+                                                    <a class="btn-sm btn btn-primary btn-sm" href="{{path('app_user_edit', {'id' : user.id})}}"><i class="mdi mdi-pencil-box-outline icon-table"></i></a>
                                                 </td>
                                             </tr>
                                         {% else %}

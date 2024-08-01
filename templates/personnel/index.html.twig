@@ -17,8 +17,8 @@
                                         <h4 class="card-title">Liste des personnels</h4>
                                     </div>
                                     <div class="col-md-9 text-end">
-                                        <a href="#" class="btn btn-secondary text-white">Nombres : {{ personnels | length}}</a>
-                                        <a href="{{path('app_personnel_new')}}" class="btn btn-primary btn-flow">Ajouter<i class="mdi mdi-plus"></i></a>
+                                        {# <a href="#" class="btn btn-secondary text-white ">Nombres : {{ personnels | length}}</a> #}
+                                        <a href="{{path('app_personnel_new')}}" class="btn btn-primary btn-sm"><i class="mdi mdi-plus-circle icon-table"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -28,19 +28,20 @@
                                         {{ message }}
                                     </div>
                                 {% endfor %}
-                                <div class="table-responsive">
-                                    <table class="table table-striped">
-                                        <thead class="table-dark">
+                                <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true">
+                                    <table class="table table-striped mb-0">
+                                        <thead>
                                         <tr>
-                                            <th width="2">N°</th>
-                                            <th>Image</th>
-                                            <th>Code Personnels</th>
-                                            <th>Nom</th>
-                                            <th>Prenom</th>
-                                            <th>Telephone</th>
-                                            <th>Email</th>
-                                            <th>Pays</th>
-                                            <th class="text-center" width="250">Actions</th>
+                                            <th scope="col" width="2">N°</th>
+                                            <th scope="col">Image</th>
+                                            <th scope="col">Code Personnels</th>
+                                            <th scope="col">Nom</th>
+                                            <th scope="col">Prenom</th>
+                                            <th scope="col">Telephone</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Pays</th>
+                                            <th scope="col">Ville</th>
+                                            <th scope="col" class="text-center" width="100"></th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -63,9 +64,10 @@
                                                 <td>{{ personnel.tel }}</td>
                                                 <td>{{ personnel.email }}</td>
                                                 <td>{{ personnel.pays | country_name }}</td>
+                                                <td>{{ personnel.ville }}</td>
                                                 <td class="text-center">
-                                                    <a class="btn-sm btn btn-success text-white btn-sm" href="{{path('app_personnel_show', {'id' : personnel.id})}}">Détails <i class="mdi mdi-eye"></i></a>
-                                                    <a class="btn-sm btn btn-primary btn-sm" href="{{path('app_personnel_edit', {'id' : personnel.id})}}">Modifier <i class="mdi mdi-pencil-box-outline"></i></a>
+                                                    <a class="btn-sm btn btn-success text-white btn-sm" href="{{path('app_personnel_show', {'id' : personnel.id})}}"><i class="mdi mdi-eye icon-table"></i></a>
+                                                    <a class="btn-sm btn btn-primary btn-sm" href="{{path('app_personnel_edit', {'id' : personnel.id})}}"><i class="mdi mdi-pencil-box-outline icon-table"></i></a>
                                                 </td>
                                             </tr>
                                         {% else %}

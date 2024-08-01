@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\CamionRepository;
 use App\Repository\ProduitRepository;
 use App\Repository\PersonnelRepository;
 use App\Repository\ClientRepository;
@@ -26,18 +27,20 @@ class HomeController extends AbstractController
         CommandeFournisseurRepository $commandeFournisseurRepository,
         FactureClientRepository $factureClientRepository,
         FactureFournisseurRepository $factureFournisseurRepository,
+        CamionRepository $camionRepository
     ): Response
     {   
 
         return $this->render('home/index.html.twig', [
-            'personnels' => $personnelRepository->findAll(),
-            'produits' => $produitRepository->findAll(),
-            'clients' => $clientRepository->findAll(),
-            'fournisseurs' => $fournisseurRepository->findAll(),
-            'commandeCs' => $commandeClientRepository->findAll(),
-            'commandeFs' => $commandeFournisseurRepository->findAll(),
-            'factureCs' => $factureClientRepository->findAll(),
-            'factureFs' => $factureFournisseurRepository->findAll()
+            'personnels' => count($personnelRepository->findAll()),
+            'produits' => count($produitRepository->findAll()),
+            'clients' => count($clientRepository->findAll()),
+            'fournisseurs' => count($fournisseurRepository->findAll()),
+            'commandeCs' => count($commandeClientRepository->findAll()),
+            'commandeFs' => count($commandeFournisseurRepository->findAll()),
+            'factureCs' => count($factureClientRepository->findAll()),
+            'factureFs' => count($factureFournisseurRepository->findAll()),
+            'camions' => count($camionRepository->findAll())
         ]);
     } 
 }

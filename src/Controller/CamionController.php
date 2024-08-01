@@ -91,7 +91,7 @@ class CamionController extends AbstractController
     public function delete(Request $request, Camion $camion, EntityManagerInterface $entityManager): Response
     {
         if ($camion) {
-            if ($camion->getDepenseCamions() || $camion->getRecetteCamions())
+            if (count($camion->getDepenseCamions()) != 0 || count($camion->getRecetteCamions()) != 0)
             {
                 $this->addFlash('error', 'Désolé ce camion contient des dépenses ou recettes');
             }else
