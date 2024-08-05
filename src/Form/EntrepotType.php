@@ -19,7 +19,7 @@ class EntrepotType extends AbstractType
     {
         $builder
             ->add('libelle',TextType::class, [
-                'label' => 'libelle',
+                'label' => "Nom Entrepôt",
                 'attr' => [
                     'placeholder' => 'libelle'
                 ],

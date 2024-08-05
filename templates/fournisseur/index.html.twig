@@ -3,86 +3,135 @@
 {% block title %}Fournisseur index{% endblock %}
 
 {% block body %}
-<div class="container-xl">
-    <div class="page-header d-print-none">
-        <div class="row g-2 align-items-center">
-            <div class="col">
-                <h2 class="page-title">Fournisseurs</h2>
-            </div>
-            <div class="col-12 col-md-auto ms-auto d-print-none">
-            <div class="btn-list">
-                <span class="d-none d-sm-inline">
-                <a href="#" class="btn btn-white">Nombres : {{ fournisseurs | length}}</a>
-                <a href="{{path('app_fournisseur_new')}}" class="btn btn-primary d-none d-sm-inline-block">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>Ajouter</a>
-            </div>
-        </div>
-    </div>
-    </div> 
-</div>
-<div class="page-body">
-    <div class="container-xl">
-        <div class="row row-cards">
-            <div class="col-12">
+<div class="content-wrapper">
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
                 <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">La liste des fournisseurs</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table card-table table-hover dataTable">
-                                <thead class="table-dark">
-                                <tr>
-                                    <th>N°</th>
-                                    <th class="text-center">Action</th>
-                                    <th>Code Fournisseur</th>
-                                    <th>Societe</th>
-                                    <th>Telephone</th>
-                                    <th>Email</th>
-                                    <th>Pays</th>
-                                    <th>Ville</th>
-                                    <th>Adresse</th>
-                                    <th>Etat</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% set i = 0 %}
-                                {% for fournisseur in fournisseurs %}
-                                    {% set i = i + 1 %}
-                                    <tr>
-                                        <td>{{ i }}</td>
-                                        <td class="text-center" width="150px">
-                                            <a href="{{ path('app_fournisseur_show', {'id': fournisseur.id}) }}" class="btn btn-info text-white btn-sm"><i class="fa fa-eye fa-2x p-1"></i></a>
-                                            {# <a href="{{ path('app_fournisseur_edit', {'id': fournisseur.id}) }}" class="btn btn-primary text-white btn-sm">Modifier<i class="fa fa-edit"></i></a> #}
-                                            <a href="{{ path('app_fournisseur_compte', {'id': fournisseur.id}) }}" class="btn btn-success btn-sm"><i class="fa fa-folder fa-2x p-1"></i></a>
-                                        </td>
-                                        <td>{{ fournisseur.codeFournisseur }}</td>
-                                        <td>{{ fournisseur.societe }}</td>
-                                        <td>{{ fournisseur.telephone }}</td>
-                                        <td>{{ fournisseur.email }}</td>
-                                        <td>{{ fournisseur.pays | country_name }}</td>
-                                        <td>{{ fournisseur.ville }}</td>
-                                        <td>{{ fournisseur.adresse }}</td>
-                                        <td>
-                                            {% if fournisseur.etat == true %}
-                                                <span class="btn btn-sm btn-success taille">{{ fournisseur.etat ? 'Activer' : 'Désactiver' }}</span>
-                                            {% elseif fournisseur.etat == false %}
-                                                <span class="btn btn-sm btn-danger taille">{{ fournisseur.etat ? 'Activer' : 'Désactiver' }}</span>
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                {% else %}
-                                    <tr>
-                                        <td colspan="14">La table est vide</td>
-                                    </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
+                    <div class="row">
+                        <div class="col-lg-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-header">
+
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <h4 class="card-title">Liste des fournisseurs</h4>
+                                        </div>
+                                        <div class="col-md-9 text-end">
+                                            {# <a href="#" class="btn btn-secondary text-white">Nombres : {{ entrepots | length}}</a>
+                                    <a href="{{path('app_entrepot_new')}}" class="btn btn-primary btn-sm"><i class="mdi mdi-plus-circle icon-table"></i></a>#}
+                                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                <i class="mdi mdi-plus-box icon-table"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    {% for message in app.flashes('success') %}
+                                        <div class="alert alert-success">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                    <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true">
+                                        <table class="table table-striped mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">N°</th>
+                                                    <th>Code Fournisseur</th>
+                                                    <th>Societe</th>
+                                                    <th>Telephone</th>
+                                                    <th>Email</th>
+                                                    <th>Pays</th>
+                                                    <th>Ville</th>
+                                                    <th>Adresse</th>
+                                                    <th>Etat</th>
+                                                    <th class="text-center" width="200"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% set i = 0 %}
+                                            {% for fournisseur in fournisseurs %}
+                                                {% set i = i + 1 %}
+                                                <tr>
+                                                    <td>{{ i }}</td>
+                                                    <td>{{ fournisseur.codeFournisseur }}</td>
+                                                    <td>{{ fournisseur.societe }}</td>
+                                                    <td>{{ fournisseur.telephone }}</td>
+                                                    <td>{{ fournisseur.email }}</td>
+                                                    <td>{{ fournisseur.pays | country_name }}</td>
+                                                    <td>{{ fournisseur.ville }}</td>
+                                                    <td>{{ fournisseur.adresse }}</td>
+                                                    <td>
+                                                        {% if fournisseur.etat == true %}
+                                                            <span class="btn btn-sm btn-success text-white">{{ fournisseur.etat ? 'Activer' : 'Désactiver' }}</span>
+                                                        {% elseif fournisseur.etat == false %}
+                                                            <span class="btn btn-sm btn-danger text-white">{{ fournisseur.etat ? 'Activer' : 'Désactiver' }}</span>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <a href="{{ path('app_fournisseur_show', {'id': fournisseur.id}) }}" class="btn btn-info text-white btn-sm">Détails <i class="mdi mdi-eye p-1"></i></a>
+                                                        <a href="{{ path('app_fournisseur_edit', {'id': fournisseur.id}) }}" class="btn btn-primary text-white btn-sm">Modifier<i class="mdi mdi-pencil-box-outline p-1"></i></a>
+                                                        <a href="{{ path('app_fournisseur_compte', {'id': fournisseur.id}) }}" class="btn btn-success btn-sm text-white">Compte<i class="mdi mdi-folder p-1 text-white"></i></a>
+                                                    </td>
+                                                </tr>
+                                            {% else %}
+                                                <tr>
+                                                    <td colspan="14">La table est vide</td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+{% if dernierFournisseur == null %}
+ {% set val = 1 %}
+{% else %}
+ {% set val = dernierFournisseur.id + 1 %}
+{% endif %}
+{% set dateJour = "now"|date("Y") %}
+{% set numFour = 'SIGCF' ~ dateJour ~val %}
+
+ <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h1 class="modal-title fs-5" id="exampleModalLabel">Ajouter</h1>
+                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+             </div>
+             {{ form_start(form) }}
+                 <div class="modal-body">
+                   <div class="row">
+                        <div class="col-md-4">{{ form_row(form.code_fournisseur, {attr : { value: numFour }})}}</div>
+                        <div class="col-md-4">{{ form_row(form.societe)}}</div>
+                        <div class="col-md-4">{{ form_row(form.adresse)}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">{{ form_row(form.telephone)}}</div>
+                        <div class="col-md-6">{{ form_row(form.email)}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">{{ form_row(form.pays)}}</div>
+                        <div class="col-md-6">{{ form_row(form.ville)}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">{{ form_row(form.note)}}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12"><span class="text-danger">Les champs avec (*) sont obligatoires</span></div>
+                    </div>
+                </div>
+                 <div class="modal-footer">
+                     <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal"><i class="mdi mdi-close"></i></button>
+                     <button type="submit" class="btn btn-primary"><i class="mdi mdi-content-save"></i></button>
+                 </div>
+             {{ form_end(form) }}
+         </div>
+     </div>
+ </div>
 {% endblock %}

@@ -24,7 +24,7 @@ class FournisseurType extends AbstractType
                 'label' => 'Code'
             ])
             ->add('societe',TextType::class, [
-                'label' => 'Société',
+                'label' => 'Société (Nom Fournisseur)',
                 'label_attr' => ['class' => 'label-required'],
                 'attr' => [
                     'placeholder' => 'Société'
@@ -37,8 +37,7 @@ class FournisseurType extends AbstractType
                 ]
             ])
             ->add('email', EmailType::class, [
-                'label' => true,
-                'label' => 'Email',
+                'label' => "Email",
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'Email'
@@ -46,7 +45,6 @@ class FournisseurType extends AbstractType
             ])
             ->add('telephone', IntegerType::class, [
                 'label' => 'Télephone',
-                'label_attr' => ['class' => 'label-required'],
                 'attr' => [
                     'placeholder' => 'Télephone'
                 ],
@@ -82,14 +80,14 @@ class FournisseurType extends AbstractType
                     ])
                 ]
             ])
-            ->add('fax', IntegerType::class, [
+           /* ->add('fax', IntegerType::class, [
                 'label' => 'Fax',
                 'attr' => [
                     'placeholder' => 'Fax'
                 ],
                 'required' => false,
             ])
-            ->add('etat')
+            ->add('etat')*/
             ->add('note', TextareaType::class, [
                 'attr' => [
                     'rows' => 6

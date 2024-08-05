@@ -16,11 +16,27 @@ use Doctrine\ORM\EntityManagerInterface;
 #[Route('/client')]
 class ClientController extends AbstractController
 {
-    #[Route('/', name: 'app_client_index', methods: ['GET'])]
-    public function index(ClientRepository $clientRepository): Response
+    #[Route('/', name: 'app_client_index', methods: ['GET','POST'])]
+    public function index(ClientRepository $clientRepository, Request $request): Response
     {
+        $client = new Client();
+        $form = $this->createForm(ClientType::class, $client);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $client->setEtat(1);
+            $clientRepository->add($client);
+            return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        $allClient = $clientRepository->findAll();
+        $dernier = end($allClient);
+
         return $this->render('client/index.html.twig', [
             'clients' => $clientRepository->findBy([], ['id'=> 'desc']),
+            'form' => $form->createView(),
+            'dernier' => $dernier
         ]);
     }
 

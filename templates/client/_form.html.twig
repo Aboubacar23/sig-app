@@ -14,18 +14,13 @@
         <div class="col-md-4">{{ form_row(form.contact)}}</div>
     </div>
     <div class="row mb-2">
-        <div class="col-md-4">{{ form_row(form.pays)}}</div>
-        <div class="col-md-4">{{ form_row(form.ville)}}</div>
         <div class="col-md-4">{{ form_row(form.adresse)}}</div>
-    </div>
-    <div class="row m-4">
-        <div class="col-md-12">{{ form_row(form.etat)}}</div>
     </div>
 </div>
 <div class="card-footer text-end">
     <div class="d-flex">
-        <a href="{{path('app_client_index')}}" class="btn btn-secondary btn-sm">Retour</a>
-        <button type="submit" class="btn btn-primary btn-sm ms-auto">Enregistrer</button>
+        <a href="{{path('app_client_index')}}" class="btn btn-secondary btn-sm text-white">Retour <i class="mdi mdi-reply p-1"></i></a>
+        <button type="submit" class="btn btn-primary btn-sm ms-auto">Modifier <i class="mdi mdi-content-save p-1"></i></button>
     </div>
 </div> 
 {{ form_end(form) }}

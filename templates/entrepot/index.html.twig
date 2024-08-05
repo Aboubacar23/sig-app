@@ -63,7 +63,7 @@
                                                 <td>{{ entrepot.ville }}</td>
                                                 <td>{{ entrepot.adresse }}</td>
                                                 <td>{{ entrepot.telephone }}</td>
-                                                <td class="text-center"><span class="btn btn-warning btn-sm">{{ toatlProduit | number_format }}</span></td>
+                                                <td class="text-center"><span class="btn btn-warning btn-sm text-white">{{ toatlProduit | number_format }}</span></td>
                                                 <td>
                                                     {% if entrepot.etat == true %}
                                                         <span class="btn bg-success btn-sm text-white">{{ entrepot.etat ? 'Ouvert' : 'Fermé' }}</span>
@@ -72,9 +72,9 @@
                                                     {% endif %}
                                                 </td>
                                                 <td class="text-center">
-                                                    <a href="{{ path('app_entrepot_show', {'id': entrepot.id}) }}" class="btn btn-info  btn-sm"><i class="mdi mdi-eye icon-table"></i></a>
-                                                    <a href="{{ path('app_entrepot_edit', {'id': entrepot.id}) }}" class="btn btn-primary  btn-sm"><i class="mdi mdi-pencil-box-outline icon-table"></i></a>
-                                                    <a href="{{ path('app_entrepot_produit', {'id': entrepot.id}) }}" class="btn btn-success  btn-sm"><i class="mdi mdi-archive icon-table"></i></a>
+                                                    <a href="{{ path('app_entrepot_show', {'id': entrepot.id}) }}" class="btn btn-info  btn-sm"><i class="mdi mdi-eye p-2 text-white"></i></a>
+                                                    <a href="{{ path('app_entrepot_edit', {'id': entrepot.id}) }}" class="btn btn-primary  btn-sm"><i class="mdi mdi-pencil-box-outline p-2 text-white"></i></a>
+                                                    <a href="{{ path('app_entrepot_produit', {'id': entrepot.id}) }}" class="btn btn-success  btn-sm"><i class="mdi mdi-archive p-2 text-white"></i></a>
                                                 </td>
                                             </tr>
                                         {% else %}
@@ -105,23 +105,23 @@
             {{ form_start(form) }}
                 <div class="modal-body">
                     <div class="row mb-4">
-                        <div class="col-md-12">{{ form_widget(form.libelle) }}</div>
+                        <div class="col-md-12">{{ form_row(form.libelle) }}</div>
                     </div>
                     <div class="row mb-4">
-                        <div class="col-md-6">{{ form_widget(form.pays) }}</div>
-                        <div class="col-md-6">{{ form_widget(form.ville) }}</div>
+                        <div class="col-md-6">{{ form_row(form.pays) }}</div>
+                        <div class="col-md-6">{{ form_row(form.ville) }}</div>
                     </div>
                     <div class="row mb-4">
-                        <div class="col-md-6">{{ form_widget(form.adresse) }}</div>
-                        <div class="col-md-6">{{ form_widget(form.telephone) }}</div>
+                        <div class="col-md-6">{{ form_row(form.adresse) }}</div>
+                        <div class="col-md-6">{{ form_row(form.telephone) }}</div>
                     </div>
                     <div class="row mb-4">
-                        <div class="col-md-12">{{ form_widget(form.description) }}</div>
+                        <div class="col-md-12">{{ form_row(form.description) }}</div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="mdi mdi-close icon-table"></i></button>
-                    <button type="submit" class="btn btn-primary"><i class="mdi mdi-content-save icon-table"></i></button>
+                    <button type="button" class="btn btn-secondary text-white" data-bs-dismiss="modal"><i class="mdi mdi-close"></i></button>
+                    <button type="submit" class="btn btn-primary"><i class="mdi mdi-content-save"></i></button>
                 </div>
             {{ form_end(form) }}
         </div>

@@ -16,11 +16,26 @@ use Doctrine\ORM\EntityManagerInterface;
 #[Route('/fournisseur')]
 class FournisseurController extends AbstractController
 {
-    #[Route('/index-fournisseurs', name: 'app_fournisseur_index', methods: ['GET'])]
-    public function index(FournisseurRepository $fournisseurRepository): Response
+    #[Route('/index-fournisseurs', name: 'app_fournisseur_index', methods: ['GET','POST'])]
+    public function index(FournisseurRepository $fournisseurRepository,Request $request): Response
     {
+        $fournisseur = new Fournisseur();
+        $form = $this->createForm(FournisseurType::class, $fournisseur);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $fournisseur->setEtat(1);
+            $fournisseurRepository->add($fournisseur);
+            return $this->redirectToRoute('app_fournisseur_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        $fournisseurs =  $fournisseurRepository->findAll();
+        $dernierFournisseur =  end($fournisseurs);
+
         return $this->render('fournisseur/index.html.twig', [
             'fournisseurs' => $fournisseurRepository->findAll(),
+            'form' => $form->createView(),
+            'dernierFournisseur' => $dernierFournisseur
         ]);
     }
 
@@ -72,11 +87,13 @@ class FournisseurController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_fournisseur_delete', methods: ['POST'])]
+    #[Route('/supprimer/{id}', name: 'app_fournisseur_delete', methods: ['GET'])]
     public function delete(Request $request, Fournisseur $fournisseur, FournisseurRepository $fournisseurRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$fournisseur->getId(), $request->request->get('_token'))) {
+        if ($fournisseur)
+        {
             $fournisseurRepository->remove($fournisseur);
+            return $this->redirectToRoute('app_fournisseur_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->redirectToRoute('app_fournisseur_index', [], Response::HTTP_SEE_OTHER);

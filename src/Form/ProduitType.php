@@ -36,13 +36,6 @@ class ProduitType extends AbstractType
                  'placeholder' => 'Libelle'
                  ]
              ])
-            ->add('prix_achat', NumberType::class, [
-                'label'=> "Prix d'achat (GNF)",
-                'required' => true,
-                'attr' => [
-                    'placeholder' => " Prix Achat (GNF)"
-                ]
-            ])
             ->add('prix_vente', NumberType::class, [
                 'label'=> "Prix de Vente (GNF)",
                 'required' => true,

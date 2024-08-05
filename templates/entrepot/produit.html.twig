@@ -3,6 +3,105 @@
 {% block title %}Entrepot index{% endblock %}
 
 {% block body %}
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="row">
+                    <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <h4 class="card-title">Entrepôt : {{ entrepot.libelle }}</h4>
+                                    </div>
+                                    <div class="col-md-9 text-end">
+                                        <a href="{{path('app_entrepot_index')}}" class="btn btn-secondary btn-sm text-white">Retour <i class="mdi mdi-reply"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                {% for message in app.flashes('success') %}
+                                    <div class="alert alert-success">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                                {% for message in app.flashes('error') %}
+                                    <div class="alert alert-danger">
+                                        {{ message }}
+                                    </div>
+                                {% endfor %}
+                                <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true">
+                                    <table id="dataTable" class="table table-striped mb-0"  style="width:100%">
+                                        <thead>
+                                        <tr>
+                                            <th width="2">N°</th>
+                                            <th>Image</th>
+                                            <th>Code produit</th>
+                                            <th>Reference</th>
+                                            <th>Libelle</th>
+                                            <th>Qte</th>
+                                            <th>Stock initial</th>
+                                            <th>Prix vente (GNF)</th>
+                                            <th>Poids</th>
+                                            <th>Etat</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% set i = 0 %}
+                                        {% set totalQ = 0 %}
+                                        {% for produit_entrepot in produit_entrepots %}
+                                            {% set i = i + 1 %}
+                                            {% set totalQ = totalQ + produit_entrepot.quantite %}
+                                            <tr>
+                                                <td>{{ i }}</td>
+                                                <td>
+                                                    {% if produit_entrepot.image == '' %}
+                                                        <img src="{{asset('images/produit.jpeg')}}" height="40" width="40">
+                                                    {% else %}
+                                                        <img src="{{asset('images/produits/'~ produit_entrepot.image)}}" height="40" width="40">
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{ produit_entrepot.codeProduit }}</td>
+                                                <td>{{ produit_entrepot.reference }}</td>
+                                                <td>{{ produit_entrepot.libelle }}</td>
+                                                <td>
+                                                    {% if produit_entrepot.quantite >= produit_entrepot.stockInitial %}
+                                                        <span class="btn btn-success btn-sm">{{ produit_entrepot.quantite }}</span>
+                                                    {% else %}
+                                                        <span class="btn btn-danger btn-sm">{{ produit_entrepot.quantite }}</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{ produit_entrepot.stockInitial }}</td>
+                                                <td>{{ produit_entrepot.prixVente | number_format}}</td>
+                                                <td>{{ produit_entrepot.poids }}</td>
+                                                <td>
+                                                    {% if produit_entrepot.etat == 'Vente' %}
+                                                        <span class="btn btn-success btn-sm">{{ produit_entrepot.etat }}</span>
+                                                    {% else %}
+                                                        <span class="btn btn-danger btn-sm">{{ produit_entrepot.etat }}</span>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td colspan="10">Pas de produit  dans l'entrepôt </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    {#
 <div class="container-xl">
     <div class="page-header d-print-none">
         <div class="row g-2 align-items-center">
@@ -85,5 +184,5 @@
                </tbody>
         </table>
     </div>
-</div>
+</div> #}
 {% endblock %}

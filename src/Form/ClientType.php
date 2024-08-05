@@ -45,7 +45,6 @@ class ClientType extends AbstractType
                     ]),
                 ]
             ])
-            ->add('etat')
             ->add('email', EmailType::class, [
                 'label' => true,
                 'label' => 'Email',
@@ -65,18 +64,6 @@ class ClientType extends AbstractType
                 'label' => 'Contact',
                 'attr' => [
                     'placeholder' => 'Contact'
-                ],
-                'required' => false,
-            ])
-            ->add('pays', CountryType::class, [
-                'placeholder' => 'Choisir un pays',
-                'required' => false,
-                'label'=> 'Pays'
-            ])
-            ->add('ville', TextType::class, [
-                'label' => 'Ville',
-                'attr' => [
-                    'placeholder' => 'Ville'
                 ],
                 'required' => false,
             ])

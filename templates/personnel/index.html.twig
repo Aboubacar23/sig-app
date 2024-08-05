@@ -66,8 +66,8 @@
                                                 <td>{{ personnel.pays | country_name }}</td>
                                                 <td>{{ personnel.ville }}</td>
                                                 <td class="text-center">
-                                                    <a class="btn-sm btn btn-success text-white btn-sm" href="{{path('app_personnel_show', {'id' : personnel.id})}}"><i class="mdi mdi-eye icon-table"></i></a>
-                                                    <a class="btn-sm btn btn-primary btn-sm" href="{{path('app_personnel_edit', {'id' : personnel.id})}}"><i class="mdi mdi-pencil-box-outline icon-table"></i></a>
+                                                    <a class="btn-sm btn btn-success text-white btn-sm" href="{{path('app_personnel_show', {'id' : personnel.id})}}"><i class="mdi mdi-eye"></i></a>
+                                                    <a class="btn-sm btn btn-primary btn-sm" href="{{path('app_personnel_edit', {'id' : personnel.id})}}"><i class="mdi mdi-pencil-box-outline"></i></a>
                                                 </td>
                                             </tr>
                                         {% else %}

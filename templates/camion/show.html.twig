@@ -13,12 +13,12 @@
                             <h4 class="card-title">Détails Camion</h4>
                         </div>
                         <div class="col-md-9 text-end">
-                            <a class="btn-sm btn btn-success btn-sm text-white m-2" href="{{path('app_camion_print', {'id' : camion.id})}}" target="_blank">Imprimer <i class="mdi mdi-printer icon-table"></i></a>
-                            <a class="btn-sm btn btn-info btn-sm text-white m-2" href="{{path('app_recette_camion_new', {'id' : camion.id})}}?name=recette_camion" onclick="return confirm('Voulez-vous confirmer ?')">Recettes<i class="mdi mdi-cash icon-table"></i></a>
+                            <a class="btn-sm btn btn-success btn-sm text-white m-2" href="{{path('app_camion_print', {'id' : camion.id})}}" target="_blank">Imprimer <i class="mdi mdi-printer"></i></a>
+                            <a class="btn-sm btn btn-info btn-sm text-white m-2" href="{{path('app_recette_camion_new', {'id' : camion.id})}}?name=recette_camion" onclick="return confirm('Voulez-vous confirmer ?')">Recettes<i class="mdi mdi-cash"></i></a>
                             <a class="btn-sm btn btn-primary btn-sm text-white m-2" href="{{path('app_depense_camion_new', {'id' : camion.id})}}?name=depense_camion" onclick="return confirm('Voulez-vous confirmer ?')">Dépenses <i class="mdi mdi-cash"></i></a>
-                            <a href="{{path('app_camion_edit', {'id' : camion.id })}}" class="btn btn-warning btn-sm m-2 text-white">Modifier <i class="mdi mdi-pencil-box-outline icon-table"></i></a>
-                            <a href="{{path('app_camion_delete', {'id' : camion.id })}}" class="btn btn-danger btn-sm m-2 text-white" onclick="return confirm('Voulez-vous confirmer ?')">Supprimer <i class="mdi mdi-delete icon-table"></i></a>
-                            <a href="{{path('app_camion_index')}}" class="btn btn-secondary btn-sm m-2 ms-auto text-white">Retour <i class="mdi mdi-reply icon-table"></i></a>
+                            <a href="{{path('app_camion_edit', {'id' : camion.id })}}" class="btn btn-warning btn-sm m-2 text-white">Modifier <i class="mdi mdi-pencil-box-outline"></i></a>
+                            <a href="{{path('app_camion_delete', {'id' : camion.id })}}" class="btn btn-danger btn-sm m-2 text-white" onclick="return confirm('Voulez-vous confirmer ?')">Supprimer <i class="mdi mdi-delete"></i></a>
+                            <a href="{{path('app_camion_index')}}" class="btn btn-secondary btn-sm m-2 ms-auto text-white">Retour <i class="mdi mdi-reply"></i></a>
                         </div>
                     </div>
                 </div>
@@ -91,8 +91,8 @@
                                         <td>{{ item.numeroCheque }}</td>
                                         <td>{{ item.observation }}</td>
                                         <td>
-                                            <a class="btn btn-danger btn-sm text-white" href="{{ path('app_recette_camion_delete', {'id': item.id}) }}" onclick="return confirm('Voulez-vous confirmer ?')"><i class="mdi mdi-delete icon-table"></i></a>
-                                            <a class="btn btn-primary btn-sm" href="{{ path('app_recette_camion_edit', {'id': item.id}) }}"><i class="mdi mdi-pencil-box-outline icon-table"></i></a>
+                                            <a class="btn btn-danger btn-sm text-white" href="{{ path('app_recette_camion_delete', {'id': item.id}) }}" onclick="return confirm('Voulez-vous confirmer ?')"><i class="mdi mdi-delete"></i></a>
+                                            <a class="btn btn-primary btn-sm" href="{{ path('app_recette_camion_edit', {'id': item.id}) }}"><i class="mdi mdi-pencil-box-outline"></i></a>
                                         </td>
                                     </tr>
                                     {% else  %}
@@ -147,8 +147,8 @@
                                         <td>{{ item.ordreDe }}</td>
                                         <td>{{ item.observation }}</td>
                                         <td>
-                                            <a class="btn btn-danger btn-sm text-white" href="{{ path('app_depense_camion_delete', {'id': item.id}) }}" onclick="return confirm('Voulez-vous confirmer ?')"><i class="mdi mdi-delete icon-table"></i></a>
-                                            <a class="btn btn-primary btn-sm" href="{{ path('app_depense_camion_edit', {'id': item.id}) }}"><i class="mdi mdi-pencil-box-outline icon-table"></i></a>
+                                            <a class="btn btn-danger btn-sm text-white" href="{{ path('app_depense_camion_delete', {'id': item.id}) }}" onclick="return confirm('Voulez-vous confirmer ?')"><i class="mdi mdi-delete"></i></a>
+                                            <a class="btn btn-primary btn-sm" href="{{ path('app_depense_camion_edit', {'id': item.id}) }}"><i class="mdi mdi-pencil-box-outline"></i></a>
                                         </td>
                                     </tr>
                                 {% else  %}
