@@ -3,34 +3,39 @@
 {% block title %}FactureFournisseur index{% endblock %}
 
 {% block body %}
-<div class="container-xl">
-    <div class="page-header d-print-none">
-        <div class="row g-2 align-items-center">
-            <div class="col">
-                <h2 class="page-title">Compte fournisseur : {{ fournisseur.codeFournisseur }}</h2>
-            </div>
-            <div class="col-12 col-md-auto ms-auto d-print-none">
-                <div class="btn-list">
-                    <a href="{{ path('app_fournisseur_index') }}" class="btn btn-secondary btn-sm text-white">Retour <i class="fa fa-reply p-1"></i></a>
-                    <a href="{{ path('app_fournisseur_compte', {'id': fournisseur.id }) }}" class="btn btn-info btn-sm text-white"> Commandes<i class="fa fa-first-order p-1"></i></a>
-                    <a href="{{ path('app_fournisseur_facture', {'id': fournisseur.id }) }}" class="btn btn-facebook btn-sm text-white"> Factures <i class="fa fa-list p-1"></i></a>
-                    <a href="{{path('app_fournisseur_new')}}" class="btn btn-primary d-none d-sm-inline-block">Ajouter <i class="fa fa-plus p-1"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="page-body">
-    <div class="container-xl">
-        <div class="row row-cards">
-            <div class="col-12">
-                <div class="card p-2 m-4">
-                    <div class="card-header mb-2">
-                        <h3 class="card-title">Liste des factures</h3>
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h4 class="card-title">Compte fournisseur : {{ fournisseur.codeFournisseur }}</h4>
+                        </div>
+                        <div class="col-md-9 text-end">
+                            <a href="{{path('app_fournisseur_compte', {'id' : fournisseur.id })}}" class="btn btn-primary btn-sm  text-white">Commande <i class="mdi mdi-file p-1"></i></a>
+                            <a href="{{path('app_fournisseur_index')}}" class="btn btn-secondary btn-sm text-white">Retour <i class="mdi mdi-reply"></i></a>
+                        </div>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table card-table table-hover dataTable">
-                            <thead class="table-dark">
+                </div>
+                <div class="card-body">
+                    <div class="row mb-2">
+                        {% for message in app.flashes('success') %}
+                            <div class="alert alert-success">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                        {% for message in app.flashes('error') %}
+                            <div class="alert alert-danger">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+
+                        <table class="table table-striped mb-0">
+                            <thead>
+                                <tr>
+                                    <th colspan="7" class="text-center">Facture Fournisseur</th>
+                                </tr>
                                 <tr>
                                     <th>N°</th>
                                     <th>Numero facture</th>
@@ -38,38 +43,38 @@
                                     <th>Condition paiement</th>
                                     <th>Date facturation</th>
                                     <th>Etat paiement</th>
-                                    <th class="text-center">Actions</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% set i = 0 %}
-                                {% for facture_fournisseur in facture_fournisseurs %}
-                                    {%  if fournisseur.id == facture_fournisseur.commande.fournisseur.id %}
+                            {% set i = 0 %}
+                            {% for facture_fournisseur in facture_fournisseurs %}
+                                {%  if fournisseur.id == facture_fournisseur.commande.fournisseur.id %}
                                     {% set i = i + 1 %}
-                                        <tr>
-                                            <td></td>
-                                            <td>{{ i }}</td>
-                                            <td>{{ facture_fournisseur.numeroFacture }}</td>
-                                            <td>{{ facture_fournisseur.commande }}</td>
-                                            <td>{{ facture_fournisseur.conditionPaiement }}</td>
-                                            <td>{{ facture_fournisseur.dateFacturation ? facture_fournisseur.dateFacturation|date('Y-m-d') : '' }}</td>
-                                            <td>
-                                                {% if facture_fournisseur.etatPaiement == true %}
-                                                    <span class="btn btn-success btn-sm taille">{{ facture_fournisseur.etatPaiement ? 'Payé' : 'Impayé' }}</span>
-                                                {% elseif facture_fournisseur.etatPaiement == false %}
-                                                    <span class="btn btn-danger btn-sm taille">{{ facture_fournisseur.etatPaiement ? 'Payé' : 'Impayé' }}</span>
-                                                {% endif %}
-                                            </td>
-                                            <td class="text-center">
-                                                <a href="{{ path('app_print_facture_fournisseur', {'id': facture_fournisseur.id}) }}" class="btn btn-info btn-sm" target="_blank">Imprimer <i class="fa fa-print p-1"></i></a>
-                                            </td>
-                                        </tr>
-                                    {% endif %}
-                                {% else %}
                                     <tr>
-                                        <td colspan="11">La table de facture fournisseur est vide </td>
+                                        <td></td>
+                                        <td>{{ i }}</td>
+                                        <td>{{ facture_fournisseur.numeroFacture }}</td>
+                                        <td>{{ facture_fournisseur.commande }}</td>
+                                        <td>{{ facture_fournisseur.conditionPaiement }}</td>
+                                        <td>{{ facture_fournisseur.dateFacturation ? facture_fournisseur.dateFacturation|date('Y-m-d') : '' }}</td>
+                                        <td>
+                                            {% if facture_fournisseur.etatPaiement == true %}
+                                                <span class="btn btn-success btn-sm taille">{{ facture_fournisseur.etatPaiement ? 'Payé' : 'Impayé' }}</span>
+                                            {% elseif facture_fournisseur.etatPaiement == false %}
+                                                <span class="btn btn-danger btn-sm taille">{{ facture_fournisseur.etatPaiement ? 'Payé' : 'Impayé' }}</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ path('app_print_facture_fournisseur', {'id': facture_fournisseur.id}) }}" class="btn btn-info btn-sm" target="_blank">Imprimer <i class="fa fa-print p-1"></i></a>
+                                        </td>
                                     </tr>
-                                {% endfor %}
+                                {% endif %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="11">La table de facture fournisseur est vide </td>
+                                </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>
