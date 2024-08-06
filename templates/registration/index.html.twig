@@ -73,8 +73,8 @@
                                                 <td>{{ user.ville }}</td>
                                                 <td>{{ user.pays | country_name }}</td>
                                                 <td class="text-center">
-                                                    <a class="btn-sm btn btn-success text-white btn-sm" href="{{path('app_user_show', {'id' : user.id})}}"><i class="mdi mdi-eye icon-table"></i></a>
-                                                    <a class="btn-sm btn btn-primary btn-sm" href="{{path('app_user_edit', {'id' : user.id})}}"><i class="mdi mdi-pencil-box-outline icon-table"></i></a>
+                                                    <a class="btn-sm btn btn-success text-white btn-sm" href="{{path('app_user_show', {'id' : user.id})}}">Détails<i class="mdi mdi-eye p-1"></i></a>
+                                                    <a class="btn-sm btn btn-primary btn-sm" href="{{path('app_user_edit', {'id' : user.id})}}">Modifier <i class="mdi mdi-pencil-box-outline p-1"></i></a>
                                                 </td>
                                             </tr>
                                         {% else %}

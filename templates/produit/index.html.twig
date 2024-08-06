@@ -17,7 +17,7 @@
                                         <h4 class="card-title">Liste des produits</h4>
                                     </div>
                                     <div class="col-md-9 text-end">
-                                        <a href="{{ path('app_produit_new') }}" class="btn btn-primary btn-sm"><i class="mdi mdi-plus-box p-2"></i></a>
+                                        <a href="{{ path('app_produit_new') }}" class="btn btn-primary btn-sm">Ajouter <i class="mdi mdi-plus-box p-1"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -40,8 +40,8 @@
                                             <th>Image</th>
                                             <th>Code produit</th>
                                             <th>Libelle</th>
-                                            <th>Qte</th>
-                                            <th>Prix vente(GNF)</th>
+                                            <th>Quantité</th>
+                                            <th>Prix (GNF)</th>
                                             <th>Stock Initial</th>
                                             <th>Etat Produit</th>
                                             <th class="text-center" width="100"></th>
@@ -59,7 +59,7 @@
                                                 <td>{{ i }}</td>
                                                 <td>
                                                     {% if produit.image == '' %}
-                                                        <img src="{{asset('images/produit.jpeg')}}" width="60" width="60" class="rounded-circle border-2">
+                                                        <img src="{{asset('images/images/product.jpg')}}" width="60" width="60" class="rounded-circle border-2">
                                                     {% else %}
                                                         <img src="{{asset('images/produits/'~ produit.image)}}" width="60" width="60" class="rounded-circle border-2">
                                                     {% endif %}
@@ -68,24 +68,25 @@
                                                 <td>{{ produit.libelle }}</td>
                                                 <td>
                                                     {% if produit.quantite >= produit.stockInitial %}
-                                                        <span class="btn btn-success btn-sm">{{ produit.quantite }}</span>
+                                                        <span class="btn btn-success btn-sm text-white text-center" style="width: 50px">{{ produit.quantite }}</span>
                                                     {% else %}
-                                                        <span class="btn btn-danger btn-sm">{{ produit.quantite }}</span>
+                                                        <span class="btn btn-danger btn-sm text-white text-center" style="width: 50px">{{ produit.quantite }}</span>
                                                     {% endif %}
                                                 </td>
-                                                <td>{{ produit.prixAchat| number_format }}</td>
-                                                <td>{{ produit.prixVente | number_format}}</td>
-                                                <td>{{ produit.stockInitial}}</td>
+                                                <td>{{ produit.prixVente | number_format}} GNF</td>
+                                                <td>
+                                                    <span class="btn btn-danger btn-sm text-white" style="width: 50px">{{ produit.stockInitial }}</span>
+                                                </td>
                                                 <td>
                                                     {% if produit.etat == 'Vente' %}
-                                                        <span class="btn btn-success btn-sm">{{ produit.etat }}</span>
+                                                        <span class="btn btn-success btn-sm text-white" style="width: 100px">{{ produit.etat }}</span>
                                                     {% else %}
-                                                        <span class="btn btn-danger btn-sm">{{ produit.etat }}</span>
+                                                        <span class="btn btn-danger btn-sm text-white" style="width: 100px">{{ produit.etat }}</span>
                                                     {% endif %}
                                                 </td>
                                                 <td class="text-center">
-                                                    <a class="btn-sm btn btn-success text-white btn-sm" href="{{path('app_produit_show', {'id' : camion.id})}}">Détails <i class="mdi mdi-eye"></i></a>
-                                                    <a class="btn-sm btn btn-primary btn-sm text-white" href="{{path('app_produit_edit', {'id' : camion.id})}}">Modifier <i class="mdi mdi-check"></i></a>
+                                                    <a class="btn-sm btn btn-success text-white btn-sm" href="{{path('app_produit_show', {'id' : produit.id})}}">Détails <i class="mdi mdi-eye"></i></a>
+                                                    <a class="btn-sm btn btn-primary btn-sm text-white" href="{{path('app_produit_edit', {'id' : produit.id})}}">Modifier <i class="mdi mdi-check"></i></a>
                                                 </td>
                                             </tr>
                                         {% else %}

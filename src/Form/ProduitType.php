@@ -43,7 +43,7 @@ class ProduitType extends AbstractType
                     'placeholder' => " Prix Vente (GNF)"
                 ]
             ])
-            ->add('key_produit')
+           // ->add('key_produit')
             ->add('image', FileType::class, [
                 'disabled' => false,
                 'label' => ' Image',
@@ -75,7 +75,7 @@ class ProduitType extends AbstractType
                     'placeholder' => 'Quantite'
                 ]
             ])
-            ->add('poids',IntegerType::class, [
+            ->add('poids',NumberType::class, [
                 'label' => 'Poids (g)',
                 'required' => false,
                 'attr' => [
@@ -90,20 +90,20 @@ class ProduitType extends AbstractType
             //     ]
 
             // ])
-            ->add('volume',IntegerType::class, [
+            ->add('volume',NumberType::class, [
                 'label' => 'Volume (m3)',
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'Volume (m3)'
                 ]
             ])
-            ->add('couleur', TextType::class,[
+            /*->add('couleur', TextType::class,[
                 'label' => 'Couleur',
                  'required' => false,
                  'attr' => [
                  'placeholder' => 'Couleur'
              ]
-             ])
+             ])*/
             ->add('etat', ChoiceType::class, [
                 'label' => 'Etat',
                 'choices' => [
