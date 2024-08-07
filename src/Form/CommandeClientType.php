@@ -44,6 +44,10 @@ class CommandeClientType extends AbstractType
                 'widget' => 'single_text',
                 'required' => true
             ])
+            ->add('frais_livraison', NumberType::class, [
+                'label' => 'Frais Livraison',
+                'required' => false,
+            ])
            /* ->add('type_commande', ChoiceType::class, [
                 'label' => 'Type Commande',
                 'choices' => [

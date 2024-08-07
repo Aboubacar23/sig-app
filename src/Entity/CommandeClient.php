@@ -43,6 +43,9 @@ class CommandeClient
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $flag;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $frais_livraison = null;
+
 
     public function getId(): ?int
     {
@@ -169,6 +172,18 @@ class CommandeClient
     public function setFlag(?bool $flag): self
     {
         $this->flag = $flag;
+
+        return $this;
+    }
+
+    public function getFraisLivraison(): ?float
+    {
+        return $this->frais_livraison;
+    }
+
+    public function setFraisLivraison(?float $frais_livraison): static
+    {
+        $this->frais_livraison = $frais_livraison;
 
         return $this;
     }

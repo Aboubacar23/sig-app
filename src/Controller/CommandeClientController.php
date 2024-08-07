@@ -28,11 +28,8 @@ class CommandeClientController extends AbstractController
         $items =  $commandeClientRepository->findBy([], ['id' => 'desc']);
 
          $commandes = array_filter($items, function ($commande){
-             return $commande->isFlag() == 1;
+             return $commande->isFlag() != 1;
          });
-
-        $session = $request->getSession();
-        $session->clear();
 
         return $this->render('commande_client/index.html.twig', [
             'commande_clients' => $commandes,
@@ -43,7 +40,7 @@ class CommandeClientController extends AbstractController
     public function liste(Request $request, CommandeClientRepository $commandeClientRepository): Response
     {
         $tab =  $commandeClientRepository->findBy([], ['id' => 'desc']);
-       // dd($tab);
+
         $commandes = [];
         for($i=0; $i < count($tab); $i++)
         {
@@ -51,8 +48,7 @@ class CommandeClientController extends AbstractController
                 array_push($commandes, $tab[$i]);
             }
         }
-        $session = $request->getSession();
-        $session->clear();
+
         return $this->render('commande_client/liste.html.twig', [
             'commande_clients' =>$commandes,
         ]);
@@ -126,7 +122,7 @@ class CommandeClientController extends AbstractController
 
                 //dd($tab);
             }
-            elseif($choix == "Add")
+            elseif($choix == "Ajouter")
             {
  
                 $lig = sizeof($tab)+1;

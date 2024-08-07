@@ -44,32 +44,24 @@
                                     <td>{{ produit.codeProduit }}</td>
                                     <th>Libelle</th>
                                     <td>{{ produit.libelle }}</td>
-                                </tr>
-                                <tr>
                                     <th>Reference</th>
                                     <td>{{ produit.reference }}</td>
-                                    <th>Key</th>
-                                    <td>{{ produit.keyProduit }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Prix achat</th>
-                                    <td>{{ produit.prixAchat | number_format }}</td>
                                     <th>Prix vente</th>
-                                    <td>{{ produit.prixVente | number_format }}</td>
+                                    <td>{{ produit.prixVente | number_format }} GNF</td>
                                 </tr>
                                 <tr>
                                     <th>Quantite</th>
                                     <td>
                                         {% if produit.quantite >= produit.stockInitial %}
-                                            <span class="btn btn-success btn-sm">{{ produit.quantite }}</span>
+                                            <span class="btn btn-success btn-sm text-white">{{ produit.quantite }}</span>
                                         {% else %}
-                                            <span class="btn btn-danger btn-sm">{{ produit.quantite }}</span>
+                                            <span class="btn btn-danger btn-sm text-white">{{ produit.quantite }}</span>
                                         {% endif %}
                                     </td>
                                     <th>Stock initial</th>
-                                    <td>{{ produit.stockInitial }}</td>
-                                </tr>
-                                <tr>
+                                    <td>
+                                        <span class="btn btn-danger btn-sm text-white" style="width: 50px">{{ produit.stockInitial }}</span>
+                                    </td>
                                     <th>Poids</th>
                                     <td>{{ produit.poids }}</td>
                                     <th>Volume</th>
@@ -81,13 +73,11 @@
                                     <th>Etat</th>
                                     <td>
                                         {% if produit.etat == 'Vente' %}
-                                            <span class="btn btn-success btn-sm">{{ produit.etat }}</span>
+                                            <span class="btn btn-success btn-sm text-white">{{ produit.etat }}</span>
                                         {% else %}
-                                            <span class="btn btn-danger btn-sm">{{ produit.etat }}</span>
+                                            <span class="btn btn-danger btn-sm text-white">{{ produit.etat }}</span>
                                         {% endif %}
                                     </td>
-                                </tr>
-                                <tr>
                                     <th>Desciption</th>
                                     <td>{{ produit.desciption }}</td>
                                 </tr>
@@ -97,9 +87,9 @@
                         <div class="col-md-3">
                             <td>
                                 {% if produit.image == '' %}
-                                    <img src="{{asset('images/produit.jpeg')}}" width="200" height="210" class="rounded-circle">
+                                    <img src="{{asset('images/produit.jpeg')}}" width="300" height="300" class="rounded-circle">
                                 {% else %}
-                                    <img src="{{asset('images/produits/'~ produit.image)}}" width="200" height="210" class="rounded-circle">
+                                    <img src="{{asset('images/produits/'~ produit.image)}}" width="300" height="300" class="rounded-circle">
                                 {% endif %}
                             </td>
                         </div>

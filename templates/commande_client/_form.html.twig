@@ -1,6 +1,6 @@
 <form method="post">
     <div class="card-header">
-        <h4 class="card-title">Ajouter une commande</h4>
+        <h4 class="card-title">Modifier la commande : {{ commande_client.codeCommande }}</h4>
     </div>
     <div class="card-body">
         <div class="row mb-2">
@@ -9,9 +9,10 @@
             <div class="col-md-4">{{ form_row(form.date_commande)}}</div>
         </div>
         <div class="row mb-2">
-            <div class="col-md-4">{{ form_row(form.numero_reference)}}</div>
-            <div class="col-md-4">{{ form_row(form.reception_date)}}</div>
-            <div class="col-md-4">{{ form_row(form.paiement_date)}}</div>
+            <div class="col-md-3">{{ form_row(form.numero_reference)}}</div>
+            <div class="col-md-3">{{ form_row(form.reception_date)}}</div>
+            <div class="col-md-3">{{ form_row(form.paiement_date)}}</div>
+            <div class="col-md-3">{{ form_row(form.frais_livraison)}}</div>
         </div>
         <!-- le formulaire d commandee produit -->
         <div class="row mb-2"> 

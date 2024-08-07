@@ -17,8 +17,7 @@
                                         <h4 class="card-title">Liste des personnels</h4>
                                     </div>
                                     <div class="col-md-9 text-end">
-                                        {# <a href="#" class="btn btn-secondary text-white ">Nombres : {{ personnels | length}}</a> #}
-                                        <a href="{{path('app_personnel_new')}}" class="btn btn-primary btn-sm"><i class="mdi mdi-plus-circle icon-table"></i></a>
+                                        <a href="{{path('app_personnel_new')}}" class="btn btn-primary btn-sm">Ajouter <i class="mdi mdi-plus-circle"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -28,22 +27,22 @@
                                         {{ message }}
                                     </div>
                                 {% endfor %}
-                                <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true">
-                                    <table class="table table-striped mb-0">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col" width="2">N°</th>
-                                            <th scope="col">Image</th>
-                                            <th scope="col">Code Personnels</th>
-                                            <th scope="col">Nom</th>
-                                            <th scope="col">Prenom</th>
-                                            <th scope="col">Telephone</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Pays</th>
-                                            <th scope="col">Ville</th>
-                                            <th scope="col" class="text-center" width="100"></th>
-                                        </tr>
-                                        </thead>
+                                    <div class="table-responsive">
+                                        <table id="dataTable" class="table table-striped" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" width="2">N°</th>
+                                                    <th scope="col">Image</th>
+                                                    <th scope="col">Code Personnels</th>
+                                                    <th scope="col">Nom</th>
+                                                    <th scope="col">Prenom</th>
+                                                    <th scope="col">Telephone</th>
+                                                    <th scope="col">Email</th>
+                                                    <th scope="col">Pays</th>
+                                                    <th scope="col">Ville</th>
+                                                    <th scope="col" class="text-center" width="100"></th>
+                                                </tr>
+                                            </thead>
                                         <tbody>
 
                                         {% set i = 0 %}

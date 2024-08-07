@@ -37,8 +37,9 @@ security:
     access_control:
          - { path: ^/users, roles: ROLE_SUPER_ADMIN }
          - { path: ^/banque, roles: ROLE_SUPER_ADMIN } 
-         - { path: ^/client, roles: ROLE_SUPER_ADMIN } 
-         - { path: ^/commande/fournisseur, roles: ROLE_SUPER_ADMIN } 
+         - { path: ^/client, roles: ROLE_SUPER_ADMIN }
+         - { path: ^/commande/fournisseur, roles: ROLE_SUPER_ADMIN }
+         - { path: ^/commande/client, roles: ROLE_SUPER_ADMIN }
          - { path: ^/entrepot, roles: ROLE_SUPER_ADMIN } 
          - { path: ^/facture/client, roles: ROLE_SUPER_ADMIN } 
          - { path: ^/facture/fournisseur, roles: ROLE_SUPER_ADMIN } 

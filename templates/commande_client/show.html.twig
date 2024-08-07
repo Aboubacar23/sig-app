@@ -3,136 +3,151 @@
 {% block title %}CommandeClient{% endblock %}
 
 {% block body %}
-<div class="container-xl">
-    <div class="page-header d-print-none">
-        <div class="row g-2 align-items-center">
-            <div class="col">
-            <h2 class="page-title">
-                Commande Client
-            </h2>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="page-body">
-    <div class="container-xl">
-        <div class="row row-cards">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Détail Commande : {{ commande_client.codeCommande }}</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="row mb-2">
-                            <div class="col-md-12">
-                                <table class="table">
-                                    <tbody>
-                                        <tr>
-                                            <th>Code commande</th>
-                                            <td>{{ commande_client.codeCommande }}</td>
-                                            <th>Numero reference</th>
-                                            <td>{{ commande_client.numeroReference }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Date commande</th>
-                                            <td>{{ commande_client.dateCommande ? commande_client.dateCommande|date('Y-m-d') : '' }}</td>
-                                            <th>Type commande</th>
-                                            <td>{{ commande_client.typeCommande }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Payement date</th>
-                                            <td>{{ commande_client.paiementDate ? commande_client.paiementDate|date('Y-m-d') : '' }}</td>
-                                            <th>Reception date</th>
-                                            <td>{{ commande_client.receptionDate ? commande_client.receptionDate|date('Y-m-d') : '' }}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Note</th>
-                                            <td>{{ commande_client.note }}</td>
-                                            <th>Etat</th>
-                                            <td>
-                                                {% if commande_client.etat == true %}
-                                                    <span class="btn bg-success btn-sm"><i class="fa fa-check-circle fa-2x"></i></span>
-                                                {% else %}
-                                                    <span class="btn bg-danger btn-sm"><i class="fa fa-repeat fa-2x"></i></span>
-                                                {% endif %}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+<div class="content-wrapper">
+    <div class="row">
+        <div class="col-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h4 class="card-title">Détails commande : {{  commande_client.codeCommande }}</h4>
                         </div>
-                        <div class="row p-2 text-right"> 
-                            <table class="table table-striped m-2">
-                                <thead class="table-secondary taille">
-                                    <tr>
-                                        <td>N°</td>
-                                        <td>Images</td>
-                                        <td>Produit</td>
-                                        <td>Qte</td>
-                                        <td>Prix Unitaire</td>
-                                        <td>Remise</td>
-                                        <td>TVA</td>
-                                        <td>Total HT</td>
-                                        <td>Total TTC</td>
-                                    </tr>
-                                </thead>
-                                <tbody>   
-                                    {%  set montantTotalTTC = 0 %}
-                                    {%  set montantHT = 0 %}
-                                    {%  set montantTTC = 0 %}
-                                    {%  set montantTVA = 0 %}
-                                    {%  set i = 0 %}
-                                    {% for l in lcommande %}
-                                        {% if l.numCommande == commande_client.codeCommande %}
-                                            {%  set i = i + 1 %} 
-                                            {%  set montantHT = l.quantite * l.produit.prixachat %}
-                                            {%  set montantTVA = montantHT * (l.tva/100) %}
-                                            {%  set montantTTC = montantHT + montantTVA - l.remise %}
-            
-            
-                                            {%  set montantTotalTTC = montantTotalTTC + montantTTC %}
-                                            <tr>
-                                                <td width="10px">{{ i }}</td>
-                                                <td>
-                                                    {% if l.produit.image == '' %}
-                                                        <img src="{{asset('images/produit.jpeg')}}" width="50px" height="50px">
-                                                    {% else %}
-                                                        <img src="{{asset('images/produits/'~ l.produit.image)}}" width="50px" height="50px">
-                                                    {% endif %}
-                                                </td>
-                                                <td>{{l.produit.libelle}}</td>
-                                                <td>{{l.quantite}}</td>
-                                                <td>{{l.produit.prixachat | number_format }}</td>
-                                                <td>{{l.remise}}</td>
-                                                <td>{{l.tva}}</td>
-                                                <td>{{ montantHT | number_format }}</td>
-                                                <td>{{ montantTTC | number_format }}</td>
-                                            </tr>
-                                        {% endif %}
-                                    {% endfor %}
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <th colspan="8"></th>
-                                        <th>{{montantTotalTTC | number_format}}</th>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="card-footer text-end">
-                        <div class="d-flex"> 
-                            <a href="{{path('app_print_commande_fournisseur', {'id': commande_client.id})}}" class="m-2 btn btn-info btn-sm text-white" target="_blank">Imprimer <i class="fa fa-print p-1"></i></a>
+                        <div class="col-md-9 text-end">
+                            <a href="{{path('app_print_commande_fournisseur', {'id': commande_client.id})}}" class="m-2 btn btn-info btn-sm text-white" target="_blank">Imprimer <i class="mdi mdi-print p-1"></i></a>
                             {% if commande_client.etat == true %}
-                                <a href="{{ path('app_commande_client_etat', {'id': commande_client.id}) }}" onclick="confirm('Voulez-vous annuler cette commande ?')" class="m-2 btn btn-danger text-white btn-sm">Invalider <i class="fa fa-check-circle p-1"></i></a>
+                                <a href="{{ path('app_commande_client_etat', {'id': commande_client.id}) }}" class="btn  btn-danger btn-sm m-2 text-white" onclick="confirm('Voulez-vous confirmer ?')">Annuler <i class="mdi mdi-close"></i></a>
                             {% else %}
-                                <a href="{{ path('app_commande_client_etat', {'id': commande_client.id}) }}" onclick="confirm('Voulez-vous valider cette commande ?')" class="m-2 btn btn-success text-white btn-sm">Valider <i class="fa fa-check-circle p-1"></i></a>
-                            {% endif %} 
-                            <a href="{{ path('app_commande_client_edit', {'id' : commande_client.id }) }}" class="m-2 btn btn-warning btn-sm text-white">Modifier <i class="fa fa-edit p-1"></i></a>
-                            <p>{{ include('commande_client/_delete_form.html.twig') }}</p>                            
-                            <a href="javascript:history.back()" class="m-2 btn btn-secondary btn-sm text-white">Retour <i class="fa fa-reply p-1"></i></a>
+                                <a href="{{ path('app_commande_client_etat', {'id': commande_client.id}) }}" class="btn  btn-success btn-sm m-2 text-white" onclick="confirm('Voulez-vous confirmer ?')">Valider <i class="mdi mdi-close"></i></a>
+                            {% endif %}
+                            <a href="{{path('app_commande_client_edit', {'id' : commande_client.id })}}" class="btn btn-warning btn-sm  text-white">Modifier <i class="mdi mdi-pencil-box-outline"></i></a>
+                            <a href="{{path('app_commande_client_delete', {'id' : commande_client.id })}}" class="btn btn-danger btn-sm text-white" onclick="return confirm('Voulez-vous confirmer ?')">Supprimer <i class="mdi mdi-delete"></i></a>
+                            <a href="{{path('app_commande_client_index')}}" class="btn btn-secondary btn-sm text-white">Retour <i class="mdi mdi-reply"></i></a>
                         </div>
-                    </div>    
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-2">
+                        {% for message in app.flashes('success') %}
+                            <div class="alert alert-success">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                        {% for message in app.flashes('error') %}
+                            <div class="alert alert-danger">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th>Code commande</th>
+                                    <td>{{ commande_client.codeCommande }}</td>
+                                    <th>Numero reference</th>
+                                    <td>{{ commande_client.numeroReference }}</td>
+                                    <th>Date commande</th>
+                                    <td>{{ commande_client.dateCommande ? commande_client.dateCommande|date('Y-m-d') : '' }}</td>
+                                    <th>Type commande</th>
+                                    <td>{{ commande_client.typeCommande }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Payement date</th>
+                                    <td>{{ commande_client.paiementDate ? commande_client.paiementDate|date('Y-m-d') : '' }}</td>
+                                    <th>Reception date</th>
+                                    <td>{{ commande_client.receptionDate ? commande_client.receptionDate|date('Y-m-d') : '' }}</td>
+                                    <th>Note</th>
+                                    <td>{{ commande_client.note }}</td>
+                                    <th>Etat</th>
+                                    <td>
+                                        {% if commande_client.etat == true %}
+                                            <span class="btn bg-success btn-sm text-white">Valider<i class="fa fa-check-circle fa-2x"></i></span>
+                                        {% else %}
+                                            <span class="btn bg-danger btn-sm text-white">En attente<i class="fa fa-repeat fa-2x"></i></span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-striped m-2">
+                            <thead>
+                            <tr>
+                                <td>N°</td>
+                                <td>Images</td>
+                                <td>Produit</td>
+                                <td>Qte</td>
+                                <td class="text-right">Prix (GNF)</td>
+                                <td class="text-right">Remise (GNF)</td>
+                                <td>TVA</td>
+                                <td class="text-right">Total HT (GNF)</td>
+                                <td class="text-right">Total TTC (GNF)</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {%  set montantTotalTTC = 0 %}
+                            {%  set montantTotalHT = 0 %}
+                            {%  set montantHT = 0 %}
+                            {%  set montantTTC = 0 %}
+                            {%  set montantTVA = 0 %}
+                            {%  set i = 0 %}
+                            {%  set count = 0 %}
+
+                            {% for l in lcommande %}
+                                 {% if l.numCommande == commande_client.codeCommande %}
+                                     {%  set i = i + 1 %}
+                                     {%  set count = count + 1 %}
+
+                                    {%  set montantHT = l.quantite * l.produit.prixVente %}
+                                    {%  set montantTVA = montantHT * (l.tva/100) %}
+                                    {%  set montantTTC = montantHT + montantTVA - l.remise %}
+                                     {%  set montantTotalTTC = montantTotalTTC + montantTTC %}
+                                     {%  set montantTotalHT = montantTotalHT + montantHT %}
+
+                                    <tr>
+                                        <td width="10px">{{ i }}</td>
+                                        <td>
+                                            {% if l.produit.image == '' %}
+                                                <img src="{{asset('images/images/produit.jpeg')}}" width="50px" height="50px">
+                                            {% else %}
+                                                <img src="{{asset('images/produits/'~ l.produit.image)}}" width="50px" height="50px">
+                                            {% endif %}
+                                        </td>
+                                        <td>{{l.produit.libelle}}</td>
+                                        <td>{{l.quantite}}</td>
+                                        <td class="text-right">{{l.produit.prixVente | number_format }} GNF</td>
+                                        <td>{{l.remise}}</td>
+                                        <td>{{l.tva}} %</td>
+                                        <td class="text-right">{{ montantHT | number_format(2) }} GNF</td>
+                                        <td class="text-right">{{ montantTTC | number_format(2) }} GNF</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <th colspan="7"></th>
+                                <th>Total Article</th>
+                                <th class="text-right">{{ count }}</th>
+                            </tr>
+                            <tr>
+                                <th colspan="7"></th>
+                                <th>Frais de livraison</th>
+                                <th class="text-right">{{commande_client.fraisLivraison | number_format(2)}} GNF</th>
+                            </tr>
+                            <tr>
+                                <th colspan="7"></th>
+                                <th>Total HTT</th>
+                                <th class="text-right">{{montantTotalTTC | number_format(2)}} GNF</th>
+                            </tr>
+                            {% set montantTotal = 0 %}
+                            {% set montantTotal = commande_client.fraisLivraison + montantTotalTTC  %}
+                            <tr>
+                                <th colspan="7"></th>
+                                <th>Montant Total</th>
+                                <th class="text-right">{{montantTotal | number_format(2)}} GNF</th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
