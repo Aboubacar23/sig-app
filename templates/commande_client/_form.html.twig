@@ -17,7 +17,7 @@
         <!-- le formulaire d commandee produit -->
         <div class="row mb-2"> 
             <table class="table table-striped p-2 m-2">
-                <thead class="table-secondary">
+                <thead>
                     <tr>
                         <td>Produit</td>
                         <td>Qte</td>
@@ -42,7 +42,7 @@
         <!-- la liste des produits commandés -->
         <div class="row mb-2"> 
             <table class="table table-striped m-2">
-                <thead class="table-secondary taille">
+                <thead>
                     <tr>
                         <td>N°</td>
                         <td>Images</td>
@@ -65,7 +65,7 @@
                     {%  set i = 0 %}
                     {% for l in lcom %}
                         {%  set i = i + 1 %} 
-                        {%  set montantHT1 = l.quantite * l.produit.prixachat %}
+                        {%  set montantHT1 = l.quantite * l.produit.prixVente %}
         
                         {%  set montantTVA1 = montantHT1 * (l.tva/100) %}
                         {%  set montantTTC1 = montantHT1 + montantTVA1 - l.remise %}
@@ -82,7 +82,7 @@
                             </td>
                             <td>{{l.produit.libelle}}</td>
                             <td>{{l.quantite}}</td>
-                            <td>{{l.produit.prixachat | number_format }}</td>
+                            <td>{{l.produit.prixVente | number_format }}</td>
                             <td>{{l.tva}}</td>
                             <td>{{ l.remise | number_format }}</td>
                             <td>{{ montantHT1 | number_format }}</td>
@@ -104,7 +104,7 @@
                     {%  set montantHT2 = 0 %}
                     {% for l in lcs %}
                         {%  set i = i + 1 %} 
-                        {%  set montantHT2 = l.quantite * l.produit.prixachat %}
+                        {%  set montantHT2 = l.quantite * l.produit.prixVente %}
                         {%  set montantTVA2 = montantHT2 * (l.tva/100) %}
                         {%  set montantTTC2 = montantHT2 + montantTVA2 - l.remise %}
                         {%  set montantTotalHT2 = montantTotalHT2 + montantHT2 %}
@@ -120,7 +120,7 @@
                             </td>
                             <td>{{l.produit.libelle}}</td>
                             <td>{{l.quantite}}</td>
-                            <td>{{l.produit.prixachat | number_format }}</td>
+                            <td>{{l.produit.prixVente | number_format }}</td>
                             <td>{{l.tva}}</td>
                             <td>{{ l.remise | number_format }}</td>
                             <td>{{ montantHT2 | number_format }}</td>
@@ -154,8 +154,8 @@
     </div>
     <div class="card-footer text-end">
         <div class="d-flex">
-            <a href="{{path('app_commande_client_liste')}}" class="btn btn-secondary btn-sm">Retour <i class="fa fa-reply p-1"></i></a>
-            <button type="submit" class="btn btn-primary btn-sm ms-auto" name="bt" value="Valider">Modifier <i class="fa fa-save p-1"></i></button>
+            <a href="{{path('app_commande_client_liste')}}" class="btn btn-secondary btn-sm">Retour <i class="mdi mdi-reply p-1"></i></a>
+            <button type="submit" class="btn btn-primary btn-sm ms-auto" name="bt" value="Valider">Modifier <i class="mdi mdi-content-save p-1"></i></button>
         </div>
     </div>    
 </form>

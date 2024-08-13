@@ -17,7 +17,7 @@
                                         <h4 class="card-title">Liste des administrateurs</h4>
                                     </div>
                                     <div class="col-md-9 text-end">
-                                        <a href="{{path('app_register')}}" class="btn btn-primary btn-sm"><i class="mdi mdi-plus-circle icon-table"></i></a>
+                                        <a href="{{path('app_register')}}" class="btn btn-primary btn-sm">Créer <i class="mdi mdi-plus-circle"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -27,8 +27,8 @@
                                         {{ message }}
                                     </div>
                                 {% endfor %}
-                                <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true">
-                                    <table class="table table-striped mb-0">
+                                <div class="table-responsive">
+                                    <table class="table table-striped mb-0" id="dataTable">
                                         <thead>
                                             <tr>
                                                 <th scope="col">N°</th>
@@ -76,10 +76,6 @@
                                                     <a class="btn-sm btn btn-success text-white btn-sm" href="{{path('app_user_show', {'id' : user.id})}}">Détails<i class="mdi mdi-eye p-1"></i></a>
                                                     <a class="btn-sm btn btn-primary btn-sm" href="{{path('app_user_edit', {'id' : user.id})}}">Modifier <i class="mdi mdi-pencil-box-outline p-1"></i></a>
                                                 </td>
-                                            </tr>
-                                        {% else %}
-                                            <tr>
-                                                <td colspan="10">Pas d'administrateur </td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>

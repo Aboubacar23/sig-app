@@ -10,8 +10,9 @@
     <link rel="stylesheet" href="{{ asset('admin/vendors/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/vendors/css/vendor.bundle.base.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/css/style.css') }}">
+
     <link rel="shortcut icon" href="{{ asset('images/images/logo.png') }}" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <link href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
 </head>
@@ -23,7 +24,9 @@
         padding: 5px;
         margin: 5px;
     }
-
+    table{
+        width : 100%;
+    }
     table td,
     table th {
         text-overflow: ellipsis;
@@ -93,27 +96,27 @@
                 <span></span>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic44" aria-expanded="false" aria-controls="ui-basic44">
+                <a class="nav-link" data-bs-toggle="collapse" href="#menu1" aria-expanded="false" aria-controls="menu1">
                     <i class="mdi mdi-truck menu-icon"></i>
                     <span class="menu-title">Gestion Logistique</span>
                     <i class="menu-arrow"></i>
                 </a>
-                <div class="collapse" id="ui-basic44">
+                <div class="collapse" id="menu1">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"> <a class="nav-link" href="{{ path('app_camion_index') }}">Camions</a></li>
                         <li class="nav-item"> <a class="nav-link" href="{{ path('app_recette_camion_index') }}">Recettes</a></li>
                         <li class="nav-item"> <a class="nav-link" href="{{ path('app_depense_camion_index') }}">Dépenses</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="#">Historiques</a></li>
+                        {# <li class="nav-item"> <a class="nav-link" href="#">Historiques</a></li> #}
                     </ul>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic1" aria-expanded="false" aria-controls="ui-basic1">
+                <a class="nav-link" data-bs-toggle="collapse" href="#menu2" aria-expanded="false" aria-controls="menu2">
                     <i class="mdi mdi-palette menu-icon"></i>
                     <span class="menu-title">Gestion Produit</span>
                     <i class="menu-arrow"></i>
                 </a>
-                <div class="collapse" id="ui-basic1">
+                <div class="collapse" id="menu2">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"> <a class="nav-link" href="{{ path('app_produit_index') }}">Produits</a></li>
                         <li class="nav-item"> <a class="nav-link" href="{{ path('app_entrepot_index') }}">Entrepôts</a></li>
@@ -122,26 +125,26 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic2" aria-expanded="false" aria-controls="ui-basic2">
+                <a class="nav-link" data-bs-toggle="collapse" href="#menu3" aria-expanded="false" aria-controls="menu3">
                     <i class="mdi mdi-palette menu-icon"></i>
                     <span class="menu-title">Gestion Commandes</span>
                     <i class="menu-arrow"></i>
                 </a>
-                <div class="collapse" id="ui-basic2">
+                <div class="collapse" id="menu3">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"> <a class="nav-link" href="{{ path('app_commande_client_index') }}">Commandes</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="#tml">Factures</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="#tml">Historiques</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ path('app_facture_client_index') }}">Factures</a></li>
+                        {# <li class="nav-item"> <a class="nav-link" href="#tml">Historiques</a></li> #}
                     </ul>
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic3" aria-expanded="false" aria-controls="ui-basic3">
+                <a class="nav-link" data-bs-toggle="collapse" href="#menu4" aria-expanded="false" aria-controls="menu4">
                     <i class="mdi mdi-palette menu-icon"></i>
                     <span class="menu-title">Site Web</span>
                     <i class="menu-arrow"></i>
                 </a>
-                <div class="collapse" id="ui-basic3">
+                <div class="collapse" id="menu4">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"> <a class="nav-link" href="#">Contenu du site</a></li>
                     </ul>

@@ -1,28 +1,36 @@
 
 {{ form_start(form) }}
-<div class="card-header">
-    <h4 class="card-title">Modifier la facture client</h4>
-</div>
-<div class="card-body">
-    <div class="row mb-1">
-        <div class="col-md-4">{{ form_row(form.numero_facture)}}</div>
-        <div class="col-md-4">{{ form_row(form.commande)}}</div>
-        <div class="col-md-4">{{ form_row(form.date_facturation)}}</div>
+    <div class="card-header">
+    <h4 class="card-title">Modifier une Facture</h4>
     </div>
-    <div class="row mb-1">
-        <div class="col-md-6">{{ form_row(form.avance)}}</div>
-        <div class="col-md-6">{{ form_row(form.remise)}}</div>
+    <div class="card-body">
+    <div class="row mb-4">
+        <div class="col-md-2">{{ form_label(form.numero_facture)}}</div>
+        <div class="col-md-4">{{ form_widget(form.numero_facture)}}</div>
+        <div class="col-md-2">{{ form_label(form.date_facturation)}}</div>
+        <div class="col-md-4">{{ form_widget(form.date_facturation)}}</div>
     </div>
-    <div class="row mb-1">
-        <div class="col-md-4">{{ form_row(form.condition_paiement)}}</div>
-        <div class="col-md-4">{{ form_row(form.mode_paiement)}}</div>
-        <div class="col-md-4">{{ form_row(form.paiement)}}</div>
+    <div class="row mb-4">
+        <div class="col-md-2">{{ form_label(form.avance)}}</div>
+        <div class="col-md-4">{{ form_widget(form.avance, { attr : { value : 0}})}}</div>
+        <div class="col-md-2">{{ form_label(form.remise)}}</div>
+        <div class="col-md-4">{{ form_widget(form.remise, { attr : { value : 0}})}}</div>
     </div>
-</div>
-<div class="card-footer text-end">
+    <div class="row mb-4">
+        <div class="col-md-2">{{ form_label(form.condition_paiement)}}</div>
+        <div class="col-md-4">{{ form_widget(form.condition_paiement)}}</div>
+        <div class="col-md-2">{{ form_label(form.mode_paiement)}}</div>
+        <div class="col-md-4">{{ form_widget(form.mode_paiement)}}</div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-2">{{ form_label(form.paiement)}}</div>
+        <div class="col-md-4">{{ form_widget(form.paiement)}}</div>
+    </div>
+    </div>
+    <div class="card-footer text-end">
     <div class="d-flex">
-        <a href="{{path('app_facture_client_index')}}" class="btn btn-secondary btn-sm">Retour</a>
-        <button type="submit" class="btn btn-primary btn-sm ms-auto">Modifier</button>
+        <button type="submit" class="btn btn-primary btn-sm ">Modifier<i class="mdi mdi-content-save p-1"></i></button>
+        <a href="{{path('app_facture_client_index')}}" class="btn btn-secondary btn-sm ms-auto text-white">Retour<i class="mdi mdi-reply p-1"></i></a>
     </div>
-</div>    
+    </div>
 {{ form_end(form) }}

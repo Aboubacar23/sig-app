@@ -32,7 +32,7 @@
                                     </div>
                                 {% endfor %}
                                 <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true">
-                                    <table class="table table-striped mb-0">
+                                    <table class="table table-striped mb-0" id="dataTable">
                                         <thead>
                                         <tr>
                                             <th scope="col">N°</th>
@@ -70,10 +70,6 @@
                                                         <a href="{{ path('app_client_edit', {'id': client.id}) }}" class="btn btn-primary text-white btn-sm">Modifier<i class="mdi mdi-pencil-box-outline p-1"></i></a>
                                                         <a href="{{ path('app_client_compte', {'id': client.id}) }}" class="btn btn-success btn-sm text-white">Compte<i class="mdi mdi-folder p-1 text-white"></i></a>
                                                     </td>
-                                                </tr>
-                                            {% else %}
-                                                <tr>
-                                                    <td colspan="12">La table est vide </td>
                                                 </tr>
                                             {% endfor %}
                                         </tbody>

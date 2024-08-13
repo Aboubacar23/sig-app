@@ -1,2 +1,2 @@
 #!/bin/sh
-rsync -av ./ go3dx_smt@83.166.133.65:~/sig-projet --include=public/build --include=public/.htaccess --include=vendor --exclude=public/admin --exclude=public/images --exclude-from=.gitignore --exclude=".*" --include=migrations/*
+rsync -av ./ go3dx_smt@83.166.133.65:~/sig-projet --include=public/build --include=public/.htaccess --include=vendor --exclude=public/admin --exclude=public/images --exclude-from=.gitignore --exclude=".*" --include=exclude/*

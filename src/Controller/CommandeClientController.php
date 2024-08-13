@@ -22,14 +22,19 @@ use Dompdf\Options;
 #[Route('/commande/client')] 
 class CommandeClientController extends AbstractController
 {
-    #[Route('/', name: 'app_commande_client_index', methods: ['GET'])]
+    #[Route('/index', name: 'app_commande_client_index', methods: ['GET'])]
     public function index(Request $request, CommandeClientRepository $commandeClientRepository): Response
     {
         $items =  $commandeClientRepository->findBy([], ['id' => 'desc']);
 
-         $commandes = array_filter($items, function ($commande){
-             return $commande->isFlag() != 1;
-         });
+        $items2 = array_filter($items, function ($commande){
+            return $commande->getEtat() != 1;
+        });
+
+        $commandes = array_filter($items2, function ($item){
+            return $item->isFlag() != 1;
+        });
+
 
         return $this->render('commande_client/index.html.twig', [
             'commande_clients' => $commandes,
@@ -39,22 +44,22 @@ class CommandeClientController extends AbstractController
     #[Route('/liste', name: 'app_commande_client_liste', methods: ['GET'])]
     public function liste(Request $request, CommandeClientRepository $commandeClientRepository): Response
     {
-        $tab =  $commandeClientRepository->findBy([], ['id' => 'desc']);
+        $items =  $commandeClientRepository->findBy([], ['id' => 'desc']);
 
-        $commandes = [];
-        for($i=0; $i < count($tab); $i++)
-        {
-            if($tab[$i]->isFlag() != 1){
-                array_push($commandes, $tab[$i]);
-            }
-        }
+        $items2 = array_filter($items, function ($commande){
+            return $commande->getEtat() == 1;
+        });
+
+        $commandes = array_filter($items2, function ($item){
+            return $item->isFlag() != 1;
+        });
 
         return $this->render('commande_client/liste.html.twig', [
             'commande_clients' =>$commandes,
         ]);
     }
 
-    #[Route('/new', name: 'app_commande_client_new', methods: ['GET', 'POST'])]
+    #[Route('/new-commande', name: 'app_commande_client_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CommandeClientRepository $commandeClientRepository, EntityManagerInterface $entityManager, LCommandeClientRepository $lCommandeClientRepository, ProduitRepository $produitRepository): Response
     {
 
@@ -116,11 +121,9 @@ class CommandeClientController extends AbstractController
                 $commandeClientRepository->add($commande);
                 $session->clear();
                 
-                return $this->redirectToRoute('app_commande_client_liste', [], Response::HTTP_SEE_OTHER);
-                /**ajout de la commande */
-            
-
-                //dd($tab);
+                return $this->redirectToRoute('app_commande_client_show', [
+                    'id' => $commande->getId()
+                ], Response::HTTP_SEE_OTHER);
             }
             elseif($choix == "Ajouter")
             {
@@ -145,7 +148,7 @@ class CommandeClientController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_commande_client_show', methods: ['GET'])]
+    #[Route('/show/{id}', name: 'app_commande_client_show', methods: ['GET'])]
     public function show(CommandeClient $commandeClient, lCommandeClientRepository $lCommandeClientRepository): Response
     {
         return $this->render('commande_client/show.html.twig', [
@@ -154,7 +157,7 @@ class CommandeClientController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_commande_client_edit', methods: ['GET', 'POST'])]
+    #[Route('/modifier/{id}/edit', name: 'app_commande_client_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request,EntityManagerInterface $entityManager,LCommandeClientRepository $lCommandeClientRepository,ProduitRepository $produitRepository, CommandeClient $commandeClient, CommandeClientRepository $commandeClientRepository): Response
     {
         
@@ -249,7 +252,7 @@ class CommandeClientController extends AbstractController
         ]); 
     }
 
-    #[Route('/{id}', name: 'app_commande_client_delete', methods: ['POST'])]
+    #[Route('/delete/{id}', name: 'app_commande_client_delete', methods: ['POST'])]
     public function delete(Request $request, CommandeClient $commandeClient, CommandeClientRepository $commandeClientRepository, LCommandeClientRepository $lCommandeClientRepository, FactureClientRepository $factureClientRepository): Response
     {
 
@@ -393,7 +396,7 @@ class CommandeClientController extends AbstractController
         ], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{id}/print/commande/client', name: 'app_print_commande')]
+    #[Route('/print/commande-client/{id}', name: 'app_commande_client_print')]
     public function printCommande(CommandeClient $commandeClient, LCommandeClientRepository $lCommandeClientRepository): Response
     {
         //$commande_clients = $commandeClientRepository->findAll();

@@ -14,9 +14,10 @@
 
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <h4 class="card-title">Liste des commandes</h4>
+                                        <h4 class="card-title">Liste des commandes non valider</h4>
                                     </div>
                                     <div class="col-md-9 text-end">
+                                        <a href="{{ path('app_commande_client_liste') }}" class="btn btn-success btn-sm text-white">Commandes Valider <i class="mdi mdi-file p-1"></i></a>
                                         <a href="{{ path('app_commande_client_new') }}" class="btn btn-primary btn-sm">Ajouter <i class="mdi mdi-plus-box p-1"></i></a>
                                     </div>
                                 </div>
@@ -28,7 +29,7 @@
                                     </div>
                                 {% endfor %}
                                 <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true">
-                                    <table class="table table-striped mb-0">
+                                    <table class="table table-striped mb-0" id="dataTable">
                                         <thead>
                                         <tr>
                                             <th scope="col">N°</th>
@@ -54,19 +55,15 @@
                                                 <td>{{ commande_client.typeCommande }}</td>
                                                 <td>
                                                     {% if commande_client.etat == true %}
-                                                        <span class="btn bg-success btn-sm">{{ commande_client.etat ? 'Valider' : 'INvalider' }}</span>
+                                                        <span class="btn bg-success btn-sm text-white">{{ commande_client.etat ? 'Valider' : 'Non Valider' }}</span>
                                                     {% else %}
-                                                        <span class="btn bg-danger btn-sm">{{ commande_client.etat ? 'Valider' : 'INvalider' }}</span>
+                                                        <span class="btn bg-danger btn-sm text-white">{{ commande_client.etat ? 'Valider' : 'Non Valider' }}</span>
                                                     {% endif %}
                                                 </td>
                                                 <td class="text-center">
                                                     <a href="{{ path('app_commande_client_show', {'id': commande_client.id}) }}" class="btn btn-info text-white btn-sm">Détails <i class="mdi mdi-eye p-1"></i></a>
                                                     <a href="{{ path('app_commande_client_edit', {'id': commande_client.id}) }}" class="btn btn-primary text-white btn-sm">Modifier<i class="mdi mdi-pencil-box-outline p-1"></i></a>
                                                 </td>
-                                            </tr>
-                                        {% else %}
-                                            <tr>
-                                                <td colspan="12">La table est vide </td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>

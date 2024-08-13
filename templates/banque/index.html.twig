@@ -45,10 +45,6 @@
                                 <a href="{{ path('app_banque_historique', {'id': banque.id}) }}" class="btn btn-success text-white btn-sm"> Historique <i class="fa fa-list p-1"></i></a>
                             </td>
                         </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="12">La table est vide </td>
-                        </tr>
                     {% endfor %}
             </tbody>
         </table>

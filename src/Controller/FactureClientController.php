@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\FactureClient;
 use App\Entity\Versement;
 use App\Entity\CommandeClient;
+use App\Form\FactureClientAddType;
 use App\Form\FactureClientType;
 use App\Form\FactureClientModifType;
 use App\Form\VersementModifType;
@@ -46,7 +47,8 @@ class FactureClientController extends AbstractController
             $commandeClient->setFlag(1);
             $factureClient->setCommande($commandeClient);
             $factureClientRepository->add($factureClient);
-            return $this->redirectToRoute('app_facture_client_index', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Facture créée avec success !');
+            return $this->redirectToRoute('app_facture_client_show', ['id' => $factureClient->getId()], Response::HTTP_SEE_OTHER);
         } 
 
         $commandeAll = $factureClientRepository->findAll();
@@ -60,7 +62,33 @@ class FactureClientController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_facture_client_show', methods: ['GET'])]
+    #[Route('/new-add', name: 'app_facture_client_new_add', methods: ['GET', 'POST'])]
+    public function newAdd(Request $request, FactureClientRepository $factureClientRepository): Response
+    {
+        $factureClient = new FactureClient();
+        $form = $this->createForm(FactureClientAddType::class, $factureClient);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // dd($factureClient->getAvance());
+            $factureClient->setSomme($factureClient->getAvance());
+            $factureClient->getCommande()->setFlag(1);
+            $factureClientRepository->add($factureClient);
+            $this->addFlash('success', 'Facture créée avec success !');
+            return $this->redirectToRoute('app_facture_client_show', ['id' => $factureClient->getId()], Response::HTTP_SEE_OTHER);
+        }
+
+        $commandeAll = $factureClientRepository->findAll();
+        $dernier = end($commandeAll);
+
+        return $this->renderForm('facture_client/new-add.html.twig', [
+            'facture_client' => $factureClient,
+            'form' => $form,
+            'dernier' => $dernier,
+        ]);
+    }
+
+    #[Route('/show/{id}', name: 'app_facture_client_show', methods: ['GET'])]
     public function show(FactureClient $factureClient, LCommandeClientRepository $lCommandeClientRepository): Response
     {
         return $this->render('facture_client/show.html.twig', [
@@ -69,11 +97,11 @@ class FactureClientController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_facture_client_edit', methods: ['GET', 'POST'])]
+    #[Route('/modifier/{id}/edit', name: 'app_facture_client_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, FactureClient $factureClient, FactureClientRepository $factureClientRepository): Response
     {
         
-        $form = $this->createForm(FactureClientModifType::class, $factureClient);
+        $form = $this->createForm(FactureClientType::class, $factureClient);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -178,9 +206,35 @@ class FactureClientController extends AbstractController
 
         $dompdf->setHttpContext($context);
 
+
+            $montantTotalTTC = 0;
+            $montantTotalHT = 0;
+            $montantHT = 0;
+            $montantTTC = 0;
+            $montantTVA = 0;
+            foreach ($lCommandes as $item)
+            {
+                if($item->getNumCommande() == $factureClient->getCommande()->getCodeCommande())
+                {
+                    $montantHT = $item->getQuantite() * $item->getProduit()->getPrixVente();
+                    $montantTVA = $montantHT * ($item->getTva() / 100);
+                    $montantTTC = $montantHT + $montantTVA;
+                    $montantTotalTTC = $montantTotalTTC + $montantTTC;
+                    $montantTotalHT = $montantTotalHT + $montantHT;
+                }
+            }
+
+
+            $montantTotal = 0;
+            $montantTotal =  number_format($factureClient->getCommande()->getFraisLivraison() + $montantTotalTTC - $factureClient->getAvance() - $factureClient->getRemise());
+
+        $words = new \Numbers_Words();
+        $somme_fr = $words->toWords($montantTotal, 'fr');
+
         $html = $this->renderView('facture_client/print.html.twig', [
             'facture_client' => $factureClient,
-            'lcommandes' => $lCommandes
+            'lcommandes' => $lCommandes,
+            'somme_fr' => $somme_fr
         ]);
 
         $dompdf->loadHtml($html);
@@ -259,7 +313,9 @@ class FactureClientController extends AbstractController
                 $entityManager->persist($versement);
 
                 $entityManager->flush();
-                return $this->redirectToRoute('app_facture_client_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_facture_client_show', [
+                    'id' => $factureClient->getId()
+                ], Response::HTTP_SEE_OTHER);
             }
         }
 

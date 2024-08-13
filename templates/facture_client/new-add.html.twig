@@ -13,7 +13,7 @@
 {% set dateJour = "now"|date("Y") %}
 {% set numFour = 'SIGFC'~dateJour~val %}
 
-<div class="content-wrapper">
+    <div class="content-wrapper">
     <div class="row">
         <div class="col-12 grid-margin stretch-card">
             <div class="card">
@@ -23,24 +23,26 @@
                 </div>
                 <div class="card-body">
                     <div class="row mb-4">
+                        <div class="col-md-2">{{ form_label(form.commande)}}</div>
+                        <div class="col-md-4">{{ form_widget(form.commande)}}</div>
                         <div class="col-md-2">{{ form_label(form.numero_facture)}}</div>
                         <div class="col-md-4">{{ form_widget(form.numero_facture, { attr : {value : numFour}})}}</div>
+                    </div>
+                    <div class="row mb-4">
                         <div class="col-md-2">{{ form_label(form.date_facturation)}}</div>
                         <div class="col-md-4">{{ form_widget(form.date_facturation)}}</div>
-                    </div>
-                    <div class="row mb-4">
                         <div class="col-md-2">{{ form_label(form.avance)}}</div>
                         <div class="col-md-4">{{ form_widget(form.avance, { attr : { value : 0}})}}</div>
+                    </div>
+                    <div class="row mb-4">
                         <div class="col-md-2">{{ form_label(form.remise)}}</div>
                         <div class="col-md-4">{{ form_widget(form.remise, { attr : { value : 0}})}}</div>
-                    </div>
-                    <div class="row mb-4">
                         <div class="col-md-2">{{ form_label(form.condition_paiement)}}</div>
                         <div class="col-md-4">{{ form_widget(form.condition_paiement)}}</div>
-                        <div class="col-md-2">{{ form_label(form.mode_paiement)}}</div>
-                        <div class="col-md-4">{{ form_widget(form.mode_paiement)}}</div>
                     </div>
                     <div class="row mb-4">
+                        <div class="col-md-2">{{ form_label(form.mode_paiement)}}</div>
+                        <div class="col-md-4">{{ form_widget(form.mode_paiement)}}</div>
                         <div class="col-md-2">{{ form_label(form.paiement)}}</div>
                         <div class="col-md-4">{{ form_widget(form.paiement)}}</div>
                     </div>
@@ -48,7 +50,7 @@
                 <div class="card-footer text-end">
                     <div class="d-flex">
                         <button type="submit" class="btn btn-primary btn-sm ">Enregistrer<i class="mdi mdi-content-save p-1"></i></button>
-                        <a href="#" onclick="history.back()" class="btn btn-secondary btn-sm ms-auto text-white">Retour<i class="mdi mdi-reply p-1"></i></a>
+                        <a href="{{path('app_facture_client_index')}}" class="btn btn-secondary btn-sm ms-auto text-white">Retour <i class="mdi mdi-reply p-1"></i></a>
                     </div>
                 </div>
                 {{ form_end(form) }}
@@ -57,4 +59,3 @@
     </div>
 </div>
 {% endblock %}
- 

@@ -28,8 +28,8 @@
                                     </div>
                                 {% endfor %}
                                 <div class="table-responsive">
-                                    <table class="table table-striped">
-                                        <thead class="table-dark">
+                                    <table id="dataTable" class="table table-striped mb-0"  style="width:100%">
+                                        <thead>
                                         <tr>
                                             <th width="2">N°</th>
                                             <th>Date Dépense</th>
@@ -61,10 +61,6 @@
                                                     <a class="btn btn-danger btn-sm text-white" href="{{ path('app_depense_camion_delete', {'id': item.id}) }}" onclick="return confirm('Voulez-vous confirmer ?')"><i class="mdi mdi-delete mdi-24px"></i></a>
                                                     <a class="btn btn-primary btn-sm" href="{{ path('app_depense_camion_edit', {'id': item.id}) }}"><i class="mdi mdi-pencil-box-outline mdi-24px"></i></a>
                                                 </td>
-                                            </tr>
-                                        {% else  %}
-                                            <tr>
-                                                <td colspan="12" class="text-center">Pas de dépense</td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>
