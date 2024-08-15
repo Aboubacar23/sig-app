@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Livraison;
+use App\Form\LivraisonEditType;
 use App\Form\LivraisonType;
 use App\Repository\LivraisonRepository;
 use App\Repository\LCommandeClientRepository;
@@ -54,15 +55,16 @@ class LivraisonController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_livraison_edit', methods: ['GET', 'POST'])]
+    #[Route('/modifier/{id}/edit', name: 'app_livraison_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Livraison $livraison, LivraisonRepository $livraisonRepository): Response
     {
-        $form = $this->createForm(LivraisonType::class, $livraison);
+        $form = $this->createForm(LivraisonEditType::class, $livraison);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid())
+        {
             $livraisonRepository->add($livraison);
-            return $this->redirectToRoute('app_livraison_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_livraison_show', ['id' => $livraison->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('livraison/edit.html.twig', [
@@ -71,11 +73,18 @@ class LivraisonController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_livraison_delete', methods: ['POST'])]
+    #[Route('/delete/{id}', name: 'app_livraison_delete', methods: ['GET'])]
     public function delete(Request $request, Livraison $livraison, LivraisonRepository $livraisonRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$livraison->getId(), $request->request->get('_token'))) {
+        if ($livraison)
+        {
+            $this->addFlash('error', 'Désolé la livraison contient une facture donc on ne peut pas supprimer !');
+            return $this->redirectToRoute('app_livraison_show', ['id' => $livraison->getId()], Response::HTTP_SEE_OTHER);
+        }
+        else
+        {
             $livraisonRepository->remove($livraison);
+            return $this->redirectToRoute('app_livraison_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->redirectToRoute('app_livraison_index', [], Response::HTTP_SEE_OTHER);

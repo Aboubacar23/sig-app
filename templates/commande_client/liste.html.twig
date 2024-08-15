@@ -64,14 +64,10 @@
                                                     <a href="{{ path('app_commande_client_show', {'id': commande_client.id}) }}" class="btn btn-info btn-sm text-white"><i class="mdi mdi-eye p-1"></i></a>
                                                     <a href="{{ path('app_commande_client_edit', {'id': commande_client.id}) }}" class="btn btn-warning btn-sm text-white"><i class="mdi mdi-pencil-box-outline p-1"></i></a>
                                                     <a href="{{ path('app_commande_client_print', {'id': commande_client.id}) }}" class="btn btn-secondary btn-sm text-white" target="_blank"><i class="mdi mdi-printer p-1"></i></a>
-                                                    {% if commande_client.etat == 1 %}
+                                                    {% if commande_client.flag != 1 %}
                                                         <a href="{{ path('app_facture_client_new', {'id': commande_client.id}) }}" class="btn btn-primary btn-sm text-white"><i class="mdi mdi-note-multiple p-1"></i></a>
                                                     {% endif %}
                                                 </td>
-                                            </tr>
-                                        {% else %}
-                                            <tr>
-                                                <td colspan="12">La table est vide </td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>

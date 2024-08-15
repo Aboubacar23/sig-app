@@ -46,13 +46,10 @@ class CommandeClientController extends AbstractController
     {
         $items =  $commandeClientRepository->findBy([], ['id' => 'desc']);
 
-        $items2 = array_filter($items, function ($commande){
+        $commandes = array_filter($items, function ($commande){
             return $commande->getEtat() == 1;
         });
 
-        $commandes = array_filter($items2, function ($item){
-            return $item->isFlag() != 1;
-        });
 
         return $this->render('commande_client/liste.html.twig', [
             'commande_clients' =>$commandes,
